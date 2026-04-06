@@ -23,17 +23,15 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        working-directory: vibe-app
         run: npm install
 
       - name: Build
-        working-directory: vibe-app
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: vibe-app/dist
+          path: dist
 
   deploy:
     needs: build
