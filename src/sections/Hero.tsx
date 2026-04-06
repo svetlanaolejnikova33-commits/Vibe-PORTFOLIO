@@ -503,7 +503,7 @@ export function Hero() {
                       }}
                     />
                     <img
-                      src="/images/hero-horse.jpg"
+                      src={`${import.meta.env.BASE_URL}images/hero-horse.jpg`}
                       alt=""
                       width={1200}
                       height={900}

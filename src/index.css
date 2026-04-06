@@ -15,8 +15,8 @@
   /* Единый display: Sora (Google Fonts) — geometric sans, как в hero */
   --font-display: 'Sora', 'Inter', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
-  /* Положите STEEL_texture.jpg в public/ — деликатный металлический оверлей */
-  --steel-texture: url('/STEEL_texture.jpg');
+  /* URL задаётся в main.tsx через import.meta.env.BASE_URL (GitHub Pages / подпапка) */
+  --steel-texture: none;
 }
 
 /* Hero H1 — тот же стек, что и весь сайт */
