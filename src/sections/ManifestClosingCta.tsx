@@ -10,6 +10,7 @@ import {
 import type { ReactNode } from 'react'
 import { useCallback, useEffect, useRef } from 'react'
 import { MetalButton } from '../components/MetalButton'
+import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -37,6 +38,8 @@ function smoothstep(t: number) {
 
 export function ManifestClosingCta() {
   const reduceMotion = useReducedMotion()
+  const liteViewport = usePreferLiteMotion()
+  const soft = !!(reduceMotion || liteViewport)
   const rootRef = useRef<HTMLDivElement>(null)
   const lineRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -56,7 +59,7 @@ export function ManifestClosingCta() {
 
   const sxPct = useTransform(sx, (v) => `${v * 100}%`)
   const syPct = useTransform(sy, (v) => `${v * 100}%`)
-  const cursorGlowBg = useMotionTemplate`radial-gradient(circle 44vmin at ${sxPct} ${syPct}, rgba(111,227,255,0.1) 0%, rgba(111,227,255,0.02) 40%, transparent 65%)`
+  const cursorGlowBg = useMotionTemplate`radial-gradient(circle 44vmin at ${sxPct} ${syPct}, rgba(232,103,65,0.1) 0%, rgba(232,103,65,0.02) 40%, transparent 65%)`
 
   const sheenShiftX = useTransform(parallaxX, [0, 1], [-16, 16])
   const sheenShiftY = useTransform(parallaxY, [0, 1], [-10, 10])
@@ -99,7 +102,7 @@ export function ManifestClosingCta() {
   }, [mx, my, p0, p1, p2, p3, p4])
 
   useEffect(() => {
-    if (reduceMotion) {
+    if (soft) {
       mx.set(0.5)
       my.set(0.5)
       p0.set(0)
@@ -108,7 +111,7 @@ export function ManifestClosingCta() {
       p3.set(0)
       p4.set(0)
     }
-  }, [reduceMotion, mx, my, p0, p1, p2, p3, p4])
+  }, [soft, mx, my, p0, p1, p2, p3, p4])
 
   const setLineRef = (idx: number) => (el: HTMLDivElement | null) => {
     lineRefs.current[idx] = el
@@ -118,17 +121,17 @@ export function ManifestClosingCta() {
     <div
       id="cta"
       ref={rootRef}
-      onPointerMove={reduceMotion ? undefined : onPointerMove}
-      onPointerLeave={reduceMotion ? undefined : onPointerLeave}
+      onPointerMove={soft ? undefined : onPointerMove}
+      onPointerLeave={soft ? undefined : onPointerLeave}
       className="relative mt-28 overflow-hidden rounded-none border border-white/[0.07] pt-24 md:mt-40 md:pt-32"
       style={{
         background:
-          'linear-gradient(165deg, rgba(42,38,35,0.26) 0%, rgba(15,17,19,0.58) 48%, rgba(22,20,18,0.42) 100%)',
+          'linear-gradient(165deg, rgba(255,255,255,0.05) 0%, rgba(15,20,23,0.88) 48%, rgba(15,20,23,0.96) 100%)',
         boxShadow:
-          'inset 0 1px 0 rgba(201,204,209,0.08), 0 24px 72px rgba(0,0,0,0.38)',
+          'inset 0 1px 0 rgba(255,255,255,0.06), 0 24px 72px rgba(0,0,0,0.38)',
       }}
     >
-      {!reduceMotion && (
+      {!soft && (
         <>
           <motion.div
             className="pointer-events-none absolute inset-0 z-0"
@@ -140,7 +143,7 @@ export function ManifestClosingCta() {
             aria-hidden
             style={{
               background:
-                'linear-gradient(118deg, rgba(201,204,209,0.05) 0%, transparent 42%, rgba(111,227,255,0.045) 58%, transparent 100%)',
+                'linear-gradient(118deg, rgba(255,255,255,0.04) 0%, transparent 42%, rgba(255,255,255,0.05) 58%, transparent 100%)',
               mixBlendMode: 'soft-light',
               x: sheenShiftX,
               y: sheenShiftY,
@@ -154,24 +157,24 @@ export function ManifestClosingCta() {
         aria-hidden
         style={{
           background:
-            'linear-gradient(125deg, transparent 0%, rgba(111,227,255,0.035) 45%, transparent 78%)',
-          animation: reduceMotion ? undefined : 'manifest-sheen-drift 32s ease-in-out infinite',
+            'linear-gradient(125deg, transparent 0%, rgba(0,0,0,0.22) 45%, transparent 78%)',
+          animation: soft ? undefined : 'manifest-sheen-drift 32s ease-in-out infinite',
         }}
       />
 
       <div className="relative z-[2] px-2 pb-3 pt-2 md:px-4 md:pb-4">
         <motion.div
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+          initial={soft ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-10%' }}
-          transition={{ duration: 0.95, ease: EASE }}
+          transition={{ duration: soft ? 0.5 : 0.95, ease: EASE }}
           className="hero-headline text-left"
         >
           <div className="space-y-2.5 md:space-y-3">
             <LivingTextLine
               lineRef={setLineRef(0)}
               spring={p0}
-              reduceMotion={!!reduceMotion}
+              reduceMotion={soft}
               fontSize={BASE}
               fontWeight={400}
               color="color-mix(in srgb, var(--color-fog) 46%, var(--color-mist) 54%)"
@@ -183,7 +186,7 @@ export function ManifestClosingCta() {
             <LivingTextLine
               lineRef={setLineRef(1)}
               spring={p1}
-              reduceMotion={!!reduceMotion}
+              reduceMotion={soft}
               fontSize={BASE}
               fontWeight={400}
               color="color-mix(in srgb, var(--color-fog) 56%, var(--color-mist) 44%)"
@@ -195,7 +198,7 @@ export function ManifestClosingCta() {
             <LivingTextLine
               lineRef={setLineRef(2)}
               spring={p2}
-              reduceMotion={!!reduceMotion}
+              reduceMotion={soft}
               fontSize={BASE}
               fontWeight={400}
               color="color-mix(in srgb, var(--color-fog) 50%, var(--color-mist) 50%)"
@@ -213,11 +216,11 @@ export function ManifestClosingCta() {
           </div>
 
           <div className="space-y-1 md:space-y-1.5">
-            <AccentShimmerLine active={!reduceMotion}>
+            <AccentShimmerLine active={!soft}>
               <LivingTextLine
                 lineRef={setLineRef(3)}
                 spring={p3}
-                reduceMotion={!!reduceMotion}
+                reduceMotion={soft}
                 accent
                 fontSize={ACCENT}
                 fontWeight={600}
@@ -231,7 +234,7 @@ export function ManifestClosingCta() {
             <LivingTextLine
               lineRef={setLineRef(4)}
               spring={p4}
-              reduceMotion={!!reduceMotion}
+              reduceMotion={soft}
               fontSize={BASE}
               fontWeight={500}
               color="color-mix(in srgb, var(--color-mist) 80%, var(--color-fog) 20%)"
@@ -246,7 +249,7 @@ export function ManifestClosingCta() {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-8%' }}
-          transition={{ duration: 0.88, delay: 0.1, ease: EASE }}
+          transition={{ duration: soft ? 0.48 : 0.88, delay: soft ? 0.04 : 0.1, ease: EASE }}
           className="mt-14 max-w-xl font-normal leading-[1.72] text-fog/86 md:mt-16 md:text-[1.125rem] md:leading-[1.78]"
         >
           Концепция, структура, подача и реализация.
@@ -258,7 +261,7 @@ export function ManifestClosingCta() {
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-8%' }}
-          transition={{ duration: 0.85, delay: 0.14, ease: EASE }}
+          transition={{ duration: soft ? 0.45 : 0.85, delay: soft ? 0.06 : 0.14, ease: EASE }}
           className="mt-12 flex flex-wrap gap-3 md:mt-14 md:gap-4"
         >
           <MetalButton href="https://t.me/Svetlana_Oleynikova" variant="primary">
@@ -282,9 +285,9 @@ export function ManifestClosingCta() {
             105deg,
             transparent 0%,
             transparent 36%,
-            rgba(111, 227, 255, 0.06) 46%,
-            rgba(111, 227, 255, 0.11) 50%,
-            rgba(111, 227, 255, 0.05) 54%,
+            rgba(232, 103, 65, 0.06) 46%,
+            rgba(232, 103, 65, 0.11) 50%,
+            rgba(232, 103, 65, 0.05) 54%,
             transparent 64%,
             transparent 100%
           );
@@ -326,15 +329,13 @@ function LivingTextLine({
 
   const textShadow = useTransform(spring, (v) => {
     if (accent) {
-      const a = 0.038 + v * 0.14
-      const b = 0.018 + v * 0.09
-      const r1 = 36 + v * 72
-      const r2 = 78 + v * 64
-      return `0 0 ${r1}px rgba(111,227,255,${a}), 0 0 ${r2}px rgba(111,227,255,${b})`
+      const a = 0.2 + v * 0.25
+      const b = 0.1 + v * 0.15
+      return `0 0 10px rgba(232,103,65,${a}), 0 0 24px rgba(232,103,65,${b})`
     }
-    const g = v * 0.11
-    const r = 18 + v * 38
-    return `0 0 ${r}px rgba(111,227,255,${0.02 + g})`
+    const g = v * 0.14
+    const r = 12 + v * 28
+    return `0 0 ${r}px rgba(0,0,0,${0.18 + g})`
   })
 
   if (reduceMotion) {

@@ -16,14 +16,14 @@ export function Manifest() {
         aria-hidden
         style={{
           background:
-            'radial-gradient(ellipse 85% 55% at 50% 35%, rgba(111,227,255,0.045) 0%, transparent 58%), radial-gradient(ellipse 70% 45% at 70% 90%, rgba(201,204,209,0.03) 0%, transparent 50%), linear-gradient(180deg, transparent 0%, rgba(15,17,19,0.35) 100%)',
+            'radial-gradient(ellipse 85% 55% at 50% 35%, rgba(255,255,255,0.035) 0%, transparent 58%), radial-gradient(ellipse 70% 45% at 70% 90%, rgba(0,0,0,0.2) 0%, transparent 50%), linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.35) 100%)',
         }}
       />
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-1/2 opacity-50"
         aria-hidden
         style={{
-          boxShadow: 'inset 0 24px 80px -20px rgba(111,227,255,0.04)',
+          boxShadow: 'inset 0 24px 80px -20px rgba(15,20,23,0.45)',
         }}
       />
 
@@ -56,7 +56,7 @@ export function Manifest() {
           initial={
             reduceMotion
               ? { opacity: 0 }
-              : { opacity: 0, y: 12, textShadow: '0 0 0 rgba(111,227,255,0)' }
+              : { opacity: 0, y: 12, textShadow: '0 0 0 rgba(232,103,65,0)' }
           }
           whileInView={
             reduceMotion
@@ -65,7 +65,7 @@ export function Manifest() {
                   opacity: 1,
                   y: 0,
                   textShadow:
-                    '0 0 32px rgba(111,227,255,0.06), 0 0 64px rgba(111,227,255,0.03)',
+                    '0 0 32px rgba(232,103,65,0.06), 0 0 64px rgba(232,103,65,0.03)',
                 }
           }
           viewport={{ once: true, margin: '-8%' }}

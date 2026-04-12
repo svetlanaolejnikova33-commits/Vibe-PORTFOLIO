@@ -21,7 +21,7 @@ export function Contacts() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
-            className="link-undertext block w-full border-b border-white/[0.08] pb-10 transition-colors duration-500 hover:text-accent"
+            className="link-undertext block w-full border-b border-white/[0.08] pb-10 transition-colors duration-500 hover:text-accent-hover"
           >
             <span className="mb-3 block text-sm uppercase tracking-[0.2em] text-metal-mid">Telegram</span>
             <span className="block break-all font-sans text-xl leading-snug text-mist md:text-2xl">
@@ -35,7 +35,7 @@ export function Contacts() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="link-undertext block w-full transition-colors duration-500 hover:text-accent"
+            className="link-undertext block w-full transition-colors duration-500 hover:text-accent-hover"
           >
             <span className="mb-3 block text-sm uppercase tracking-[0.2em] text-metal-mid">Email</span>
             <span className="block break-all font-sans text-xl leading-snug text-mist md:text-2xl">

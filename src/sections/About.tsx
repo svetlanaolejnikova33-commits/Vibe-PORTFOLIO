@@ -14,9 +14,9 @@ export function About() {
           className="group about-manifest-panel nubuck-heavy relative overflow-hidden rounded-none border border-white/[0.08] shadow-depth-md"
           style={{
             backgroundImage:
-              'linear-gradient(168deg, rgba(58,55,51,0.34) 0%, rgba(42,38,35,0.48) 40%, rgba(26,24,22,0.36) 100%), linear-gradient(135deg, rgba(201,204,209,0.07) 0%, transparent 54%, rgba(15,17,19,0.14) 100%)',
+              'linear-gradient(168deg, rgba(255,255,255,0.06) 0%, rgba(15,20,23,0.82) 40%, rgba(15,20,23,0.92) 100%), linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 54%, rgba(0,0,0,0.18) 100%)',
             boxShadow:
-              '0 14px 52px rgba(0,0,0,0.36), inset 0 2px 28px rgba(0,0,0,0.14), inset 0 1px 0 rgba(201,204,209,0.09), inset 0 -1px 0 rgba(0,0,0,0.24)',
+              '0 14px 52px rgba(0,0,0,0.36), inset 0 2px 28px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.24)',
           }}
         >
           <SteelReflex variant="card" glintDelay="2.8s" />
@@ -24,7 +24,7 @@ export function About() {
             className="pointer-events-none absolute inset-0 z-[1] rounded-none opacity-[0.38]"
             style={{
               background:
-                'radial-gradient(ellipse 95% 72% at 50% -8%, rgba(201,204,209,0.07), transparent 56%), linear-gradient(180deg, rgba(255,255,255,0.035) 0%, transparent 48%)',
+                'radial-gradient(ellipse 95% 72% at 50% -8%, rgba(255,255,255,0.06), transparent 56%), linear-gradient(180deg, rgba(255,255,255,0.035) 0%, transparent 48%)',
             }}
           />
           <div className="card-shine pointer-events-none absolute inset-0 z-[2] rounded-none" />

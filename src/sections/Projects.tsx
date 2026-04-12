@@ -1,6 +1,14 @@
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from 'framer-motion'
 import { type PointerEvent, useRef } from 'react'
 import { SteelReflex } from '../components/SteelReflex'
+import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
 const projects = [
   {
@@ -46,18 +54,21 @@ function ProjectSlab({
   done: string
   index: number
 }) {
+  const reduceMotion = useReducedMotion()
+  const liteViewport = usePreferLiteMotion()
+  const noHeavy = !!(reduceMotion || liteViewport)
+
   const ref = useRef<HTMLDivElement>(null)
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
   const sMx = useSpring(mx, { stiffness: 280, damping: 28 })
   const sMy = useSpring(my, { stiffness: 280, damping: 28 })
-  const rotateX = useTransform(sMy, [-0.5, 0.5], [4, -4])
-  const rotateY = useTransform(sMx, [-0.5, 0.5], [-5, 5])
   const glareX = useTransform(sMx, [-0.5, 0.5], [20, 80])
   const glareY = useTransform(sMy, [-0.5, 0.5], [20, 80])
   const glare = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.14), transparent 55%)`
 
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (noHeavy) return
     const el = ref.current
     if (!el) return
     const r = el.getBoundingClientRect()
@@ -73,31 +84,39 @@ function ProjectSlab({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 36, filter: 'blur(10px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      initial={
+        noHeavy
+          ? { opacity: 0, y: 22 }
+          : { opacity: 0, y: 36 }
+      }
+      whileInView={
+        noHeavy ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }
+      }
       viewport={{ once: true, margin: '-8%' }}
-      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: index * 0.05 }}
-      onPointerMove={onMove}
-      onPointerLeave={onLeave}
+      transition={{
+        duration: noHeavy ? 0.52 : 0.9,
+        ease: [0.22, 1, 0.36, 1],
+        delay: index * (noHeavy ? 0.03 : 0.05),
+      }}
+      onPointerMove={noHeavy ? undefined : onMove}
+      onPointerLeave={noHeavy ? undefined : onLeave}
       className="group relative"
-      style={{ perspective: '1000px' }}
     >
-      <motion.div
-        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="relative"
-      >
       <div
-        className="relative overflow-hidden rounded-none border border-white/[0.1] bg-gradient-to-br from-stone/50 via-nubuck/45 to-ink/70 p-8 shadow-depth-md backdrop-blur-xl transition-[border-color,box-shadow] duration-500 ease-out md:p-10"
+        className="relative overflow-hidden rounded-none border border-white/[0.1] p-8 shadow-depth-sm transition-[border-color,box-shadow] duration-500 ease-out hover:border-accent/35 md:p-10 md:shadow-depth-md"
         style={{
-          boxShadow:
-            '0 16px 56px rgba(0,0,0,0.55), inset 0 1px 0 rgba(201,204,209,0.12), inset 0 -20px 48px rgba(0,0,0,0.35)',
+          backgroundColor: 'rgba(255, 255, 255, 0.045)',
+          boxShadow: noHeavy
+            ? '0 8px 32px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -12px 28px rgba(0,0,0,0.28)'
+            : '0 16px 56px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -20px 48px rgba(0,0,0,0.35)',
         }}
       >
-        <SteelReflex variant="slab" glintDelay={`${index * 3.1}s`} />
-        <motion.div
-          className="pointer-events-none absolute inset-0 z-[2] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{ background: glare }}
-        />
+        {!noHeavy ? (
+          <motion.div
+            className="pointer-events-none absolute inset-0 z-[2] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            style={{ background: glare }}
+          />
+        ) : null}
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-1/3 opacity-50"
           style={{
@@ -116,7 +135,6 @@ function ProjectSlab({
           </p>
         </div>
       </div>
-      </motion.div>
     </motion.div>
   )
 }
@@ -128,7 +146,7 @@ export function Projects() {
       <div className="relative z-[1] mx-auto max-w-6xl">
         <h2 className="ui-section-title">
           <span className="ui-head-bright">Избранные</span>{' '}
-          <span className="ui-head-accent">проекты</span>
+          <span className="ui-head-soft">проекты</span>
         </h2>
         <p className="mt-5 max-w-lg font-normal leading-[1.7] text-fog">Каждая задача должна обрести узнаваемое лицо</p>
 

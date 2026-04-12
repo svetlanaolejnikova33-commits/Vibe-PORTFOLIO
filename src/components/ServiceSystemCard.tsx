@@ -1,10 +1,8 @@
 import {
-  motion,
   useMotionValue,
   useMotionValueEvent,
   useReducedMotion,
   useSpring,
-  useTransform,
 } from 'framer-motion'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { SteelReflex } from './SteelReflex'
@@ -17,6 +15,8 @@ type Props = {
   shiftClass?: string
   /** Ключевая карточка: выше контраст и сильнее свечение */
   featured?: boolean
+  /** Мобильный/планшетный режим: без proximity-glow и parallax */
+  interactionReduced?: boolean
 }
 
 const PROXIMITY_PAD = 112
@@ -107,6 +107,7 @@ export function ServiceSystemCard({
   steelGlintDelay,
   shiftClass = '',
   featured = false,
+  interactionReduced = false,
 }: Props) {
   const reduceMotion = useReducedMotion()
   const rootRef = useRef<HTMLDivElement>(null)
@@ -132,7 +133,7 @@ export function ServiceSystemCard({
     }
   }, [updateRect])
 
-  const reduced = !!reduceMotion
+  const reduced = !!(reduceMotion || interactionReduced)
 
   const { proximity, inside, glowX, glowY, centerFactor, parallaxX, parallaxY } = useMemo(
     () => computeInteraction(mouse, rect, reduced),
@@ -153,19 +154,12 @@ export function ServiceSystemCard({
   const [smoothVal, setSmoothVal] = useState(proximity)
   useMotionValueEvent(smoothP, 'change', (v) => setSmoothVal(v))
 
-  const baseMin = featured ? 0.8 : 0.72
-  const baseRange = featured ? 0.2 : 0.28
-  const scaleLift = featured ? 0.011 : 0.01
-
-  const surfaceOpacity = useTransform(smoothP, (p) => baseMin + baseRange * p)
-  const surfaceScale = useTransform(smoothP, (p) => 1 + scaleLift * p)
-
   const coreBoost = inside ? 0.42 + 0.58 * centerFactor : 0.22 * centerFactor * proximity
   const glowMult = featured ? 1.28 : 1
 
   const glowBackground = reduced
     ? undefined
-    : `radial-gradient(circle 22% at ${glowX}px ${glowY}px, rgba(111,227,255,${(0.38 + 0.22 * coreBoost) * glowMult}) 0%, rgba(111,227,255,${(0.14 + 0.1 * coreBoost) * glowMult}) 32%, transparent 52%), radial-gradient(ellipse 115% 100% at ${glowX}px ${glowY}px, rgba(111,227,255,${(0.11 + 0.08 * coreBoost) * glowMult}) 0%, rgba(111,227,255,0.03) 42%, transparent 68%)`
+    : `radial-gradient(circle 22% at ${glowX}px ${glowY}px, rgba(232,103,65,${(0.38 + 0.22 * coreBoost) * glowMult}) 0%, rgba(232,103,65,${(0.14 + 0.1 * coreBoost) * glowMult}) 32%, transparent 52%), radial-gradient(ellipse 115% 100% at ${glowX}px ${glowY}px, rgba(232,103,65,${(0.11 + 0.08 * coreBoost) * glowMult}) 0%, rgba(232,103,65,0.03) 42%, transparent 68%)`
 
   const glowLayerOpacity = reduced
     ? 0
@@ -182,19 +176,16 @@ export function ServiceSystemCard({
       ref={rootRef}
       className={`service-system-card ${featured ? 'service-system-card--featured' : ''} ${shiftClass}`.trim()}
     >
-      <motion.div
-        className={`service-system-card__surface group relative overflow-hidden rounded-none border shadow-depth-sm backdrop-blur-xl ${
+      <div
+        className={`service-system-card__surface group relative overflow-hidden rounded-none border shadow-depth-sm ${
           featured ? 'border-white/[0.11]' : 'border-white/[0.08]'
         }`}
         style={{
-          opacity: surfaceOpacity,
-          scale: surfaceScale,
-          transformOrigin: '50% 50%',
           backgroundImage:
-            'linear-gradient(165deg, rgba(201,204,209,0.07) 0%, rgba(15,17,19,0.42) 52%, rgba(8,8,9,0.52) 100%), linear-gradient(128deg, rgba(201,204,209,0.22) 0%, rgba(158,163,170,0.06) 42%, rgba(111,116,124,0.14) 100%)',
+            'linear-gradient(165deg, rgba(255,255,255,0.06) 0%, rgba(15,20,23,0.75) 52%, rgba(15,20,23,0.88) 100%), linear-gradient(128deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.04) 42%, rgba(0,0,0,0.1) 100%)',
           boxShadow: featured
-            ? '0 10px 44px rgba(0,0,0,0.42), 0 0 48px rgba(111,227,255,0.05), inset 0 1px 0 rgba(201,204,209,0.14), inset 0 -1px 0 rgba(0,0,0,0.38)'
-            : '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(201,204,209,0.12), inset 0 -1px 0 rgba(0,0,0,0.35)',
+            ? '0 10px 44px rgba(0,0,0,0.42), 0 0 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.38)'
+            : '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.35)',
         }}
       >
         <div
@@ -248,7 +239,7 @@ export function ServiceSystemCard({
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   )
 }

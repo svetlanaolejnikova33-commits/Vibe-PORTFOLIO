@@ -1,7 +1,9 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
 export function CustomCursor() {
+  const liteViewport = usePreferLiteMotion()
   const [enabled, setEnabled] = useState(false)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -15,7 +17,7 @@ export function CustomCursor() {
   useEffect(() => {
     const mq = window.matchMedia('(pointer: fine)')
     const set = () => {
-      const on = mq.matches
+      const on = mq.matches && !liteViewport
       setEnabled(on)
       document.body.classList.toggle('has-fine-cursor', on)
     }
@@ -25,7 +27,7 @@ export function CustomCursor() {
       mq.removeEventListener('change', set)
       document.body.classList.remove('has-fine-cursor')
     }
-  }, [])
+  }, [liteViewport])
 
   useEffect(() => {
     if (!enabled) return
@@ -53,7 +55,7 @@ export function CustomCursor() {
           className="h-[8.5rem] w-[8.5rem] rounded-full opacity-[0.22] blur-3xl"
           style={{
             background:
-              'radial-gradient(circle, rgba(111,227,255,0.65) 0%, rgba(111,227,255,0.2) 38%, rgba(111,227,255,0) 72%)',
+              'radial-gradient(circle, rgba(232,103,65,0.65) 0%, rgba(232,103,65,0.2) 38%, rgba(232,103,65,0) 72%)',
           }}
         />
       </motion.div>
@@ -67,16 +69,16 @@ export function CustomCursor() {
           className="flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.22]"
           style={{
             boxShadow:
-              '0 0 0 1px rgba(111,227,255,0.25), 0 0 28px rgba(111,227,255,0.35), 0 0 56px rgba(111,227,255,0.12), inset 0 0 20px rgba(111,227,255,0.08)',
+              '0 0 0 1px rgba(232,103,65,0.25), 0 0 28px rgba(232,103,65,0.35), 0 0 56px rgba(232,103,65,0.12), inset 0 0 20px rgba(232,103,65,0.08)',
           }}
         >
           <div
             className="h-[5px] w-[5px] rounded-full border border-white/50"
             style={{
               background:
-                'radial-gradient(circle at 32% 32%, rgba(255,255,255,0.95), rgba(200,236,255,0.5) 45%, rgba(111,227,255,0.35) 70%)',
+                'radial-gradient(circle at 32% 32%, rgba(255,255,255,0.95), rgba(232,103,65,0.35) 45%, rgba(232,103,65,0.38) 70%)',
               boxShadow:
-                '0 0 16px rgba(111,227,255,0.85), 0 0 32px rgba(111,227,255,0.45), inset 0 0 6px rgba(255,255,255,0.35)',
+                '0 0 16px rgba(232,103,65,0.85), 0 0 32px rgba(232,103,65,0.45), inset 0 0 6px rgba(255,255,255,0.35)',
             }}
           />
         </div>

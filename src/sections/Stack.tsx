@@ -215,10 +215,10 @@ export function Stack() {
                   style={{
                     boxShadow:
                       isPrimary
-                        ? 'inset 0 1px 0 rgba(201,204,209,0.14), 0 0 0 1px rgba(111,227,255,0.12), 0 10px 40px rgba(111,227,255,0.14), 0 8px 28px rgba(0,0,0,0.4)'
+                        ? 'inset 0 1px 0 rgba(255,255,255,0.1), 0 0 0 1px rgba(232,103,65,0.12), 0 10px 40px rgba(232,103,65,0.14), 0 8px 28px rgba(0,0,0,0.4)'
                         : isRelated
-                          ? 'inset 0 1px 0 rgba(201,204,209,0.1), 0 0 28px rgba(111,227,255,0.07), 0 6px 24px rgba(0,0,0,0.32)'
-                          : 'inset 0 1px 0 rgba(201,204,209,0.12), 0 6px 24px rgba(0,0,0,0.35)',
+                          ? 'inset 0 1px 0 rgba(255,255,255,0.07), 0 0 28px rgba(232,103,65,0.07), 0 6px 24px rgba(0,0,0,0.32)'
+                          : 'inset 0 1px 0 rgba(255,255,255,0.06), 0 6px 24px rgba(0,0,0,0.35)',
                   }}
                 >
                   <span className="pointer-events-none relative z-[1]">{tool.label}</span>
@@ -231,8 +231,9 @@ export function Stack() {
                     }}
                     transition={{ duration: 0.35 }}
                     style={{
-                      background:
-                        'radial-gradient(120% 180% at 50% 0%, rgba(111,227,255,0.35) 0%, transparent 62%)',
+                      background: isPrimary
+                        ? 'radial-gradient(120% 180% at 50% 0%, rgba(232,103,65,0.35) 0%, transparent 62%)'
+                        : 'radial-gradient(120% 180% at 50% 0%, rgba(255,255,255,0.12) 0%, transparent 62%)',
                     }}
                   />
                 </motion.button>
@@ -247,13 +248,13 @@ export function Stack() {
             >
               <motion.p
                 className="font-sans text-[0.98rem] font-normal leading-[1.66] tracking-[0.012em] md:text-[1.0625rem] md:leading-[1.7]"
-                style={{ color: '#F3EEE7' }}
+                style={{ color: '#f2f2f2' }}
                 initial={{
                   opacity: 0,
                   y: reduceMotion ? 0 : 9,
                   ...(reduceMotion
                     ? {}
-                    : { textShadow: '0 0 0 rgba(111,227,255,0)' }),
+                    : { textShadow: '0 0 0 rgba(255,255,255,0)' }),
                 }}
                 animate={{
                   opacity: 1,
@@ -262,7 +263,7 @@ export function Stack() {
                     ? {}
                     : {
                         textShadow:
-                          '0 0 46px rgba(111,227,255,0.1), 0 0 92px rgba(111,227,255,0.04)',
+                          '0 0 40px rgba(255,255,255,0.04), 0 0 80px rgba(255,255,255,0.02)',
                       }),
                 }}
                 transition={{ duration: 0.68, ease: EASE }}
@@ -276,13 +277,13 @@ export function Stack() {
               </motion.p>
               <motion.p
                 className="mt-5 font-sans text-[0.98rem] font-normal leading-[1.66] tracking-[0.01em] md:mt-6 md:text-[1.0625rem] md:leading-[1.7]"
-                style={{ color: '#F3EEE7' }}
+                style={{ color: '#f2f2f2' }}
                 initial={{
                   opacity: 0,
                   y: reduceMotion ? 0 : 9,
                   ...(reduceMotion
                     ? {}
-                    : { textShadow: '0 0 0 rgba(111,227,255,0)' }),
+                    : { textShadow: '0 0 0 rgba(255,255,255,0)' }),
                 }}
                 animate={{
                   opacity: 1,
@@ -291,7 +292,7 @@ export function Stack() {
                     ? {}
                     : {
                         textShadow:
-                          '0 0 40px rgba(111,227,255,0.08), 0 0 84px rgba(111,227,255,0.035)',
+                          '0 0 36px rgba(255,255,255,0.035), 0 0 72px rgba(255,255,255,0.018)',
                       }),
                 }}
                 transition={{ duration: 0.68, ease: EASE, delay: 0.82 }}

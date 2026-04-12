@@ -7,6 +7,7 @@ import {
 } from 'framer-motion'
 import { type PointerEvent, type ReactNode, Fragment, useRef } from 'react'
 import { SteelReflex } from '../components/SteelReflex'
+import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -93,15 +94,20 @@ function ApproachCardShell({
 
 export function Approach() {
   const reduceMotion = useReducedMotion()
-  const dur = reduceMotion ? 0.01 : 0.72
-  const stepGap = reduceMotion ? 0 : 0.2
-  const innerGap = reduceMotion ? 0 : 0.11
+  const liteViewport = usePreferLiteMotion()
+  const noHeavy = !!(reduceMotion || liteViewport)
+
+  const dur = reduceMotion ? 0.01 : liteViewport ? 0.48 : 0.72
+  const stepGap = reduceMotion ? 0 : liteViewport ? 0.08 : 0.2
+  const innerGap = reduceMotion ? 0 : liteViewport ? 0.06 : 0.11
 
   const hidden = reduceMotion
     ? { opacity: 1, y: 0 }
-    : { opacity: 0, y: 14 }
+    : { opacity: 0, y: liteViewport ? 8 : 14 }
 
   const show = { opacity: 1, y: 0 }
+
+  const headHidden = reduceMotion ? show : { opacity: 0, y: liteViewport ? 8 : 14 }
 
   return (
     <section
@@ -112,7 +118,7 @@ export function Approach() {
         <div className="approach-process__head">
           <div className="approach-process__head-glow pointer-events-none" aria-hidden />
           <motion.h2
-            initial={reduceMotion ? show : { opacity: 0, y: 14 }}
+            initial={headHidden}
             whileInView={show}
             viewport={{ once: true, margin: '-8%' }}
             transition={{ duration: dur, ease: EASE }}
@@ -139,8 +145,8 @@ export function Approach() {
                 >
                   <div className="approach-step__bloom pointer-events-none" aria-hidden />
 
-                  <ApproachCardShell reduceMotion={!!reduceMotion}>
-                    <div className="approach-step__card relative overflow-hidden rounded-none border border-white/[0.1] shadow-depth-sm backdrop-blur-xl transition-[border-color,box-shadow,background-color] duration-500 ease-out">
+                  <ApproachCardShell reduceMotion={noHeavy}>
+                    <div className="approach-step__card relative overflow-hidden rounded-none border border-white/[0.1] shadow-depth-sm backdrop-blur-md transition-[border-color,box-shadow,background-color] duration-500 ease-out lg:backdrop-blur-xl">
                       <SteelReflex variant="card" glintDelay={`${i * 3.2}s`} />
 
                       <div

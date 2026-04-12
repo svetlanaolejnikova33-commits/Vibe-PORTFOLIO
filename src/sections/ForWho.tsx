@@ -157,14 +157,14 @@ export function ForWho() {
                   onClick={() => toggleLock(s.id)}
                   className={[
                     'flex w-full cursor-pointer flex-col gap-3 rounded-box py-6 text-left outline-none transition-[color,box-shadow,border-color] duration-300 ease-out md:flex-row md:items-start md:justify-between md:gap-10 md:py-7',
-                    'focus-visible:ring-2 focus-visible:ring-accent/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1113]',
+                    'focus-visible:ring-2 focus-visible:ring-accent/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1417]',
                     isActive
-                      ? 'border-l-2 border-accent/40 pl-4 shadow-[inset_8px_0_32px_-8px_rgba(111,227,255,0.06)] md:pl-5'
+                      ? 'border-l-2 border-accent/40 pl-4 shadow-[inset_8px_0_32px_-8px_rgba(0,0,0,0.2)] md:pl-5'
                       : 'border-l-2 border-transparent pl-4 md:pl-5',
                   ].join(' ')}
                   style={{
                     textShadow: isActive
-                      ? '0 0 40px rgba(111,227,255,0.07)'
+                      ? '0 0 36px rgba(255,255,255,0.06)'
                       : undefined,
                   }}
                 >
@@ -228,7 +228,7 @@ export function ForWho() {
             initial={
               reduceMotion
                 ? { opacity: 0 }
-                : { opacity: 0, y: 10, textShadow: '0 0 0 rgba(111,227,255,0)' }
+                : { opacity: 0, y: 10, textShadow: '0 0 0 rgba(255,255,255,0)' }
             }
             animate={
               reduceMotion
@@ -237,13 +237,13 @@ export function ForWho() {
                     opacity: 1,
                     y: 0,
                     textShadow:
-                      '0 0 38px rgba(111,227,255,0.07), 0 0 72px rgba(111,227,255,0.03)',
+                      '0 0 32px rgba(255,255,255,0.05), 0 0 64px rgba(255,255,255,0.02)',
                   }
             }
             transition={{ duration: 0.78, ease: EASE_OUT }}
             className="mx-auto mt-12 max-w-2xl text-center font-sans text-[0.95rem] font-normal leading-[1.62] tracking-[0.015em] md:mx-0 md:mt-14 md:max-w-none md:pl-5 md:text-left md:text-[1rem]"
             style={{
-              color: 'color-mix(in srgb, #F3EEE7 72%, #9ea3aa 28%)',
+              color: 'color-mix(in srgb, #f2f2f2 72%, #a3a3a3 28%)',
             }}
           >
             Обычно с этого мы и начинаем.

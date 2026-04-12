@@ -1,4 +1,5 @@
 import { SteelReflex } from '../components/SteelReflex'
+import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
 const reviews = [
   {
@@ -33,13 +34,21 @@ function ReviewCard({
   name,
   role,
   glintDelay,
-}: (typeof reviews)[0] & { glintDelay?: string }) {
+  liteViewport,
+}: (typeof reviews)[0] & { glintDelay?: string; liteViewport: boolean }) {
+  const shell =
+    'group relative z-0 w-[min(100vw-3rem,340px)] shrink-0 overflow-hidden rounded-none border border-white/[0.08] p-7 backdrop-blur-md transition-[transform,box-shadow,border-color] duration-400 ease-out lg:backdrop-blur-xl'
+  const shadowDesktop =
+    'shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.07),inset_0_-1px_0_rgba(0,0,0,0.3)] hover:z-10 hover:scale-[1.035] hover:border-accent/28 hover:shadow-[0_10px_48px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.07),inset_0_-1px_0_rgba(0,0,0,0.25),0_0_0_1px_rgba(232,103,65,0.1),0_0_52px_rgba(232,103,65,0.14),0_0_96px_rgba(232,103,65,0.06)]'
+  const shadowLite =
+    'shadow-[0_6px_26px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-1px_0_rgba(0,0,0,0.28)]'
+
   return (
     <div
-      className="group relative z-0 w-[min(100vw-3rem,340px)] shrink-0 overflow-hidden rounded-none border border-white/[0.08] p-7 backdrop-blur-xl transition-[transform,box-shadow,border-color] duration-400 ease-out shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(201,204,209,0.12),inset_0_-1px_0_rgba(0,0,0,0.3)] hover:z-10 hover:scale-[1.035] hover:border-accent/28 hover:shadow-[0_10px_48px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(201,204,209,0.12),inset_0_-1px_0_rgba(0,0,0,0.25),0_0_0_1px_rgba(111,227,255,0.1),0_0_52px_rgba(111,227,255,0.14),0_0_96px_rgba(111,227,255,0.06)]"
+      className={`${shell} ${liteViewport ? shadowLite : shadowDesktop}`}
       style={{
         backgroundImage:
-          'linear-gradient(160deg, rgba(201,204,209,0.06) 0%, rgba(15,17,19,0.35) 100%), linear-gradient(135deg, rgba(201,204,209,0.18) 0%, rgba(158,163,170,0.06) 45%, rgba(111,116,124,0.14) 100%)',
+          'linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(15,20,23,0.72) 100%), linear-gradient(135deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.04) 45%, rgba(0,0,0,0.12) 100%)',
       }}
     >
       <SteelReflex variant="card" glintDelay={glintDelay} />
@@ -61,6 +70,8 @@ function ReviewCard({
 }
 
 export function Testimonials() {
+  const liteViewport = usePreferLiteMotion()
+
   return (
     <section id="reviews" className="relative overflow-hidden py-24">
       <div className="px-6 md:px-12 lg:px-16">
@@ -82,10 +93,20 @@ export function Testimonials() {
       >
         <div className="flex w-max gap-6 pl-6 marquee-track md:pl-12">
           {reviews.map((r, i) => (
-            <ReviewCard key={`a-${r.name}-${i}`} {...r} glintDelay={`${i * 2.4}s`} />
+            <ReviewCard
+              key={`a-${r.name}-${i}`}
+              {...r}
+              glintDelay={`${i * 2.4}s`}
+              liteViewport={liteViewport}
+            />
           ))}
           {reviews.map((r, i) => (
-            <ReviewCard key={`b-${r.name}-${i}`} {...r} glintDelay={`${(i + reviews.length) * 2.4}s`} />
+            <ReviewCard
+              key={`b-${r.name}-${i}`}
+              {...r}
+              glintDelay={`${(i + reviews.length) * 2.4}s`}
+              liteViewport={liteViewport}
+            />
           ))}
         </div>
       </div>

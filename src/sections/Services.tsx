@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { ServiceSystemCard } from '../components/ServiceSystemCard'
+import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
 const items = [
   {
@@ -36,10 +37,12 @@ function shiftClass(i: number) {
 }
 
 export function Services() {
+  const liteViewport = usePreferLiteMotion()
   const [mouse, setMouse] = useState({ x: -1, y: -1 })
   const rafRef = useRef(0)
 
   useEffect(() => {
+    if (liteViewport) return
     const onMove = (e: PointerEvent) => {
       cancelAnimationFrame(rafRef.current)
       rafRef.current = requestAnimationFrame(() => {
@@ -51,7 +54,7 @@ export function Services() {
       window.removeEventListener('pointermove', onMove)
       cancelAnimationFrame(rafRef.current)
     }
-  }, [])
+  }, [liteViewport])
 
   return (
     <section id="services" className="relative px-6 py-24 md:px-12 lg:px-16">
@@ -71,10 +74,14 @@ export function Services() {
           {items.map((item, i) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, y: 26, filter: 'blur(6px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: liteViewport ? 18 : 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-10%' }}
-              transition={{ duration: 0.78, ease: [0.22, 1, 0.36, 1], delay: i * 0.05 }}
+              transition={{
+                duration: liteViewport ? 0.52 : 0.78,
+                ease: [0.22, 1, 0.36, 1],
+                delay: i * (liteViewport ? 0.03 : 0.05),
+              }}
             >
               <ServiceSystemCard
                 title={item.title}
@@ -83,6 +90,7 @@ export function Services() {
                 steelGlintDelay={`${i * 2.8}s`}
                 shiftClass={shiftClass(i)}
                 featured={i === 0}
+                interactionReduced={liteViewport}
               />
             </motion.div>
           ))}
