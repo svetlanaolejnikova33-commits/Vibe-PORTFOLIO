@@ -1,82 +1,130 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
 import type { ReactNode } from 'react'
-import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
 type Props = {
   children: ReactNode
   href?: string
   onClick?: () => void
   variant?: 'primary' | 'ghost'
+  /** Компактный размер — навигация и плотные ряды */
+  size?: 'default' | 'compact'
   className?: string
 }
 
-export function MetalButton({ children, href, onClick, variant = 'ghost', className = '' }: Props) {
-  const reduceMotion = useReducedMotion()
-  const liteViewport = usePreferLiteMotion()
-  const soft = !!(reduceMotion || liteViewport)
+/** Почти незаметный объём: сверху чуть светлее, снизу чуть глубже. */
+function ButtonMaterial() {
+  return (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-0 rounded-box bg-gradient-to-b from-white/[0.022] via-transparent to-black/[0.09]"
+    />
+  )
+}
 
-  const base =
-    'relative inline-flex items-center justify-center overflow-hidden rounded-box px-7 py-3 font-sans text-sm font-medium tracking-wide transition-[box-shadow,border-color] duration-500 ease-out'
+function ButtonSheen({ disabled }: { disabled: boolean }) {
+  if (disabled) return null
 
-  const shell =
-    variant === 'primary'
-      ? 'border border-accent/25 text-ink shadow-depth-sm'
-      : 'border border-white/[0.12] text-mist shadow-depth-sm'
-
-  const innerBg =
-    variant === 'primary'
-      ? 'bg-gradient-to-br from-metal-light/95 via-metal-mid/90 to-metal-dark/85'
-      : 'bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-transparent'
-
-  const content = (
-    <>
+  return (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-[1] overflow-hidden rounded-box"
+    >
       <span
-        className={`absolute inset-0 ${innerBg} backdrop-blur-sm lg:backdrop-blur-md`}
-        style={{
-          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -1px 0 rgba(0,0,0,0.25)',
-        }}
+        className={[
+          'absolute inset-y-[-35%] left-0 w-[48%] -translate-x-[115%] -skew-x-[14deg]',
+          'bg-gradient-to-r from-transparent via-[rgba(255,228,210,0.045)] to-transparent',
+          'opacity-0 blur-[0.65px]',
+          'transition-[transform,opacity] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
+          'group-hover:translate-x-[235%] group-hover:opacity-100',
+          'group-active:translate-x-[140%] group-active:opacity-[0.28]',
+          'group-active:duration-200',
+        ].join(' ')}
       />
-      {!soft ? (
-        <span
-          className="pointer-events-none absolute -left-1/2 top-0 h-full w-1/2 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{
-            background:
-              'linear-gradient(90deg, transparent, rgba(232,103,65,0.12), transparent)',
-            filter: 'blur(8px)',
-          }}
-        />
-      ) : null}
-      <span className="relative z-[1] flex items-center gap-2">{children}</span>
+    </span>
+  )
+}
+
+/**
+ * Материальная глубина: тонкая рамка, более «воздушное» стекло, едва заметный вертикальный градиент,
+ * рассеянный тёплый inset-glow (большой blur, низкая opacity); на hover чуть больше объёма света, без осветления заливки.
+ */
+export function MetalButton({
+  children,
+  href,
+  onClick,
+  variant = 'ghost',
+  size = 'default',
+  className = '',
+}: Props) {
+  const reduceMotion = useReducedMotion()
+  const lift = reduceMotion ? '' : 'hover:-translate-y-0.5 active:translate-y-px'
+
+  const sizing =
+    size === 'compact'
+      ? 'px-4 py-2 text-xs font-medium uppercase tracking-wider'
+      : 'px-7 py-3 text-sm font-medium tracking-wide'
+
+  const transition =
+    'transition-[transform,border-color,box-shadow,color] duration-300 ease-out'
+
+  const shell = [
+    'group relative inline-flex items-center justify-center overflow-hidden rounded-box',
+    'border backdrop-blur-lg',
+    sizing,
+    transition,
+    lift,
+    className,
+  ].join(' ')
+
+  const ghost = [
+    shell,
+    'border-white/[0.08]',
+    'bg-[rgba(12,14,16,0.48)]',
+    'text-mist',
+    'shadow-[inset_0_1px_0_rgba(255,255,255,0.042),inset_0_0_104px_rgba(232,103,65,0.007),inset_0_0_168px_rgba(232,103,65,0.0035),inset_0_18px_44px_-14px_rgba(0,0,0,0.125),0_4px_22px_rgba(0,0,0,0.26)]',
+    'hover:border-white/[0.1]',
+    'hover:text-[#f4eee8]',
+    'hover:shadow-[0_0_0_1px_rgba(232,103,65,0.068),0_6px_26px_rgba(232,103,65,0.028),inset_0_1px_0_rgba(255,255,255,0.048),inset_0_0_128px_rgba(232,103,65,0.0095),inset_0_0_200px_rgba(232,103,65,0.004),inset_0_-22px_64px_rgba(232,103,65,0.0055),inset_0_22px_52px_-14px_rgba(0,0,0,0.12)]',
+    'active:text-[#ebe4dc]',
+    'active:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_0_0_1px_rgba(232,103,65,0.058),0_2px_14px_rgba(232,103,65,0.02),inset_0_0_96px_rgba(232,103,65,0.006),inset_0_0_160px_rgba(232,103,65,0.0028),inset_0_18px_40px_-12px_rgba(0,0,0,0.14)]',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/28 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1417]',
+  ].join(' ')
+
+  const primary = [
+    shell,
+    'border-accent/[0.14]',
+    'bg-[rgba(12,14,16,0.5)]',
+    'text-mist',
+    'shadow-[inset_0_1px_0_rgba(255,255,255,0.042),inset_0_0_108px_rgba(232,103,65,0.0085),inset_0_0_172px_rgba(232,103,65,0.004),inset_0_18px_44px_-14px_rgba(0,0,0,0.125),0_4px_22px_rgba(0,0,0,0.26)]',
+    'hover:border-accent/20',
+    'hover:text-[#f6f0ea]',
+    'hover:shadow-[0_0_0_1px_rgba(232,103,65,0.088),0_6px_28px_rgba(232,103,65,0.03),inset_0_1px_0_rgba(255,255,255,0.048),inset_0_0_132px_rgba(232,103,65,0.0105),inset_0_0_204px_rgba(232,103,65,0.0042),inset_0_-22px_64px_rgba(232,103,65,0.006),inset_0_22px_52px_-14px_rgba(0,0,0,0.12)]',
+    'active:text-[#ede6df]',
+    'active:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_0_0_1px_rgba(232,103,65,0.068),0_2px_14px_rgba(232,103,65,0.022),inset_0_0_100px_rgba(232,103,65,0.0065),inset_0_0_168px_rgba(232,103,65,0.003),inset_0_18px_40px_-12px_rgba(0,0,0,0.14)]',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/28 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1417]',
+  ].join(' ')
+
+  const cls = variant === 'primary' ? primary : ghost
+
+  const body = (
+    <>
+      <ButtonMaterial />
+      <ButtonSheen disabled={!!reduceMotion} />
+      <span className="relative z-[2] flex items-center gap-2">{children}</span>
     </>
   )
 
-  const motionProps = soft
-    ? {}
-    : {
-        whileHover: {
-          boxShadow:
-            variant === 'primary'
-              ? '0 0 0 1px rgba(232,103,65,0.35), 0 0 48px rgba(232,103,65,0.12), inset 0 1px 0 rgba(255,255,255,0.25)'
-              : '0 0 0 1px rgba(232,103,65,0.2), 0 0 40px rgba(232,103,65,0.08), inset 0 1px 0 rgba(255,255,255,0.08)',
-        },
-        transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const },
-      }
-
   if (href) {
     return (
-      <motion.a
-        href={href}
-        className={`group ${base} ${shell} ${className}`}
-        {...motionProps}
-      >
-        {content}
-      </motion.a>
+      <a href={href} className={cls}>
+        {body}
+      </a>
     )
   }
 
   return (
-    <motion.button type="button" onClick={onClick} className={`group ${base} ${shell} ${className}`} {...motionProps}>
-      {content}
-    </motion.button>
+    <button type="button" onClick={onClick} className={cls}>
+      {body}
+    </button>
   )
 }

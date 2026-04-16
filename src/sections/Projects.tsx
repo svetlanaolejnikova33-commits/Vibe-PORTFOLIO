@@ -6,54 +6,204 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion'
-import { type PointerEvent, useRef } from 'react'
+import { Fragment, type PointerEvent, useRef } from 'react'
+import { MetalButton } from '../components/MetalButton'
 import { SteelReflex } from '../components/SteelReflex'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
-const projects = [
+type ProjectEntry =
+  | {
+      kind: 'case-study'
+      title: string
+      subtitle: string
+      body: string
+      solution: string[]
+      outcome: string
+      caseHref: string
+    }
+  | {
+      kind: 'brief'
+      title: string
+      subtitle: string
+      body: string
+      problem: string[]
+      solution: string[]
+      resultLead: string
+      resultAccent: string
+      caseHref: string
+    }
+  | {
+      /** Слот под будущий кейс: без CTA, приглушённая подача */
+      kind: 'in-development'
+      slotId: string
+      /** Текст под заголовком «Проект в разработке» */
+      body: string
+    }
+
+const projects: ProjectEntry[] = [
   {
-    title: 'AI Landing Experience',
-    desc: 'Лендинг для мебельного производства с акцентом на дизайн, качество изготовления и индивидуальный подход.',
-    done: 'Структура, тексты, дизайн-концепция, анимация, сборка.',
+    kind: 'case-study',
+    title: 'AI Landing VD',
+    subtitle:
+      'Лендинг, который переводит мебельное производство\nиз уровня «мастер» в восприятие **премиального продукта**',
+    body:
+      'Частное производство корпусной мебели с опытом более 10 лет.\n\nЗадача — выйти на уровень клиентов высокого сегмента\nчерез изменение восприятия и визуальной подачи.',
+    solution: [
+      'Смысловая архитектура бренда',
+      'Позиционирование и уровень восприятия',
+      'Фирменный стиль и логотип',
+      'Лендинг как сценарий внимания',
+    ],
+    outcome: 'Из «мастера» — в **системный бренд** с характером и весом на рынке.',
+    caseHref: '#projects-cases',
   },
   {
+    kind: 'brief',
     title: 'A platform for completing interior projects',
-    desc: 'Сайт-платформа, помогающий дизайнерам и архитекторам работать в режиме параллельной комплектации.',
-    done: 'Creative direction, структура, визуальная концепция, рабочие блоки, AI-интеграция.',
+    subtitle:
+      'Пространство, где идея интерьера\nпревращается в **предварительную смету** ещё до проекта',
+    body:
+      'Платформа для дизайнеров, архитекторов и поставщиков.\n\nПозволяет формировать предварительные рабочие сметы\nпо изображению — с привязкой к реальным фабрикам и артикулам.',
+    problem: [
+      'концепция не доживает до реализации',
+      'клиент финансово выжат к этапу закупок',
+      'решения принимаются без понимания бюджета',
+      'итог отличается от визуализации',
+    ],
+    solution: [
+      'расчёт бюджета на раннем этапе',
+      'три ценовых сценария (low / mid / premium)',
+      'привязка к реальным артикулам',
+      'ускорение согласования проекта',
+    ],
+    resultLead: 'Концепция перестаёт быть визуализацией —',
+    resultAccent: 'и становится продуктом, **который меняет подход**.',
+    caseHref: '#projects-cases',
   },
   {
+    kind: 'brief',
     title: 'AI manager for selecting and monitoring air tickets',
-    desc: 'Приложение для прогнозирования и оптимального бронирования авиабилетов.',
-    done: 'Структура, визуальная концепция, AI-интеграция.',
+    subtitle:
+      'Сервис, который анализирует, прогнозирует\nи подсказывает, когда покупать перелёт',
+    body:
+      'Стартап-платформа для подбора и мониторинга билетов\nс потенциалом масштабирования в **персонального travel-ассистента**.',
+    problem: [
+      'зависимость от турагентств и комиссий',
+      'долгий самостоятельный поиск',
+      'отсутствие уверенности в выборе',
+      'разрозненные сервисы',
+    ],
+    solution: [
+      'аналитика цен и динамики',
+      'рекомендации по покупке',
+      'построение маршрутов под пользователя',
+      'объединение сервисов в одном интерфейсе',
+    ],
+    resultLead: 'Из поиска —',
+    resultAccent: 'в систему, **которая думает за пользователя**.',
+    caseHref: '#projects-cases',
   },
   {
-    title: 'Promo microsite',
-    desc: 'Короткий промо-цикл с кинематографичной подачей и мягким ритмом скролла.',
-    done: 'Концепция, визуал, анимация, сборка.',
+    kind: 'in-development',
+    slotId: 'dev-slot-1',
+    body: 'Сейчас собирается новый проект.\nСкоро он появится здесь.',
   },
   {
-    title: 'Portfolio system',
-    desc: 'Модульная система для презентации работ с акцентом на типографику и «воздух».',
-    done: 'UX, UI, прототип, реализация.',
+    kind: 'in-development',
+    slotId: 'dev-slot-2',
+    body: 'Новый проект в процессе.\nОн скоро станет частью портфолио.',
   },
   {
-    title: 'AI-first product page',
-    desc: 'Страница продукта, где AI-возможности читаются с первого экрана без шума и перегруза.',
-    done: 'Структура, копирайт, визуал, интеграции.',
+    kind: 'in-development',
+    slotId: 'dev-slot-3',
+    body: 'Работа над проектом уже идёт.\nСовсем скоро он будет здесь.',
   },
 ]
 
-function ProjectSlab({
-  title,
-  desc,
-  done,
-  index,
+/** Локальные акценты: оборачивайте фразы в **двойные звёздочки** — один сплошной акцент, без лишнего свечения. */
+function AccentInline({ text }: { text: string }) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g)
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+          const inner = part.slice(2, -2)
+          return (
+            <span key={`${inner}-${i}`} className="font-medium text-accent">
+              {inner}
+            </span>
+          )
+        }
+        return <Fragment key={i}>{part}</Fragment>
+      })}
+    </>
+  )
+}
+
+function AccentMultiline({
+  text,
+  className,
 }: {
-  title: string
-  desc: string
-  done: string
-  index: number
+  text: string
+  className?: string
 }) {
+  const lines = text.split('\n')
+  return (
+    <p className={className}>
+      {lines.map((line, li) => (
+        <Fragment key={li}>
+          {li > 0 ? <br /> : null}
+          <AccentInline text={line} />
+        </Fragment>
+      ))}
+    </p>
+  )
+}
+
+function BulletList({ items, dashClass }: { items: string[]; dashClass: string }) {
+  return (
+    <ul className="mt-3 space-y-2.5 pl-0">
+      {items.map((line) => (
+        <li key={line} className="flex gap-2.5 text-sm font-normal leading-[1.65] text-fog/90">
+          <span className={`shrink-0 ${dashClass}`} aria-hidden>
+            —
+          </span>
+          <span>{line}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function CaseCta({
+  href,
+  noHeavy,
+}: {
+  href: string
+  noHeavy: boolean
+}) {
+  return (
+    <motion.div
+      className="mt-8"
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-5%' }}
+      transition={{
+        duration: noHeavy ? 0.4 : 0.55,
+        delay: noHeavy ? 0.06 : 0.12,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+    >
+      <MetalButton href={href} variant="ghost">
+        Смотреть кейс →
+      </MetalButton>
+    </motion.div>
+  )
+}
+
+function ProjectSlab({ project, index }: { project: ProjectEntry; index: number }) {
+  const title = project.kind === 'in-development' ? 'Проект в разработке' : project.title
+  const isDevSlot = project.kind === 'in-development'
   const reduceMotion = useReducedMotion()
   const liteViewport = usePreferLiteMotion()
   const noHeavy = !!(reduceMotion || liteViewport)
@@ -103,36 +253,108 @@ function ProjectSlab({
       className="group relative"
     >
       <div
-        className="relative overflow-hidden rounded-none border border-white/[0.1] p-8 shadow-depth-sm transition-[border-color,box-shadow] duration-500 ease-out hover:border-accent/35 md:p-10 md:shadow-depth-md"
+        className={[
+          'relative overflow-hidden rounded-none border p-8 shadow-depth-sm transition-[border-color,box-shadow] duration-500 ease-out md:p-10 md:shadow-depth-md',
+          isDevSlot
+            ? 'border-white/[0.065] hover:border-white/[0.1]'
+            : 'border-white/[0.1] hover:border-accent/35',
+        ].join(' ')}
         style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.045)',
+          backgroundColor: isDevSlot ? 'rgba(255, 255, 255, 0.028)' : 'rgba(255, 255, 255, 0.045)',
           boxShadow: noHeavy
-            ? '0 8px 32px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -12px 28px rgba(0,0,0,0.28)'
-            : '0 16px 56px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -20px 48px rgba(0,0,0,0.35)',
+            ? isDevSlot
+              ? '0 8px 28px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -10px 24px rgba(0,0,0,0.24)'
+              : '0 8px 32px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -12px 28px rgba(0,0,0,0.28)'
+            : isDevSlot
+              ? '0 12px 44px rgba(0,0,0,0.48), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -16px 40px rgba(0,0,0,0.3)'
+              : '0 16px 56px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -20px 48px rgba(0,0,0,0.35)',
         }}
       >
-        {!noHeavy ? (
+        {!noHeavy && !isDevSlot ? (
           <motion.div
             className="pointer-events-none absolute inset-0 z-[2] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
             style={{ background: glare }}
           />
         ) : null}
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-1/3 opacity-50"
+          className={[
+            'pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-1/3',
+            isDevSlot ? 'opacity-[0.32]' : 'opacity-50',
+          ].join(' ')}
           style={{
             background: 'linear-gradient(to top, rgba(0,0,0,0.45), transparent)',
           }}
         />
         <div className="relative z-[3]">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-metal-mid">Проект</p>
-          <h3 className="ui-project-card-title mt-3">
+          {!isDevSlot ? (
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-metal-mid">Проект</p>
+          ) : null}
+          <h3
+            className={[
+              'ui-project-card-title',
+              isDevSlot ? 'text-mist/[0.86]' : 'mt-3',
+            ].join(' ')}
+          >
             {title}
           </h3>
-          <p className="mt-4 font-normal leading-[1.7] text-fog md:leading-[1.72]">{desc}</p>
-          <p className="mt-6 border-t border-white/[0.08] pt-6 text-sm font-normal leading-[1.65] text-fog/90">
-            <span className="text-metal-light/80">Что сделано: </span>
-            {done}
-          </p>
+          {project.kind === 'case-study' ? (
+            <>
+              <AccentMultiline
+                text={project.subtitle}
+                className="mt-4 font-normal leading-[1.7] text-fog md:leading-[1.72]"
+              />
+              <AccentMultiline
+                text={project.body}
+                className="mt-4 font-normal leading-[1.7] text-fog md:leading-[1.72]"
+              />
+              <div className="mt-6">
+                <p className="text-sm font-normal leading-[1.65] text-fog/90">
+                  <span className="text-metal-light/80">Решение: </span>
+                </p>
+                <BulletList items={project.solution} dashClass="text-metal-mid/90" />
+              </div>
+              <p className="mt-6 border-t border-white/[0.08] pt-6 text-sm font-normal leading-[1.65] text-fog/90">
+                <span className="text-metal-light/80">Итог: </span>
+                <AccentInline text={project.outcome} />
+              </p>
+              <CaseCta href={project.caseHref} noHeavy={noHeavy} />
+            </>
+          ) : project.kind === 'brief' ? (
+            <>
+              <AccentMultiline
+                text={project.subtitle}
+                className="mt-4 font-normal leading-[1.7] text-fog md:leading-[1.72]"
+              />
+              <AccentMultiline
+                text={project.body}
+                className="mt-4 font-normal leading-[1.7] text-fog md:leading-[1.72]"
+              />
+              <div className="mt-6">
+                <p className="text-sm font-normal leading-[1.65] text-fog/90">
+                  <span className="text-metal-light/80">Проблема: </span>
+                </p>
+                <BulletList items={project.problem} dashClass="text-metal-mid/90" />
+              </div>
+              <div className="mt-6">
+                <p className="text-sm font-normal leading-[1.65] text-fog/90">
+                  <span className="text-metal-light/80">Решение: </span>
+                </p>
+                <BulletList items={project.solution} dashClass="text-metal-mid/90" />
+              </div>
+              <div className="mt-6 border-t border-white/[0.08] pt-6 text-sm font-normal leading-[1.72] text-fog/90">
+                <p className="text-metal-light/80">Результат: </p>
+                <p className="mt-3">{project.resultLead}</p>
+                <p className="mt-2">
+                  <AccentInline text={project.resultAccent} />
+                </p>
+              </div>
+              <CaseCta href={project.caseHref} noHeavy={noHeavy} />
+            </>
+          ) : project.kind === 'in-development' ? (
+            <p className="mt-5 max-w-md whitespace-pre-line font-normal leading-[1.75] text-fog/[0.72] md:leading-[1.78]">
+              {project.body}
+            </p>
+          ) : null}
         </div>
       </div>
     </motion.div>
@@ -152,9 +374,16 @@ export function Projects() {
 
         <div className="mt-16 grid gap-8 lg:grid-cols-2">
           {projects.map((p, i) => (
-            <ProjectSlab key={p.title} {...p} index={i} />
+            <ProjectSlab key={p.kind === 'in-development' ? p.slotId : p.title} project={p} index={i} />
           ))}
         </div>
+
+        <p
+          id="projects-cases"
+          className="mt-14 scroll-mt-28 text-center text-xs font-normal text-fog/50 md:mt-16"
+        >
+          Развёрнутые кейсы — в подготовке.
+        </p>
       </div>
     </section>
   )

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { MetalButton } from './MetalButton'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
 const links = [
@@ -56,14 +57,9 @@ export function Nav() {
             </li>
           ))}
         </ul>
-        <a
-          href="#contacts"
-          className="order-2 rounded-box border border-[rgba(157,65,23,0.32)] bg-white/[0.04] px-4 py-2 font-sans text-xs font-medium uppercase tracking-wider transition-[box-shadow,border-color,opacity] duration-500 hover:border-[rgba(157,65,23,0.55)] hover:opacity-95 hover:shadow-[0_0_24px_rgba(157,65,23,0.12)] md:order-none md:text-sm"
-        >
-          <span className="bg-gradient-to-br from-[#c45826] via-[#9d4117] to-[#7a320f] bg-clip-text text-transparent">
-            Связаться
-          </span>
-        </a>
+        <MetalButton href="#contacts" size="compact" className="order-2 md:order-none md:text-sm">
+          Связаться
+        </MetalButton>
       </nav>
     </motion.header>
   )
