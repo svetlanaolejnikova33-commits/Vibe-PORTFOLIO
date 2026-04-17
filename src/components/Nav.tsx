@@ -1,16 +1,19 @@
 import { motion } from 'framer-motion'
+import { Link, useLocation } from 'react-router-dom'
+import { homeSectionTo } from '../routes'
 import { MetalButton } from './MetalButton'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
-const links = [
-  ['Обо мне', '#about'],
-  ['Проекты', '#projects'],
-  ['Подход', '#approach'],
-  ['Контакты', '#contacts'],
+const links: [string, string][] = [
+  ['Обо мне', 'about'],
+  ['Проекты', 'projects'],
+  ['Подход', 'approach'],
+  ['Контакты', 'contacts'],
 ]
 
 export function Nav() {
   const liteViewport = usePreferLiteMotion()
+  const { pathname, search } = useLocation()
 
   return (
     <motion.header
@@ -39,25 +42,31 @@ export function Nav() {
             : '0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07)',
         }}
       >
-        <a
-          href="#top"
+        <Link
+          to="/"
+          onClick={(e) => {
+            if (pathname === '/' && !search) {
+              e.preventDefault()
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+          }}
           className="link-undertext link-undertext--brand order-1 ui-nav-mark bg-gradient-to-br from-[#c45826] via-[#9d4117] to-[#7a320f] bg-clip-text text-transparent transition-opacity duration-500 hover:opacity-90 md:order-none"
         >
           Vibe Coder
-        </a>
+        </Link>
         <ul className="order-3 flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-1 font-sans text-xs text-mist/88 sm:w-auto sm:justify-end sm:text-sm md:order-none md:w-auto md:justify-center">
-          {links.map(([label, href]) => (
-            <li key={href}>
-              <a
-                href={href}
+          {links.map(([label, id]) => (
+            <li key={id}>
+              <Link
+                to={homeSectionTo(id)}
                 className="link-undertext link-undertext--surface transition-colors duration-500 hover:text-mist/95"
               >
                 {label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
-        <MetalButton href="#contacts" size="compact" className="order-2 md:order-none md:text-sm">
+        <MetalButton to={homeSectionTo('contacts')} size="compact" className="order-2 md:order-none md:text-sm">
           Связаться
         </MetalButton>
       </nav>

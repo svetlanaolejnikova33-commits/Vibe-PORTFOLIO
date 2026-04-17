@@ -1,18 +1,9 @@
+import { Route, Routes } from 'react-router-dom'
 import { CustomCursor } from './components/CustomCursor'
 import { Nav } from './components/Nav'
 import { ScrollProgress } from './components/ScrollProgress'
-import { About } from './sections/About'
-import { Approach } from './sections/Approach'
-import { Contacts } from './sections/Contacts'
-import { ForWho } from './sections/ForWho'
-import { Hero } from './sections/Hero'
-import { HeroFlowMarquee } from './sections/HeroFlowMarquee'
-import { Manifest } from './sections/Manifest'
-import { Projects } from './sections/Projects'
-import { Services } from './sections/Services'
-import { Stack } from './sections/Stack'
-import { Testimonials } from './sections/Testimonials'
-import { WhyMe } from './sections/WhyMe'
+import CaseVD from './pages/CaseVD'
+import { HomePage } from './pages/Home'
 
 export default function App() {
   return (
@@ -21,18 +12,10 @@ export default function App() {
       <CustomCursor />
       <Nav />
       <main>
-        <Hero />
-        <HeroFlowMarquee />
-        <About />
-        <Services />
-        <Approach />
-        <Projects />
-        <WhyMe />
-        <Stack />
-        <ForWho />
-        <Manifest />
-        <Testimonials />
-        <Contacts />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/case/vd" element={<CaseVD />} />
+        </Routes>
       </main>
       <footer className="relative z-[1] border-t border-white/[0.06] px-6 py-10 text-center text-xs text-fog md:px-12">
         <p>Vibe Coder · Web &amp; AI Experiences</p>

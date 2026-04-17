@@ -11,6 +11,7 @@ import type { ReactNode } from 'react'
 import { useCallback, useEffect, useRef } from 'react'
 import { MetalButton } from '../components/MetalButton'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
+import { homeSectionTo } from '../routes'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -267,7 +268,7 @@ export function ManifestClosingCta() {
           <MetalButton href="https://t.me/Svetlana_Oleynikova" variant="primary">
             Написать мне
           </MetalButton>
-          <MetalButton href="#projects">Посмотреть работы</MetalButton>
+          <MetalButton to={homeSectionTo('projects')}>Посмотреть работы</MetalButton>
         </motion.div>
       </div>
 

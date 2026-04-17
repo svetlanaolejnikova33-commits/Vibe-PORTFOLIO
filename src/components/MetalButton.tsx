@@ -1,8 +1,12 @@
 import { useReducedMotion } from 'framer-motion'
 import type { ReactNode } from 'react'
+import type { To } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 type Props = {
   children: ReactNode
+  /** Внутренний маршрут (React Router), приоритетнее `href` */
+  to?: To
   href?: string
   onClick?: () => void
   variant?: 'primary' | 'ghost'
@@ -50,6 +54,7 @@ function ButtonSheen({ disabled }: { disabled: boolean }) {
  */
 export function MetalButton({
   children,
+  to,
   href,
   onClick,
   variant = 'ghost',
@@ -113,6 +118,14 @@ export function MetalButton({
       <span className="relative z-[2] flex items-center gap-2">{children}</span>
     </>
   )
+
+  if (to) {
+    return (
+      <Link to={to} className={cls}>
+        {body}
+      </Link>
+    )
+  }
 
   if (href) {
     return (

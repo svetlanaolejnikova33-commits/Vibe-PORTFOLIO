@@ -1,5 +1,7 @@
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { homeSectionTo } from '../routes'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 /** Ease-out для финальной надписи */
@@ -211,9 +213,9 @@ export function ForWho() {
                       transition={{ duration: 0.4, ease: EASE }}
                       className="-mt-1 pb-6 pl-7 md:pl-[2.35rem]"
                     >
-                      <a href="#contacts" className="compare-soft-cta">
+                      <Link to={homeSectionTo('contacts')} className="compare-soft-cta">
                         Разобрать этот момент
-                      </a>
+                      </Link>
                     </motion.div>
                   ) : null}
                 </AnimatePresence>

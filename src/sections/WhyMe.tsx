@@ -6,6 +6,8 @@ import {
   useSpring,
 } from 'framer-motion'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { homeSectionTo } from '../routes'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
 const EASE = [0.22, 1, 0.36, 1] as const
@@ -194,9 +196,9 @@ export function WhyMe() {
                 animate={{ opacity: ctaFade }}
                 transition={{ duration: 0.55, ease: EASE }}
               >
-                <a href="#contacts" className="compare-soft-cta">
+                <Link to={homeSectionTo('contacts')} className="compare-soft-cta">
                   Применить этот подход к своему проекту
-                </a>
+                </Link>
               </motion.div>
             </div>
           </div>

@@ -7,6 +7,7 @@ import {
   useTransform,
 } from 'framer-motion'
 import { Fragment, type PointerEvent, useRef } from 'react'
+import { Link, type To } from 'react-router-dom'
 import { MetalButton } from '../components/MetalButton'
 import { SteelReflex } from '../components/SteelReflex'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
@@ -19,7 +20,10 @@ type ProjectEntry =
       body: string
       solution: string[]
       outcome: string
-      caseHref: string
+      /** Якорь или внешняя ссылка, если нет `caseTo` */
+      caseHref?: string
+      /** Внутренний маршрут кейса (React Router) */
+      caseTo?: To
     }
   | {
       kind: 'brief'
@@ -55,7 +59,6 @@ const projects: ProjectEntry[] = [
       'Лендинг как сценарий внимания',
     ],
     outcome: 'Из «мастера» — в **системный бренд** с характером и весом на рынке.',
-    caseHref: '#projects-cases',
   },
   {
     kind: 'brief',
@@ -177,9 +180,11 @@ function BulletList({ items, dashClass }: { items: string[]; dashClass: string }
 
 function CaseCta({
   href,
+  to,
   noHeavy,
 }: {
-  href: string
+  href?: string
+  to?: To
   noHeavy: boolean
 }) {
   return (
@@ -194,7 +199,7 @@ function CaseCta({
         ease: [0.22, 1, 0.36, 1],
       }}
     >
-      <MetalButton href={href} variant="ghost">
+      <MetalButton href={href} to={to} variant="ghost">
         Смотреть кейс →
       </MetalButton>
     </motion.div>
@@ -317,7 +322,23 @@ function ProjectSlab({ project, index }: { project: ProjectEntry; index: number 
                 <span className="text-metal-light/80">Итог: </span>
                 <AccentInline text={project.outcome} />
               </p>
-              <CaseCta href={project.caseHref} noHeavy={noHeavy} />
+              {project.title === 'AI Landing VD' ? (
+                <motion.div
+                  className="mt-8"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-5%' }}
+                  transition={{
+                    duration: noHeavy ? 0.4 : 0.55,
+                    delay: noHeavy ? 0.06 : 0.12,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <Link to="/case/vd">Смотреть кейс →</Link>
+                </motion.div>
+              ) : (
+                <CaseCta href={project.caseHref} to={project.caseTo} noHeavy={noHeavy} />
+              )}
             </>
           ) : project.kind === 'brief' ? (
             <>
@@ -382,7 +403,8 @@ export function Projects() {
           id="projects-cases"
           className="mt-14 scroll-mt-28 text-center text-xs font-normal text-fog/50 md:mt-16"
         >
-          Развёрнутые кейсы — в подготовке.
+          Полный кейс AI Landing VD — на отдельной странице (кнопка «Смотреть кейс» на карточке). Остальные
+          развёрнутые материалы — в подготовке.
         </p>
       </div>
     </section>

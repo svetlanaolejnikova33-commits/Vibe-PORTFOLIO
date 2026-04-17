@@ -11,6 +11,7 @@ import type { ReactNode } from 'react'
 import { useCallback, useEffect, useRef } from 'react'
 import { MetalButton } from '../components/MetalButton'
 import { SteelReflex } from '../components/SteelReflex'
+import { homeSectionTo } from '../routes'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
 const HERO_EASE_BLOCK1 = [0.28, 0.44, 0.22, 1] as const
@@ -466,8 +467,8 @@ export function Hero() {
               }}
               className="mt-10 flex flex-wrap gap-4 md:mt-12 md:gap-5"
             >
-              <MetalButton href="#projects">Посмотреть проекты</MetalButton>
-              <MetalButton href="#contacts" variant="primary">
+              <MetalButton to={homeSectionTo('projects')}>Посмотреть проекты</MetalButton>
+              <MetalButton to={homeSectionTo('contacts')} variant="primary">
                 Обсудить задачу
               </MetalButton>
             </motion.div>
