@@ -1976,3 +1976,143 @@ a.link-undertext.block,
     opacity: 0.5;
   }
 }
+
+/* --- Case VD: премиальный ритм и акценты (#ff7a4d) --- */
+.case-label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  opacity: 0.6;
+  transition: opacity 0.5s ease;
+}
+
+.case-hero-h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 2.4vw + 1rem, 2.85rem);
+  line-height: 1.32;
+  letter-spacing: -0.022em;
+  margin-top: 1rem;
+  max-width: 36rem;
+  background: linear-gradient(
+    115deg,
+    #f2f2f2 0%,
+    #f2f2f2 42%,
+    #ff7a4d 78%,
+    #f0c2a8 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@supports not (background-clip: text) {
+  .case-hero-h1 {
+    color: var(--color-mist);
+  }
+}
+
+.problem-accent {
+  font-size: 20px;
+  line-height: 1.6;
+  margin-top: 24px;
+  color: var(--color-fog);
+  transition: color 0.45s ease;
+}
+
+.problem-accent strong {
+  color: #ff7a4d;
+  font-weight: 600;
+}
+
+.task-block {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-from {
+  opacity: 0.6;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.task-arrow {
+  font-size: 1.25rem;
+  line-height: 1;
+  color: rgba(255, 122, 77, 0.55);
+  user-select: none;
+}
+
+.task-to {
+  color: #ff7a4d;
+  font-weight: 500;
+  font-size: clamp(1.125rem, 1.2vw + 1rem, 1.375rem);
+  line-height: 1.35;
+}
+
+.visual-label {
+  margin-bottom: 24px;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+.case-image {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0b0f12;
+  box-shadow:
+    0 0 0 1px rgba(255, 122, 77, 0.15),
+    0 20px 60px rgba(255, 122, 77, 0.08);
+}
+
+/* тонкая рамка по периметру (без заливки поверх фото) */
+.case-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  padding: 1px;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 122, 77, 0.5),
+    rgba(255, 122, 77, 0.1),
+    transparent 60%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.case-image img {
+  position: relative;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.final-text {
+  margin: 48px 0 24px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.final-text p {
+  margin: 0;
+}
+
+.final-text p + p {
+  margin-top: 0.35em;
+}

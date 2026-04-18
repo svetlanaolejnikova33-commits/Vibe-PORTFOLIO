@@ -215,9 +215,9 @@ export function Stack() {
                   style={{
                     boxShadow:
                       isPrimary
-                        ? 'inset 0 1px 0 rgba(255,255,255,0.1), 0 0 0 1px rgba(232,103,65,0.12), 0 10px 40px rgba(232,103,65,0.14), 0 8px 28px rgba(0,0,0,0.4)'
+                        ? 'inset 0 1px 0 rgba(255,255,255,0.1), 0 0 0 1px rgba(232,103,65,0.144), 0 10px 48px rgba(232,103,65,0.168), 0 8px 28px rgba(0,0,0,0.4)'
                         : isRelated
-                          ? 'inset 0 1px 0 rgba(255,255,255,0.07), 0 0 28px rgba(232,103,65,0.07), 0 6px 24px rgba(0,0,0,0.32)'
+                          ? 'inset 0 1px 0 rgba(255,255,255,0.07), 0 0 34px rgba(232,103,65,0.084), 0 6px 24px rgba(0,0,0,0.32)'
                           : 'inset 0 1px 0 rgba(255,255,255,0.06), 0 6px 24px rgba(0,0,0,0.35)',
                   }}
                 >
@@ -227,12 +227,12 @@ export function Stack() {
                     className="pointer-events-none absolute inset-0 rounded-box opacity-0"
                     initial={false}
                     animate={{
-                      opacity: isPrimary ? 0.22 : isRelated ? 0.1 : 0,
+                      opacity: isPrimary ? 0.264 : isRelated ? 0.12 : 0,
                     }}
                     transition={{ duration: 0.35 }}
                     style={{
                       background: isPrimary
-                        ? 'radial-gradient(120% 180% at 50% 0%, rgba(232,103,65,0.35) 0%, transparent 62%)'
+                        ? 'radial-gradient(120% 180% at 50% 0%, rgba(232,103,65,0.42) 0%, transparent 62%)'
                         : 'radial-gradient(120% 180% at 50% 0%, rgba(255,255,255,0.12) 0%, transparent 62%)',
                     }}
                   />

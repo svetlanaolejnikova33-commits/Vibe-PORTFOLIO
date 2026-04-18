@@ -86,12 +86,12 @@ export function MetalButton({
     'border-white/[0.08]',
     'bg-[rgba(12,14,16,0.48)]',
     'text-mist',
-    'shadow-[inset_0_1px_0_rgba(255,255,255,0.042),inset_0_0_104px_rgba(232,103,65,0.007),inset_0_0_168px_rgba(232,103,65,0.0035),inset_0_18px_44px_-14px_rgba(0,0,0,0.125),0_4px_22px_rgba(0,0,0,0.26)]',
+    'shadow-[inset_0_1px_0_rgba(255,255,255,0.042),inset_0_0_104px_rgba(232,103,65,0.0084),inset_0_0_168px_rgba(232,103,65,0.0042),inset_0_18px_44px_-14px_rgba(0,0,0,0.125),0_4px_22px_rgba(0,0,0,0.26)]',
     'hover:border-white/[0.1]',
     'hover:text-[#f4eee8]',
-    'hover:shadow-[0_0_0_1px_rgba(232,103,65,0.068),0_6px_26px_rgba(232,103,65,0.028),inset_0_1px_0_rgba(255,255,255,0.048),inset_0_0_128px_rgba(232,103,65,0.0095),inset_0_0_200px_rgba(232,103,65,0.004),inset_0_-22px_64px_rgba(232,103,65,0.0055),inset_0_22px_52px_-14px_rgba(0,0,0,0.12)]',
+    'hover:shadow-[0_0_0_1px_rgba(232,103,65,0.082),0_6px_31px_rgba(232,103,65,0.034),inset_0_1px_0_rgba(255,255,255,0.048),inset_0_0_128px_rgba(232,103,65,0.0114),inset_0_0_200px_rgba(232,103,65,0.0048),inset_0_-22px_64px_rgba(232,103,65,0.0066),inset_0_22px_52px_-14px_rgba(0,0,0,0.12)]',
     'active:text-[#ebe4dc]',
-    'active:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_0_0_1px_rgba(232,103,65,0.058),0_2px_14px_rgba(232,103,65,0.02),inset_0_0_96px_rgba(232,103,65,0.006),inset_0_0_160px_rgba(232,103,65,0.0028),inset_0_18px_40px_-12px_rgba(0,0,0,0.14)]',
+    'active:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_0_0_1px_rgba(232,103,65,0.07),0_2px_17px_rgba(232,103,65,0.024),inset_0_0_96px_rgba(232,103,65,0.0072),inset_0_0_160px_rgba(232,103,65,0.0034),inset_0_18px_40px_-12px_rgba(0,0,0,0.14)]',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/28 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1417]',
   ].join(' ')
 
@@ -100,12 +100,12 @@ export function MetalButton({
     'border-accent/[0.14]',
     'bg-[rgba(12,14,16,0.5)]',
     'text-mist',
-    'shadow-[inset_0_1px_0_rgba(255,255,255,0.042),inset_0_0_108px_rgba(232,103,65,0.0085),inset_0_0_172px_rgba(232,103,65,0.004),inset_0_18px_44px_-14px_rgba(0,0,0,0.125),0_4px_22px_rgba(0,0,0,0.26)]',
+    'shadow-[inset_0_1px_0_rgba(255,255,255,0.042),inset_0_0_108px_rgba(232,103,65,0.0102),inset_0_0_172px_rgba(232,103,65,0.0048),inset_0_18px_44px_-14px_rgba(0,0,0,0.125),0_4px_22px_rgba(0,0,0,0.26)]',
     'hover:border-accent/20',
     'hover:text-[#f6f0ea]',
-    'hover:shadow-[0_0_0_1px_rgba(232,103,65,0.088),0_6px_28px_rgba(232,103,65,0.03),inset_0_1px_0_rgba(255,255,255,0.048),inset_0_0_132px_rgba(232,103,65,0.0105),inset_0_0_204px_rgba(232,103,65,0.0042),inset_0_-22px_64px_rgba(232,103,65,0.006),inset_0_22px_52px_-14px_rgba(0,0,0,0.12)]',
+    'hover:shadow-[0_0_0_1px_rgba(232,103,65,0.106),0_6px_34px_rgba(232,103,65,0.036),inset_0_1px_0_rgba(255,255,255,0.048),inset_0_0_132px_rgba(232,103,65,0.0126),inset_0_0_204px_rgba(232,103,65,0.005),inset_0_-22px_64px_rgba(232,103,65,0.0072),inset_0_22px_52px_-14px_rgba(0,0,0,0.12)]',
     'active:text-[#ede6df]',
-    'active:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_0_0_1px_rgba(232,103,65,0.068),0_2px_14px_rgba(232,103,65,0.022),inset_0_0_100px_rgba(232,103,65,0.0065),inset_0_0_168px_rgba(232,103,65,0.003),inset_0_18px_40px_-12px_rgba(0,0,0,0.14)]',
+    'active:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_0_0_1px_rgba(232,103,65,0.082),0_2px_17px_rgba(232,103,65,0.026),inset_0_0_100px_rgba(232,103,65,0.0078),inset_0_0_168px_rgba(232,103,65,0.0036),inset_0_18px_40px_-12px_rgba(0,0,0,0.14)]',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/28 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1417]',
   ].join(' ')
 
