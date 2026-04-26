@@ -34,7 +34,8 @@ type ProjectEntry =
       solution: string[]
       resultLead: string
       resultAccent: string
-      caseHref: string
+      caseHref?: string
+      caseTo?: To
     }
   | {
       /** Слот под будущий кейс: без CTA, приглушённая подача */
@@ -85,26 +86,24 @@ const projects: ProjectEntry[] = [
   },
   {
     kind: 'brief',
-    title: 'AI manager for selecting and monitoring air tickets',
+    title: 'Aeronis Flight',
     subtitle:
-      'Сервис, который анализирует, прогнозирует\nи подсказывает, когда покупать перелёт',
+      'Инструмент, который избавляет от бесконечного поиска билетов\nи показывает **лучший вариант**',
     body:
-      'Стартап-платформа для подбора и мониторинга билетов\nс потенциалом масштабирования в **персонального travel-ассистента**.',
+      'Сервис сам отслеживает маршруты и опирается на табло.\n\nНе про авиацию — про время, нервы и один понятный выбор.',
     problem: [
-      'зависимость от турагентств и комиссий',
-      'долгий самостоятельный поиск',
-      'отсутствие уверенности в выборе',
-      'разрозненные сервисы',
+      'десятки вкладок и ручное сравнение цен',
+      'непонятно, что в итоге выгоднее',
+      'нет одного места с ясной рекомендацией',
     ],
     solution: [
-      'аналитика цен и динамики',
-      'рекомендации по покупке',
-      'построение маршрутов под пользователя',
-      'объединение сервисов в одном интерфейсе',
+      'сам следит за направлениями',
+      'рекомендации по данным табло',
+      'решение сводится к одному действию',
     ],
-    resultLead: 'Из поиска —',
-    resultAccent: 'в систему, **которая думает за пользователя**.',
-    caseHref: '#projects-cases',
+    resultLead: 'Пользователь получает',
+    resultAccent: '**готовый вариант перелёта** — без долгого поиска вручную.',
+    caseTo: '/case/aeronis',
   },
   {
     kind: 'in-development',
@@ -369,7 +368,7 @@ function ProjectSlab({ project, index }: { project: ProjectEntry; index: number 
                   <AccentInline text={project.resultAccent} />
                 </p>
               </div>
-              <CaseCta href={project.caseHref} noHeavy={noHeavy} />
+              <CaseCta href={project.caseHref} to={project.caseTo} noHeavy={noHeavy} />
             </>
           ) : project.kind === 'in-development' ? (
             <p className="mt-5 max-w-md whitespace-pre-line font-normal leading-[1.75] text-fog/[0.72] md:leading-[1.78]">
