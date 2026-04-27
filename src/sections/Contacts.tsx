@@ -30,16 +30,30 @@ export function Contacts() {
           </motion.a>
 
           <motion.a
-            href="mailto:svetart74@mail.ru"
+            href="https://m.vk.com/mamaosa74"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
+            className="link-undertext block w-full border-b border-white/[0.08] pb-10 transition-colors duration-500 hover:text-accent-hover"
+          >
+            <span className="mb-3 block text-sm uppercase tracking-[0.2em] text-metal-mid">VK</span>
+            <span className="block break-all font-sans text-xl leading-snug text-mist md:text-2xl">
+              vk.com/mamaosa74
+            </span>
+          </motion.a>
+
+          <motion.a
+            href="mailto:savannalip@mail.ru"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
             className="link-undertext block w-full transition-colors duration-500 hover:text-accent-hover"
           >
             <span className="mb-3 block text-sm uppercase tracking-[0.2em] text-metal-mid">Email</span>
             <span className="block break-all font-sans text-xl leading-snug text-mist md:text-2xl">
-              Svetart74@mail.ru
+              savannalip@mail.ru
             </span>
           </motion.a>
         </div>
