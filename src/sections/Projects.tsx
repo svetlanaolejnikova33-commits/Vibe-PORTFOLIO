@@ -38,6 +38,12 @@ type ProjectEntry =
       caseTo?: To
     }
   | {
+      kind: 'linked'
+      title: string
+      body: string
+      caseTo: To
+    }
+  | {
       /** Слот под будущий кейс: без CTA, приглушённая подача */
       kind: 'in-development'
       slotId: string
@@ -106,9 +112,10 @@ const projects: ProjectEntry[] = [
     caseTo: '/case/aeronis',
   },
   {
-    kind: 'in-development',
-    slotId: 'dev-slot-1',
-    body: 'Сейчас собирается новый проект.\nСкоро он появится здесь.',
+    kind: 'linked',
+    title: 'RoomCost',
+    body: 'Мобильное приложение для быстрого расчёта ремонта',
+    caseTo: '/case/roomcost',
   },
   {
     kind: 'in-development',
@@ -369,6 +376,13 @@ function ProjectSlab({ project, index }: { project: ProjectEntry; index: number 
                 </p>
               </div>
               <CaseCta href={project.caseHref} to={project.caseTo} noHeavy={noHeavy} />
+            </>
+          ) : project.kind === 'linked' ? (
+            <>
+              <p className="mt-5 max-w-md whitespace-pre-line font-normal leading-[1.75] text-fog/[0.88] md:leading-[1.78]">
+                {project.body}
+              </p>
+              <CaseCta to={project.caseTo} noHeavy={noHeavy} />
             </>
           ) : project.kind === 'in-development' ? (
             <p className="mt-5 max-w-md whitespace-pre-line font-normal leading-[1.75] text-fog/[0.72] md:leading-[1.78]">

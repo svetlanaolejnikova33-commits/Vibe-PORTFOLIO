@@ -3,6 +3,7 @@ import { CustomCursor } from './components/CustomCursor'
 import { Nav } from './components/Nav'
 import { ScrollProgress } from './components/ScrollProgress'
 import CaseAeronis from './pages/CaseAeronis'
+import CaseRoomCost from './pages/CaseRoomCost'
 import CaseVD from './pages/CaseVD'
 import { HomePage } from './pages/Home'
 
@@ -16,6 +17,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/case/vd" element={<CaseVD />} />
+          <Route path="/case/roomcost" element={<CaseRoomCost />} />
           <Route path="/case/aeronis" element={<CaseAeronis />} />
         </Routes>
       </main>
