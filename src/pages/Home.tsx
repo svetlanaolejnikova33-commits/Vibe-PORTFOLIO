@@ -3,15 +3,11 @@ import { useSearchParams } from 'react-router-dom'
 import { About } from '../sections/About'
 import { Approach } from '../sections/Approach'
 import { Contacts } from '../sections/Contacts'
-import { ForWho } from '../sections/ForWho'
 import { Hero } from '../sections/Hero'
 import { HeroFlowMarquee } from '../sections/HeroFlowMarquee'
-import { Manifest } from '../sections/Manifest'
 import { Projects } from '../sections/Projects'
-import { Services } from '../sections/Services'
 import { Stack } from '../sections/Stack'
-import { Testimonials } from '../sections/Testimonials'
-import { WhyMe } from '../sections/WhyMe'
+import { Thinking } from '../sections/Thinking'
 
 export function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -31,14 +27,10 @@ export function HomePage() {
       <Hero />
       <HeroFlowMarquee />
       <About />
-      <Services />
-      <Approach />
       <Projects />
-      <WhyMe />
+      <Thinking />
       <Stack />
-      <ForWho />
-      <Manifest />
-      <Testimonials />
+      <Approach />
       <Contacts />
     </>
   )

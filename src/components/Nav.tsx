@@ -5,10 +5,11 @@ import { MetalButton } from './MetalButton'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
 const links: [string, string][] = [
-  ['Обо мне', 'about'],
-  ['Проекты', 'projects'],
-  ['Подход', 'approach'],
-  ['Контакты', 'contacts'],
+  ['Selected Work', 'projects'],
+  ['Systems', 'about'],
+  ['Thinking', 'thinking'],
+  ['Capabilities', 'stack'],
+  ['Vision', 'approach'],
 ]
 
 export function Nav() {
@@ -17,16 +18,8 @@ export function Nav() {
 
   return (
     <motion.header
-      initial={
-        liteViewport
-          ? { opacity: 0, y: -8 }
-          : { opacity: 0, y: -12 }
-      }
-      animate={
-        liteViewport
-          ? { opacity: 1, y: 0 }
-          : { opacity: 1, y: 0 }
-      }
+      initial={liteViewport ? { opacity: 0, y: -8 } : { opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: liteViewport ? 0.45 : 0.85,
         ease: [0.22, 1, 0.36, 1] as const,
@@ -52,14 +45,14 @@ export function Nav() {
           }}
           className="link-undertext link-undertext--brand order-1 ui-nav-mark bg-gradient-to-br from-[#c45826] via-[#9d4117] to-[#7a320f] bg-clip-text text-transparent transition-opacity duration-500 hover:opacity-90 md:order-none"
         >
-          Vibe Coder
+          Product Systems
         </Link>
         <ul className="order-3 flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-1 font-sans text-xs text-mist/88 sm:w-auto sm:justify-end sm:text-sm md:order-none md:w-auto md:justify-center">
           {links.map(([label, id]) => (
             <li key={id}>
               <Link
                 to={homeSectionTo(id)}
-                className="link-undertext link-undertext--surface transition-colors duration-500 hover:text-mist/95"
+                className="ix-nav-link link-undertext link-undertext--surface text-mist/88 hover:text-mist/95"
               >
                 {label}
               </Link>
@@ -67,7 +60,7 @@ export function Nav() {
           ))}
         </ul>
         <MetalButton to={homeSectionTo('contacts')} size="compact" className="order-2 md:order-none md:text-sm">
-          Связаться
+          Connect
         </MetalButton>
       </nav>
     </motion.header>

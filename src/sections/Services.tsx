@@ -61,13 +61,13 @@ export function Services() {
       <div className="mx-auto max-w-6xl">
         <h2 className="services-system-title ui-section-title max-w-[min(100%,42rem)] text-balance">
           <span className="services-system-title__line1 block leading-[1.18]">
-            <span className="ui-head-bright">Система</span>
-            <span className="ui-head-soft">, из которой рождается</span>
+            <span className="ui-head-bright">Product</span>
+            <span className="ui-head-soft"> capabilities</span>
           </span>
-          <span className="services-system-title__line2 block">впечатление</span>
+          <span className="services-system-title__line2 block">in one system</span>
         </h2>
         <p className="mt-6 max-w-2xl font-sans text-base font-normal leading-[1.72] text-fog md:mt-7 md:text-lg md:leading-[1.75]">
-          Не набор услуг — а связанная система, где каждый элемент работает на одно целое.
+          Not a service list—a connected layer model for AI-native products and experiences.
         </p>
 
         <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-9 lg:grid-cols-3 lg:gap-10">

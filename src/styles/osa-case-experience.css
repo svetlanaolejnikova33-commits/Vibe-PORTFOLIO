@@ -1,0 +1,272 @@
+/* OSA — balanced cinematic manifesto layer */
+
+.case-page--osa-balanced {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Ambient shell */
+.osa-xp__ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.osa-xp__fog {
+  position: absolute;
+  top: 20%;
+  left: -10%;
+  width: 120%;
+  height: 50vh;
+  background: radial-gradient(ellipse 55% 70% at 50% 50%, rgba(126, 200, 232, 0.045), transparent 72%);
+  filter: blur(48px);
+}
+
+.osa-xp__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 82% 72% at 50% 42%, transparent 42%, rgba(4, 8, 14, 0.55) 100%);
+}
+
+.case-page--osa-balanced {
+  position: relative;
+  z-index: 1;
+}
+
+/* Scroll reveals */
+.osa-system-reveal {
+  will-change: transform, opacity;
+}
+
+/* Intelligence overlay */
+.osa-vision__frame {
+  border: 1px solid rgba(126, 200, 232, 0.16);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+}
+
+.osa-vision__mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    160deg,
+    transparent 45%,
+    rgba(126, 200, 232, 0.04) 52%,
+    transparent 58%
+  );
+}
+
+.osa-vision__marker-dot {
+  box-shadow: 0 0 6px rgba(126, 200, 232, 0.35);
+}
+
+/* Editorial scale — present but subordinate to headlines */
+.case-page--osa-balanced .osa-editorial-giant {
+  font-size: clamp(2rem, 6.5vw, 4.25rem);
+  color: rgba(126, 200, 232, 0.055);
+}
+
+.case-page--osa-balanced .osa-hero__giant {
+  position: absolute;
+  top: 3rem;
+  right: 0;
+  max-width: 48%;
+  text-align: right;
+  z-index: 0;
+}
+
+.case-page--osa-balanced .osa-hero__watermark {
+  font-size: clamp(3.25rem, 14vw, 8rem) !important;
+  color: rgba(126, 200, 232, 0.038) !important;
+}
+
+.case-page--osa-balanced .osa-fracture__giant {
+  margin-bottom: -0.5rem;
+}
+
+.case-page--osa-balanced .osa-theater__giant {
+  margin-bottom: -1rem;
+  color: rgba(126, 200, 232, 0.05);
+}
+
+.case-page--osa-balanced .osa-core-giant {
+  display: block;
+  position: absolute;
+  right: -4%;
+  top: 0;
+  font-size: clamp(2.5rem, 10vw, 5.5rem);
+  color: rgba(126, 200, 232, 0.045);
+  pointer-events: none;
+}
+
+.case-page--osa-balanced .osa-finale-giant {
+  color: rgba(126, 200, 232, 0.07);
+  max-width: 14ch;
+  margin-bottom: 1.5rem;
+}
+
+/* Cinematic beats — one focal diagram each */
+.osa-beat {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: clamp(16rem, 38vw, 22rem);
+  padding: clamp(4rem, 10vw, 6rem) clamp(1.5rem, 5vw, 3rem);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.osa-beat__grid {
+  opacity: 0.2;
+}
+
+.osa-beat__ghost-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.osa-beat__ghost {
+  text-align: center;
+  color: rgba(126, 200, 232, 0.06) !important;
+  font-size: clamp(2.5rem, 11vw, 6rem) !important;
+}
+
+.osa-beat__rail {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(126, 200, 232, 0.2);
+  z-index: 2;
+}
+
+.osa-beat__focus {
+  position: relative;
+  z-index: 2;
+  width: min(92vw, 42rem);
+}
+
+.osa-beat__focus .osa-slide-plate {
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.55);
+}
+
+.osa-beat__frag-label {
+  display: block;
+  margin-top: 0.65rem;
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--osa-cyan-dim);
+  text-align: center;
+}
+
+/* Core — single support plate */
+.osa-section--core {
+  position: relative;
+}
+
+.osa-core-cinema__support {
+  position: relative;
+  z-index: 2;
+  max-width: min(100%, 22rem);
+  margin: 2rem 0 0 auto;
+  opacity: 0.9;
+}
+
+.osa-core-radial__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+
+.osa-outcome__manifesto {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.35;
+  color: rgba(236, 244, 248, 0.94);
+  max-width: 26ch;
+  margin-bottom: 1.25rem;
+}
+
+/* Section rhythm */
+.case-page--osa-balanced .osa-section--fracture,
+.case-page--osa-balanced .osa-section--stack,
+.case-page--osa-balanced .osa-section--theater,
+.case-page--osa-balanced .osa-section--core,
+.case-page--osa-balanced .osa-section--market,
+.case-page--osa-balanced .osa-section--pipeline,
+.case-page--osa-balanced .osa-section--roadmap,
+.case-page--osa-balanced .osa-section--finale {
+  margin-top: clamp(5.5rem, 12vw, 8rem);
+}
+
+.case-page--osa-balanced .osa-section__lead {
+  margin-bottom: 2.5rem;
+  max-width: 36rem;
+}
+
+.case-page--osa-balanced .osa-hero__stage--cinema {
+  margin-top: 3rem;
+}
+
+.case-page--osa-balanced .osa-fracture-cinema {
+  min-height: clamp(19rem, 46vw, 26rem);
+  padding: 2rem 0 2.5rem;
+}
+
+.case-page--osa-balanced .osa-theater {
+  min-height: clamp(26rem, 64vw, 38rem);
+}
+
+.case-page--osa-balanced .osa-theater__vision {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -48%);
+  width: min(70%, 40rem);
+  z-index: 4;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .case-page--osa-balanced .osa-hero__giant,
+  .case-page--osa-balanced .osa-core-giant {
+    display: none;
+  }
+
+  .osa-beat {
+    min-height: 14rem;
+    padding: 3rem 1rem;
+  }
+
+  .osa-beat__ghost {
+    font-size: clamp(1.75rem, 12vw, 3rem) !important;
+  }
+
+  .osa-core-cinema__support {
+    margin-inline: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .osa-xp__fog {
+    transform: none !important;
+  }
+}

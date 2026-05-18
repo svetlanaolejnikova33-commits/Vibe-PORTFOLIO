@@ -1,171 +1,173 @@
+import { AeronisFrame } from '../components/aeronis/AeronisFrame'
+import { AeronisHeroAtmosphere } from '../components/aeronis/AeronisHeroAtmosphere'
+import { AeronisRouteIntelligence } from '../components/aeronis/AeronisRouteIntelligence'
+import {
+  AeronisHeroPanel,
+  AeronisIntentPanel,
+  AeronisOutcomePanel,
+  AeronisSystemPanel,
+} from '../components/aeronis/AeronisProductUI'
 import { MetalButton } from '../components/MetalButton'
 import { homeSectionTo } from '../routes'
 
 function CaseAeronis() {
-  const base = `${import.meta.env.BASE_URL}cases/aeronis`
-
   return (
-    <article className="case-page">
-      <section className="case-section">
-        <div className="case-label">КЕЙС</div>
+    <article className="case-page case-page--aeronis">
+      <section className="case-section !mt-0">
+        <div className="mb-10 flex flex-wrap items-center gap-4">
+          <MetalButton to={homeSectionTo('projects')}>Back to cases</MetalButton>
+        </div>
 
-        <div className="grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
+        <div className="case-label">CASE</div>
+
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:items-start lg:gap-14">
           <div>
             <h1 className="case-title">
-              Инструмент, который избавляет
+              A product that ends
               <br />
-              от бесконечного поиска билетов
+              endless flight search
             </h1>
 
             <p className="case-lead">
-              Сервис, который сам отслеживает маршруты
-              <br />и показывает <span className="text-[#ff7a4d]">лучший вариант</span>
+              A decision system that monitors routes
+              <br />
+              and surfaces <span className="text-[#ff7a4d]">one ranked action</span>
             </p>
 
             <p className="case-sublead">
-              <span className="font-semibold text-white">Не про авиацию.</span>
+              <span className="font-semibold text-white">Not a booking site.</span>
               <br />
-              Про время, нервы и выбор.
+              A compression layer for time, uncertainty, and cognitive load.
             </p>
+
+            <div className="an-flow">
+              <p className="an-flow__step">
+                <span>01</span> Intent
+              </p>
+              <p className="an-flow__step">
+                <span>02</span> Monitor
+              </p>
+              <p className="an-flow__step">
+                <span>03</span> Rank
+              </p>
+              <p className="an-flow__step">
+                <span>04</span> Decide
+              </p>
+            </div>
           </div>
 
-          <div className="case-image">
-            <img
-              src={`${base}/aeronis-hero.jpg`}
-              alt="Интерфейс Aeronis: главный экран"
-              className="block w-full"
-            />
-          </div>
+          <AeronisFrame
+            variant="hero"
+            caption="Product frame"
+            insight="One recommendation — understood in two seconds"
+            className="!mt-0"
+            atmosphere={<AeronisHeroAtmosphere />}
+          >
+            <AeronisHeroPanel />
+          </AeronisFrame>
         </div>
       </section>
 
       <section className="case-section">
         <div className="case-label">01</div>
-        <h2 className="case-section-title">Контекст</h2>
+        <h2 className="case-section-title">Context</h2>
 
-        <div className="max-w-3xl border-l border-[rgba(255,122,77,0.45)] pl-8">
+        <div className="max-w-3xl border-l aeronis-context-rule pl-8">
           <div className="space-y-8">
             <div>
-              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-white/55">Клиент</p>
+              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-white/55">User</p>
               <p className="text-[clamp(22px,2.4vw,26px)] leading-[1.5] text-white/88">
-                Пользователь, который устал искать билеты вручную.
+                A traveler exhausted by manual comparison across tabs.
               </p>
             </div>
-
             <div>
-              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-white/55">Проблема</p>
+              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-white/55">Problem</p>
               <ul className="space-y-3 text-[clamp(22px,2.4vw,26px)] leading-[1.5] text-white/88">
-                <li>— открывает десятки вкладок</li>
-                <li>— сравнивает цены</li>
-                <li>— не уверен, что нашёл лучший вариант</li>
+                <li>— opens dozens of tabs</li>
+                <li>— compares prices manually</li>
+                <li>— never confident the best option was found</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="problem-accent">Нет системы. Только ручной поиск.</div>
+        <p className="problem-accent">No system. Only manual search.</p>
       </section>
 
       <section className="case-section">
         <div className="case-label">02</div>
-        <h2 className="case-section-title">Задача</h2>
+        <h2 className="case-section-title">Product goal</h2>
 
         <div className="max-w-3xl">
-          <p className="mb-6 text-xl leading-[1.6] text-white/75">Сделать инструмент, который:</p>
+          <p className="mb-6 text-xl leading-[1.6] text-white/75">Build a decision system that:</p>
           <ul className="space-y-5 text-[clamp(22px,2vw,26px)] leading-[1.55] text-white/78">
-            <li>— сам отслеживает маршруты</li>
-            <li>— предлагает лучший вариант</li>
-            <li>— упрощает выбор до одного действия</li>
+            <li>— monitors routes autonomously</li>
+            <li>— ranks one recommendation</li>
+            <li>— collapses choice to one action</li>
           </ul>
         </div>
       </section>
 
       <section className="case-section">
         <div className="case-label">03</div>
-        <h2 className="case-section-title">Решение</h2>
+        <h2 className="case-section-title">System design</h2>
 
-        <div className="max-w-3xl">
-          <p className="text-[clamp(22px,2vw,26px)] leading-[1.55] text-white/78">
-            Система анализирует направления и показывает рекомендации на основе табло.
-          </p>
-        </div>
+        <p className="max-w-3xl text-[clamp(20px,2vw,24px)] leading-[1.55] text-white/78">
+          Live board data feeds a ranking layer — the interface shows one outcome, not a dashboard.
+        </p>
 
-        <div className="case-image">
-          <img
-            src={`${base}/aeronis-live-feed.jpg`}
-            alt="Лента рекомендаций и табло направлений"
-            className="block w-full"
-          />
-        </div>
+        <AeronisFrame
+          caption="System layer"
+          insight="Monitoring + ranked recommendation in one calm composition"
+        >
+          <AeronisSystemPanel />
+        </AeronisFrame>
 
-        <div className="case-image">
-          <img
-            src={`${base}/aeronis-tablo-close.jpg`}
-            alt="Фрагмент табло с направлениями"
-            className="block w-full"
-          />
-        </div>
+        <AeronisFrame variant="cinematic" caption="Route intelligence">
+          <AeronisRouteIntelligence />
+        </AeronisFrame>
       </section>
 
       <section className="case-section">
         <div className="case-label">04</div>
-        <h2 className="case-section-title">Как это работает</h2>
+        <h2 className="case-section-title">How it works</h2>
 
-        <div className="max-w-3xl">
-          <p className="text-[clamp(22px,2vw,26px)] leading-[1.55] text-white/78">
-            Пользователь задаёт маршрут и параметры.
-          </p>
-        </div>
+        <p className="max-w-3xl text-[clamp(20px,2vw,24px)] leading-[1.55] text-white/78">
+          The user defines route intent and constraints once. The system handles the rest.
+        </p>
 
-        <div className="case-image">
-          <img
-            src={`${base}/aeronis-search-oneway.jpg`}
-            alt="Поиск перелёта в одну сторону"
-            className="block w-full"
-          />
-        </div>
-
-        <div className="case-image">
-          <img
-            src={`${base}/aeronis-search-roundtrip.jpg`}
-            alt="Поиск перелёта туда и обратно"
-            className="block w-full"
-          />
-        </div>
+        <AeronisFrame variant="focus" caption="Intent" insight="Three fields — no form clutter">
+          <AeronisIntentPanel />
+        </AeronisFrame>
       </section>
 
       <section className="case-section">
         <div className="case-label">05</div>
-        <h2 className="case-section-title">Результат</h2>
+        <h2 className="case-section-title">Outcome</h2>
 
-        <div className="max-w-3xl">
-          <p className="text-[clamp(22px,2vw,26px)] leading-[1.55] text-white/78">
-            Сервис показывает готовый вариант перелёта.
-          </p>
-        </div>
+        <p className="max-w-3xl text-[clamp(20px,2vw,24px)] leading-[1.55] text-white/78">
+          The product returns a ready-to-book decision — not another list to compare.
+        </p>
 
-        <div className="case-image">
-          <img
-            src={`${base}/aeronis-result.jpg`}
-            alt="Готовый вариант перелёта"
-            className="block w-full"
-          />
-        </div>
+        <AeronisFrame variant="focus" caption="Outcome" insight="A decision, not a search session">
+          <AeronisOutcomePanel />
+        </AeronisFrame>
 
-        <p className="visual-label mt-8">Итог — готовое решение, без поиска вручную.</p>
+        <p className="visual-label mt-8">Outcome: a decision, not a search session.</p>
       </section>
 
-      <section className="case-section">
+      <section className="case-section an-finale">
         <div className="case-label">06</div>
-        <h2 className="case-section-title">Он перестаёт искать.</h2>
+        <h2 className="case-section-title">Search ends.</h2>
 
-        <div className="max-w-3xl space-y-6 text-[clamp(22px,2vw,26px)] leading-[1.55] text-white/78">
-          <p>Сервис делает это за него.</p>
+        <div className="an-finale__body max-w-3xl space-y-6 text-[clamp(22px,2vw,26px)] leading-[1.55] text-white/78">
+          <p>The system decides.</p>
         </div>
 
-        <div className="mt-12">
+        <div className="an-finale__actions mt-12 flex flex-wrap gap-4">
+          <MetalButton to={homeSectionTo('projects')}>Back to cases</MetalButton>
           <MetalButton to={homeSectionTo('contacts')} variant="primary">
-            Обсудить проект
+            Connect
           </MetalButton>
         </div>
       </section>

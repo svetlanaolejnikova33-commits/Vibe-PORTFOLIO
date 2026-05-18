@@ -1,0 +1,36 @@
+const base = `${import.meta.env.BASE_URL}cases/osa`
+
+export const osaAssets = {
+  heroPlatform: `${base}/osa-hero-platform.png`,
+  workspaceGenerate: `${base}/osa-workspace-generate.png`,
+  generatedInterior: `${base}/osa-generated-interior.png`,
+  generatedVariant: `${base}/osa-generated-variant.png`,
+  projectMemory: `${base}/osa-project-memory.png`,
+  analysisUpload: `${base}/osa-analysis-upload.png`,
+  analysisWorkspace: `${base}/osa-analysis-workspace.png`,
+  analysisResult: `${base}/osa-analysis-result.png`,
+  sidebarRegistry: `${base}/osa-sidebar-registry.png`,
+  presentation: `${base}/osa-presentation.pdf`,
+  product: {
+    chaos: `${base}/osa-slide-02.jpg`,
+    designerWorkspace: `${base}/osa-workspace-generate.png`,
+    semanticAnalysis: `${base}/osa-analysis-result.png`,
+    registryGraph: `${base}/osa-sidebar-registry.png`,
+    procurement: `${base}/osa-generated-variant.png`,
+    industryOutput: `${base}/osa-project-memory.png`,
+  },
+  slides: {
+    cover: `${base}/osa-slide-01.jpg`,
+    fracture: `${base}/osa-slide-02.jpg`,
+    problem: `${base}/osa-slide-03.jpg`,
+    ecosystem: `${base}/osa-slide-04.jpg`,
+    core: `${base}/osa-slide-05.jpg`,
+    workflow: `${base}/osa-slide-06.jpg`,
+    architecture: `${base}/osa-slide-07.jpg`,
+    registry: `${base}/osa-slide-08.jpg`,
+    suppliers: `${base}/osa-slide-09.jpg`,
+    roadmap: `${base}/osa-slide-10.jpg`,
+    vision: `${base}/osa-slide-11.jpg`,
+    close: `${base}/osa-slide-12.jpg`,
+  },
+} as const

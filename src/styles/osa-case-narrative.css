@@ -1,0 +1,955 @@
+/* OSA case — narrative infrastructure storytelling */
+
+.case-page--osa-narrative {
+  --osa-narrative-gap: clamp(5.5rem, 12vw, 8.5rem);
+}
+
+.case-page--osa-narrative .osa-section {
+  margin-top: var(--osa-narrative-gap);
+  padding-top: 0;
+}
+
+.case-page--osa-narrative .osa-section__chapter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  margin: 0 0 1rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--osa-dim);
+}
+
+.case-page--osa-narrative .osa-section__step {
+  color: var(--osa-cyan-dim);
+}
+
+.case-page--osa-narrative .osa-section__chapter-name {
+  color: var(--osa-muted);
+}
+
+.case-page--osa-narrative .osa-section__title {
+  max-width: 22ch;
+  font-size: clamp(1.75rem, 2.8vw + 0.5rem, 2.625rem);
+  margin-bottom: 1.125rem;
+}
+
+.case-page--osa-narrative .osa-section__lead {
+  max-width: 38rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Intro */
+.osa-intro__kicker {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--osa-cyan-dim);
+}
+
+.osa-intro__title {
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: rgba(240, 246, 252, 0.98);
+  max-width: 16ch;
+}
+
+.osa-intro__lead {
+  margin-top: 1.25rem;
+  max-width: 36rem;
+  font-size: clamp(1.0625rem, 1vw + 0.85rem, 1.1875rem);
+  line-height: 1.65;
+  color: var(--osa-muted);
+}
+
+.osa-intro__figure {
+  margin-top: 3rem;
+}
+
+/* Figure */
+.osa-figure__frame {
+  border: 1px solid var(--osa-line);
+  background: var(--osa-surface);
+  overflow: hidden;
+}
+
+.osa-figure__frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.osa-figure__caption {
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--osa-dim);
+  max-width: 36rem;
+}
+
+/* Problem */
+.osa-problem {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .osa-problem {
+    grid-template-columns: 1.25fr 0.75fr;
+    align-items: center;
+    gap: 3.5rem;
+  }
+}
+
+.case-page--osa-workflow .osa-problem__figure--chaos {
+  width: 100%;
+}
+
+.case-page--osa-workflow .osa-problem__figure--chaos .osa-figure__frame {
+  border-color: rgba(126, 200, 232, 0.12);
+}
+
+.case-page--osa-workflow .osa-section--problem .osa-section__title {
+  max-width: 24ch;
+}
+
+.osa-problem__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1.125rem;
+}
+
+.osa-problem__list li {
+  padding-left: 1rem;
+  border-left: 1px solid var(--osa-line);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--osa-muted);
+}
+
+/* System idea */
+.osa-idea {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .osa-idea {
+    grid-template-columns: 0.95fr 1.05fr;
+    align-items: start;
+    gap: 3.5rem;
+  }
+}
+
+.osa-idea__points {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.osa-idea__label {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: rgba(236, 244, 252, 0.94);
+  margin-bottom: 0.35rem;
+}
+
+.osa-idea__detail {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--osa-muted);
+}
+
+/* Pipeline */
+.osa-pipeline {
+  margin: 0 0 2.5rem;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--osa-line);
+  background: rgba(14, 20, 28, 0.5);
+}
+
+.osa-pipeline__step {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 0 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(126, 200, 232, 0.08);
+}
+
+.osa-pipeline__step:last-child {
+  border-bottom: none;
+}
+
+.osa-pipeline__index {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--osa-cyan);
+  padding-top: 0.15rem;
+}
+
+.osa-pipeline__name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(236, 244, 252, 0.95);
+  margin-bottom: 0.25rem;
+}
+
+.osa-pipeline__summary {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--osa-cyan-dim);
+  margin-bottom: 0.35rem;
+}
+
+.osa-pipeline__detail {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--osa-muted);
+  max-width: 40rem;
+}
+
+.osa-pipeline__figure {
+  max-width: 52rem;
+}
+
+/* Strategic shift — data vs decoration */
+.osa-section--data-shift .osa-section__title {
+  max-width: 28ch;
+}
+
+.osa-data-shift {
+  display: grid;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .osa-data-shift {
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 3.5rem;
+  }
+}
+
+.osa-data-shift__paragraph {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1rem, 1.1vw + 0.8rem, 1.125rem);
+  line-height: 1.65;
+  color: var(--osa-muted);
+}
+
+.osa-data-shift__paragraph:first-child {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.4vw + 0.75rem, 1.3125rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: rgba(236, 244, 252, 0.9);
+}
+
+.osa-data-shift__visual {
+  width: 100%;
+  max-width: 68.75rem;
+  margin: 0 auto;
+}
+
+.osa-data-shift__visual .osa-figure__frame {
+  border-color: rgba(126, 200, 232, 0.16);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+}
+
+.osa-data-shift__visual .osa-figure__caption {
+  display: none;
+}
+
+/* Missing layer (02) */
+.osa-section--missing-layer-intro .osa-section__title {
+  max-width: 26ch;
+}
+
+/* Live industry graph (04) */
+.osa-section--industry-graph .osa-section__title {
+  max-width: 22ch;
+}
+
+.osa-industry-graph {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .osa-industry-graph {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 3rem;
+  }
+}
+
+.osa-industry-graph__figure .osa-figure__caption {
+  display: none;
+}
+
+.osa-pillars {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--osa-line);
+}
+
+.osa-pillars__item {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 0 1.25rem;
+  padding: 1.35rem 1.5rem;
+  border-bottom: 1px solid rgba(126, 200, 232, 0.08);
+}
+
+.osa-pillars__item:last-child {
+  border-bottom: none;
+}
+
+.osa-pillars__index {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--osa-cyan);
+  padding-top: 0.15rem;
+}
+
+.osa-pillars__title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(236, 244, 252, 0.94);
+  margin-bottom: 0.4rem;
+}
+
+.osa-pillars__text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--osa-muted);
+  max-width: 42rem;
+}
+
+/* OSA CORE — single ecosystem blueprint */
+.osa-section--infrastructure .osa-section__title {
+  max-width: 22ch;
+}
+
+.osa-section--infrastructure .osa-section__lead {
+  max-width: 36rem;
+  margin-bottom: 2rem;
+}
+
+.osa-core-intro {
+  max-width: 38rem;
+  margin: 0 0 2rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--osa-muted);
+}
+
+.osa-ecosystem {
+  width: 100%;
+  max-width: 68.75rem;
+  margin: clamp(2.75rem, 6vw, 4.25rem) auto;
+  padding: 0;
+}
+
+.osa-ecosystem .osa-figure__frame {
+  border: 1px solid rgba(126, 200, 232, 0.18);
+  background: rgba(8, 12, 18, 0.88);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.42);
+}
+
+.osa-ecosystem .osa-figure__frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.osa-ecosystem .osa-figure__caption {
+  display: none;
+}
+
+.osa-layers-wrap {
+  margin-top: clamp(3.5rem, 8vw, 5rem);
+  padding-top: 2.75rem;
+  border-top: 1px solid var(--osa-line);
+}
+
+.osa-layers-wrap__label {
+  margin: 0 0 1.25rem;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--osa-cyan-dim);
+}
+
+/* Infrastructure layer cards */
+.osa-layers {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1px;
+  background: var(--osa-line);
+  border: 1px solid var(--osa-line);
+}
+
+@media (min-width: 768px) {
+  .osa-layers {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .osa-layers {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.osa-layers__item {
+  padding: 1.25rem 1.125rem;
+  background: var(--osa-bg);
+}
+
+.osa-layers__title {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: rgba(236, 244, 252, 0.92);
+  margin-bottom: 0.5rem;
+}
+
+.osa-layers__text {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--osa-muted);
+}
+
+/* Roadmap */
+.osa-roadmap {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .osa-roadmap {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 3rem;
+  }
+}
+
+.osa-roadmap__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--osa-line);
+}
+
+.osa-roadmap__item {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 0 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(126, 200, 232, 0.08);
+}
+
+.osa-roadmap__item:last-child {
+  border-bottom: none;
+}
+
+.osa-roadmap__item--future {
+  opacity: 0.65;
+}
+
+.osa-roadmap__id {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--osa-dim);
+}
+
+.osa-roadmap__item--active .osa-roadmap__id {
+  color: var(--osa-cyan);
+}
+
+.osa-roadmap__title {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: rgba(236, 244, 252, 0.9);
+  margin-bottom: 0.2rem;
+}
+
+.osa-roadmap__text {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--osa-muted);
+  max-width: 36rem;
+}
+
+.osa-section--industry-shift .osa-section__title {
+  max-width: 20ch;
+}
+
+/* Conclusion — manifesto finale */
+.osa-section--conclusion {
+  margin-top: clamp(6rem, 14vw, 9rem);
+  padding-bottom: 5rem;
+  overflow: hidden;
+}
+
+.osa-section--conclusion .osa-section__chapter {
+  margin-bottom: 2rem;
+}
+
+.osa-finale {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(28rem, 55vw, 36rem);
+  padding-top: 0.5rem;
+}
+
+.osa-finale__content {
+  position: relative;
+  z-index: 2;
+  max-width: 40rem;
+}
+
+/* Residual infrastructure presence — background only */
+.osa-finale-presence {
+  position: absolute;
+  inset: -8% 0 0 22%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.osa-finale-presence__glow {
+  position: absolute;
+  right: -5%;
+  top: 18%;
+  width: min(55vw, 28rem);
+  height: min(50vw, 26rem);
+  background: radial-gradient(
+    ellipse 70% 65% at 55% 45%,
+    rgba(126, 200, 232, 0.055) 0%,
+    transparent 72%
+  );
+}
+
+.osa-finale-presence__ghost {
+  position: absolute;
+  right: -6%;
+  top: 6%;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 22vw, 11rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.85;
+  color: rgba(126, 200, 232, 0.028);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.osa-finale-presence__grid {
+  position: absolute;
+  inset: 5% -10% 0 15%;
+  background-image:
+    linear-gradient(rgba(126, 200, 232, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(126, 200, 232, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 75% 70% at 70% 45%, black 15%, transparent 78%);
+  opacity: 0.55;
+}
+
+.osa-finale-presence__map {
+  position: absolute;
+  right: -4%;
+  top: 12%;
+  width: min(62%, 32rem);
+  height: auto;
+  opacity: 0.9;
+}
+
+.osa-finale-presence__line {
+  stroke: rgba(126, 200, 232, 0.1);
+  stroke-width: 0.65;
+  vector-effect: non-scaling-stroke;
+}
+
+.osa-finale-presence__line--dim {
+  stroke: rgba(126, 200, 232, 0.06);
+}
+
+.osa-finale-presence__line--branch {
+  stroke: rgba(126, 200, 232, 0.08);
+}
+
+.osa-finale-presence__line--pulse {
+  stroke: rgba(126, 200, 232, 0.12);
+  stroke-dasharray: 4 140;
+  animation: osa-finale-pulse-travel 10s ease-in-out infinite;
+}
+
+@keyframes osa-finale-pulse-travel {
+  0%,
+  100% {
+    stroke-dashoffset: 0;
+    stroke-opacity: 0.08;
+  }
+  45% {
+    stroke-dashoffset: -72;
+    stroke-opacity: 0.2;
+  }
+}
+
+.osa-finale-presence__node {
+  fill: rgba(126, 200, 232, 0.2);
+}
+
+.osa-finale-presence__node--dim {
+  fill: rgba(126, 200, 232, 0.1);
+}
+
+.osa-finale-presence__node--hub {
+  fill: rgba(126, 200, 232, 0.28);
+  filter: drop-shadow(0 0 6px rgba(126, 200, 232, 0.15));
+}
+
+.osa-finale__eyebrow {
+  margin: 0 0 1.25rem;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--osa-cyan-dim);
+}
+
+.osa-finale__manifesto {
+  margin: 0;
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.875rem, 4.2vw, 3rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: rgba(240, 246, 252, 0.98);
+}
+
+.osa-finale__manifesto-accent {
+  display: block;
+  margin-top: 0.35em;
+  color: var(--osa-cyan);
+}
+
+.osa-finale__body {
+  max-width: 40rem;
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+  padding-top: clamp(3rem, 7vw, 4.5rem);
+  border-top: 1px solid var(--osa-line);
+}
+
+.osa-finale__industry {
+  max-width: 38rem;
+}
+
+.osa-finale__gap {
+  margin: 0 0 1rem;
+  font-size: clamp(1rem, 1.05vw + 0.85rem, 1.125rem);
+  line-height: 1.62;
+  color: var(--osa-muted);
+}
+
+.osa-finale__bridge {
+  margin: 1.5rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.0625rem, 1.2vw + 0.8rem, 1.25rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(236, 244, 252, 0.88);
+}
+
+.osa-finale__closing {
+  margin: clamp(2.5rem, 6vw, 3.5rem) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--osa-line);
+  padding-top: clamp(2rem, 5vw, 2.75rem);
+}
+
+.osa-finale__closing-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.2rem;
+  margin: 0 0 1.25rem;
+}
+
+.osa-finale__closing-row:last-child {
+  margin-bottom: 0;
+}
+
+.osa-finale__closing-row dt {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--osa-dim);
+}
+
+.osa-finale__closing-row dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.5vw + 0.7rem, 1.375rem);
+  font-weight: 600;
+  color: var(--osa-cyan);
+}
+
+.osa-finale__actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+}
+
+@media (max-width: 768px) {
+  .osa-pipeline__step {
+    grid-template-columns: 2.5rem 1fr;
+    padding: 1rem 1.125rem;
+  }
+
+  .osa-ecosystem {
+    max-width: 100%;
+  }
+
+  .osa-finale__manifesto {
+    max-width: none;
+  }
+
+  .osa-finale-presence {
+    inset: 0;
+    left: 0;
+    opacity: 0.65;
+  }
+
+  .osa-finale-presence__ghost {
+    font-size: clamp(4rem, 28vw, 7rem);
+    right: -12%;
+    top: 20%;
+  }
+
+  .osa-finale-presence__map {
+    right: -8%;
+    width: 85%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .osa-finale-presence__line--pulse {
+    animation: none;
+    stroke-opacity: 0.1;
+  }
+}
+
+/* Product workflow — live product states */
+.case-page--osa-workflow .osa-section--product-state .osa-section__title {
+  max-width: 28ch;
+}
+
+.case-page--osa-workflow .osa-section--product-state .osa-section__lead {
+  max-width: 40rem;
+  margin-bottom: 1.75rem;
+}
+
+.osa-product-state__screen {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.osa-product-state__screen .osa-figure__frame {
+  border-color: rgba(126, 200, 232, 0.14);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.35);
+}
+
+.osa-product-state__screen .osa-figure__frame img {
+  width: 100%;
+  height: auto;
+}
+
+.osa-product-state__screen .osa-figure__caption {
+  margin-top: 1.125rem;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.1vw + 0.8rem, 1.1875rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(210, 228, 242, 0.9);
+  max-width: 44rem;
+}
+
+/* Ecosystem flow */
+.osa-section--ecosystem .osa-section__title {
+  max-width: 26ch;
+}
+
+.osa-ecosystem-flow {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  border: 1px solid var(--osa-line);
+  background: rgba(14, 20, 28, 0.45);
+}
+
+.osa-ecosystem-flow__item {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 9.5rem;
+  align-items: stretch;
+}
+
+.osa-ecosystem-flow__card {
+  flex: 1;
+  padding: 1.125rem 1rem;
+  border-right: 1px solid rgba(126, 200, 232, 0.08);
+}
+
+.osa-ecosystem-flow__item:last-child .osa-ecosystem-flow__card {
+  border-right: none;
+}
+
+.osa-ecosystem-flow__role {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgba(236, 244, 252, 0.94);
+}
+
+.osa-ecosystem-flow__detail {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--osa-muted);
+}
+
+.osa-ecosystem-flow__arrow {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .osa-ecosystem-flow {
+    overflow: visible;
+  }
+
+  .osa-ecosystem-flow__item {
+    position: relative;
+    min-width: 0;
+  }
+
+  .osa-ecosystem-flow__arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 0.15rem;
+    font-size: 0.75rem;
+    color: var(--osa-cyan-dim);
+    flex-shrink: 0;
+  }
+
+  .osa-ecosystem-flow__item {
+    flex-direction: row;
+  }
+
+  .osa-ecosystem-flow__card {
+    border-right: 1px solid rgba(126, 200, 232, 0.08);
+  }
+}
+
+/* Finale — product perspective */
+.osa-finale__supports {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.osa-finale__supports li {
+  padding-left: 1rem;
+  border-left: 1px solid var(--osa-line);
+  font-size: clamp(0.9375rem, 1vw + 0.8rem, 1.0625rem);
+  line-height: 1.55;
+  color: var(--osa-muted);
+}
+
+.osa-finale__accent {
+  margin: clamp(2rem, 5vw, 2.75rem) 0 0;
+  padding-top: clamp(1.75rem, 4vw, 2.25rem);
+  border-top: 1px solid var(--osa-line);
+  display: grid;
+  gap: 0.35rem;
+}
+
+.osa-finale__accent-muted {
+  display: block;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--osa-dim);
+}
+
+.osa-finale__accent-strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw + 0.75rem, 1.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--osa-cyan);
+  max-width: 22ch;
+}
+
+.case-page--osa-workflow .osa-finale__manifesto {
+  max-width: 22ch;
+}
+
+@media (max-width: 768px) {
+  .case-page--osa-workflow .osa-problem {
+    gap: 2rem;
+  }
+
+  .osa-ecosystem-flow__item {
+    min-width: 10.5rem;
+  }
+}

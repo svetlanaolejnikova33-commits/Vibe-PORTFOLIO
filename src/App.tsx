@@ -3,6 +3,7 @@ import { CustomCursor } from './components/CustomCursor'
 import { Nav } from './components/Nav'
 import { ScrollProgress } from './components/ScrollProgress'
 import CaseAeronis from './pages/CaseAeronis'
+import CaseOSA from './pages/CaseOSA'
 import CaseRoomCost from './pages/CaseRoomCost'
 import CaseVD from './pages/CaseVD'
 import { HomePage } from './pages/Home'
@@ -19,10 +20,11 @@ export default function App() {
           <Route path="/case/vd" element={<CaseVD />} />
           <Route path="/case/roomcost" element={<CaseRoomCost />} />
           <Route path="/case/aeronis" element={<CaseAeronis />} />
+          <Route path="/case/osa" element={<CaseOSA />} />
         </Routes>
       </main>
       <footer className="relative z-[1] border-t border-white/[0.06] px-6 py-10 text-center text-xs text-fog md:px-12">
-        <p>Vibe Coder · Web &amp; AI Experiences</p>
+        <p>AI Product Systems · Interaction Architecture · Workflow Design</p>
       </footer>
     </div>
   )

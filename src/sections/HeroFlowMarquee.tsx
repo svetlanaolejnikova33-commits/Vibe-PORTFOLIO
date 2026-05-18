@@ -3,7 +3,7 @@ import { useReducedMotion } from 'framer-motion'
 import { SteelReflex } from '../components/SteelReflex'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
-const FLOW_PHRASE = 'WEB / AI / INTERFACES / DIGITAL EXPERIENCE / VIBE / SYSTEM'
+const FLOW_PHRASE = 'PRODUCT / AI WORKFLOWS / SYSTEMS / INTERFACES / VISION / ARCHITECTURE'
 
 export function HeroFlowMarquee() {
   const reduceMotion = useReducedMotion()
@@ -33,7 +33,7 @@ export function HeroFlowMarquee() {
       className="premium-flow relative isolate overflow-hidden rounded-none border-y border-white/[0.055]"
       onMouseMove={soft ? undefined : onMove}
       onMouseLeave={soft ? undefined : onLeave}
-      aria-label="Ключевые направления: веб, AI, интерфейсы, digital-опыт"
+      aria-label="Focus areas: product, AI workflows, systems, interfaces, vision"
     >
       <p className="sr-only">
         {FLOW_PHRASE.replace(/\s*\/\s*/g, ', ')}

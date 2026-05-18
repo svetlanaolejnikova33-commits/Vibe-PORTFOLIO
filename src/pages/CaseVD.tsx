@@ -1,39 +1,46 @@
+import { VdPhoto } from '../components/vd/VdPhoto'
 import { MetalButton } from '../components/MetalButton'
 import { homeSectionTo } from '../routes'
 
+const base = `${import.meta.env.BASE_URL}cases/vd`
+
 export default function CaseVD() {
   return (
-    <article className="case-page">
-      <section className="case-section">
-        <div className="case-label">КЕЙС</div>
+    <article className="case-page case-page--vd">
+      <section className="case-section vd-hero !mt-0">
+        <div className="mb-10 flex flex-wrap items-center gap-4">
+          <MetalButton to={homeSectionTo('projects')}>Back to cases</MetalButton>
+        </div>
 
-        <div className="grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
-          <div>
+        <div className="vd-hero__grid">
+          <div className="vd-hero__statement">
+            <p className="vd-hero__kicker">CASE · Custom furniture</p>
             <h1 className="case-title">
-              Когда мастер
+              Furniture built with
               <br />
-              становится <span className="text-[#ff7a4d]">брендом</span>
+              <span className="vd-hero__accent">architectural precision</span>
             </h1>
-
             <p className="case-lead">
-              Сайт, который превратил
-              <br />
-              частного мастера
-              <br />в ощущение <span className="text-[#ff7a4d]">премиального бренда</span>
+              A private manufacturer repositioned from local workshop signal to premium fabrication
+              studio — through material presence, not digital spectacle.
             </p>
-
             <p className="case-sublead">
-              <span className="font-semibold text-white">Не про мебель.</span>
+              <span className="font-medium" style={{ color: 'rgba(228, 218, 202, 0.88)' }}>
+                Not a tech product.
+              </span>
               <br />
-              Про восприятие, уровень и решение клиента.
+              Objects with weight, warmth, and permanence.
             </p>
           </div>
 
-          <div className="case-image">
-            <img
-              src={`${import.meta.env.BASE_URL}cases/vd/vd-hero.jpg`}
-              alt="Главный экран проекта VD"
-              className="block w-full"
+          <div className="vd-hero__visual">
+            <VdPhoto
+              src={`${base}/vd-hero.jpg`}
+              alt="Premium custom interior — material and light"
+              caption="Workshop atmosphere"
+              insight="Warm light · Tactile finish"
+              variant="hero"
+              className="!mt-0"
             />
           </div>
         </div>
@@ -41,196 +48,202 @@ export default function CaseVD() {
 
       <section className="case-section">
         <div className="case-label">01</div>
-        <h2 className="case-section-title">Контекст</h2>
+        <h2 className="case-section-title">Context</h2>
 
-        <div className="max-w-3xl border-l border-[rgba(255,122,77,0.45)] pl-8">
-          <div className="mb-8">
-            <p className="mb-2 text-xs uppercase tracking-[0.24em] text-white/60">Отправная точка</p>
-            <div className="flex items-center gap-3">
-              <span className="text-[#ff7a4d]">•</span>
-              <div className="h-px w-40 bg-[rgba(255,122,77,0.45)]" />
-            </div>
-          </div>
-
+        <div className="vd-context-rule max-w-3xl">
+          <p className="mb-8 text-sm leading-[1.7] text-[color:var(--vd-muted)]">
+            The starting point was strong craft with weak market reading — production existed, premium
+            perception did not.
+          </p>
           <div className="space-y-8">
             <div>
-              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-white/55">Клиент</p>
-              <p className="text-[clamp(22px,2.4vw,26px)] leading-[1.5] text-white/88">
-                Клиент — владелец частного производства корпусной мебели.
+              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-[color:var(--vd-dim)]">
+                Positioning gap
+              </p>
+              <p className="text-[clamp(1.125rem,1.1vw+0.85rem,1.375rem)] leading-[1.55] text-[color:var(--vd-text)]">
+                No premium presentation. The offer read as small local production, not a trusted
+                fabrication partner.
               </p>
             </div>
-
             <div>
-              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-white/55">Опыт</p>
-              <p className="text-[clamp(22px,2.4vw,26px)] leading-[1.5] text-white/88">
-                Более 10 лет опыта.
+              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-[color:var(--vd-dim)]">
+                Trust architecture
+              </p>
+              <p className="text-[clamp(1.125rem,1.1vw+0.85rem,1.375rem)] leading-[1.55] text-[color:var(--vd-text)]">
+                No coherent system for how quality, process, and outcome were shown to high-value clients.
               </p>
             </div>
-
             <div>
-              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-white/55">Проблема восприятия</p>
-              <p className="text-[clamp(22px,2.4vw,26px)] leading-[1.5] text-white/88">
-                Но воспринимался как «мастер»,{' '}
-                <span className="font-medium text-[#ff7a4d]">а не как бренд.</span>
+              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-[color:var(--vd-dim)]">Reality</p>
+              <p className="text-[clamp(1.125rem,1.1vw+0.85rem,1.375rem)] leading-[1.55] text-[color:var(--vd-text)]">
+                Ten years of precision manufacturing — under-signaled to the segment that would pay for
+                it.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="case-image">
-          <img
-            src={`${import.meta.env.BASE_URL}cases/vd/vd-production.jpg`}
-            alt="Производство корпусной мебели по дизайн-проектам"
-            className="block w-full"
-          />
-        </div>
+        <p className="vd-problem-accent">
+          Craft was never the problem. <strong>Perception was.</strong>
+        </p>
+
+        <VdPhoto
+          src={`${base}/vd-production.jpg`}
+          alt="Fabrication environment — material and process"
+          caption="Production"
+          insight="Precision · Physical scale"
+        />
       </section>
 
       <section className="case-section">
         <div className="case-label">02</div>
-        <h2 className="case-section-title">Проблема</h2>
+        <h2 className="case-section-title">Strategic transformation</h2>
 
-        <div className="max-w-3xl space-y-6 text-[clamp(20px,2vw,24px)] leading-[1.6] text-white/72">
-          <p>Не было сайта.</p>
-          <p>Не было системы подачи.</p>
-          <p>Не было ощущения уровня.</p>
-          <p>Были заказы — но не те клиенты.</p>
+        <p className="max-w-3xl text-lg leading-[1.65] text-[color:var(--vd-muted)]">
+          Reposition the workshop as a premium atelier: identity, presence, and communication aligned
+          with the weight of the objects produced.
+        </p>
+
+        <div className="vd-shift max-w-3xl">
+          <p className="vd-shift__from">from “local furniture maker”</p>
+          <p className="vd-shift__arrow">↓</p>
+          <p className="vd-shift__to">to “architectural custom interiors with permanence”</p>
         </div>
 
-        <div className="problem-accent">
-          Был <strong>сильный продукт</strong>.
-          <br />
-          Но его <strong>не видели</strong>.
+        <div className="vd-pillars">
+          {[
+            { label: 'Repositioning', text: 'Premium fabrication studio, not catalog carpentry.' },
+            { label: 'Visual identity', text: 'Warm restraint, material honesty, masculine confidence.' },
+            { label: 'Trust rebuilding', text: 'Process, scale, and outcome shown with editorial calm.' },
+            { label: 'Perception', text: 'Market reads level before reading price.' },
+            { label: 'Digital presence', text: 'Landing as atmosphere — not a service dashboard.' },
+            { label: 'Communication', text: 'Quiet authority instead of promotional noise.' },
+          ].map((item) => (
+            <div key={item.label} className="vd-pillar">
+              <p className="vd-pillar__label">{item.label}</p>
+              <p className="vd-pillar__text">{item.text}</p>
+            </div>
+          ))}
         </div>
+
+        <VdPhoto
+          src={`${base}/vd-advantages.jpg`}
+          alt="Brand communication — value and craft"
+          caption="Strategic layer"
+          insight="Clarity · Premium tone"
+        />
       </section>
 
       <section className="case-section">
         <div className="case-label">03</div>
-        <h2 className="case-section-title">Задача</h2>
+        <h2 className="case-section-title">Design system</h2>
 
-        <p className="mb-8 text-xl leading-[1.6] text-white/75">Перевести восприятие:</p>
+        <p className="max-w-3xl text-lg leading-[1.65] text-[color:var(--vd-muted)]">
+          Brand components — typography, material palette, hierarchy — presented as editorial objects,
+          not interface diagrams.
+        </p>
 
-        <div className="task-block max-w-3xl">
-          <div className="task-from">из «делает мебель»</div>
-          <div className="task-arrow">→</div>
-          <div className="task-to">«создаёт продукт уровня премиум»</div>
+        <div className="vd-brand-grid">
+          <div className="vd-brand-plate">
+            <p className="vd-brand-plate__title">Typography</p>
+            <p className="vd-brand-plate__body">
+              Display weight for conviction. Body rhythm for calm reading. Generous measure — workshop
+              pace, not startup density.
+            </p>
+          </div>
+          <div className="vd-brand-plate">
+            <p className="vd-brand-plate__title">Materials</p>
+            <p className="vd-brand-plate__body">
+              Wood grain, brushed metal, warm neutrals. Surfaces that feel built — photographed, not
+              rendered.
+            </p>
+            <div className="vd-swatches" aria-hidden>
+              <span className="vd-swatch vd-swatch--wood" />
+              <span className="vd-swatch vd-swatch--bronze" />
+              <span className="vd-swatch vd-swatch--graphite" />
+              <span className="vd-swatch vd-swatch--warm" />
+            </div>
+          </div>
+          <div className="vd-brand-plate">
+            <p className="vd-brand-plate__title">Hierarchy</p>
+            <p className="vd-brand-plate__body">
+              One primary message per view. Photography carries emotion; type carries structure.
+            </p>
+          </div>
+          <div className="vd-brand-plate">
+            <p className="vd-brand-plate__title">Emotional direction</p>
+            <p className="vd-brand-plate__body">
+              Quiet mastery. Confidence without luxury cliché. The feeling of entering a space that
+              will last.
+            </p>
+          </div>
+          <div className="vd-brand-plate vd-brand-plate--wide">
+            <p className="vd-brand-plate__title">Experience logic</p>
+            <p className="vd-brand-plate__body">
+              One calm path from interest to inquiry — no dashboards, no urgency tricks. Photography
+              and type carry trust; the interface stays out of the way.
+            </p>
+          </div>
         </div>
       </section>
 
       <section className="case-section">
         <div className="case-label">04</div>
-        <h2 className="case-section-title">Решение</h2>
+        <h2 className="case-section-title">Experience</h2>
 
-        <div className="max-w-3xl">
-          <ul className="space-y-5 text-[clamp(22px,2vw,26px)] leading-[1.55] text-white/78">
-            <li>— Смысловая архитектура бренда — фундамент</li>
-            <li>— Позиционирование</li>
-            <li>— Визуальная система</li>
-            <li>— Лендинг как сценарий внимания</li>
-          </ul>
-        </div>
+        <p className="max-w-3xl text-lg leading-[1.65] text-[color:var(--vd-muted)]">
+          The ordering journey should feel calm, confident, and physically grounded — clarity without
+          sales pressure.
+        </p>
 
-        <div className="case-image">
-          <img
-            src={`${import.meta.env.BASE_URL}cases/vd/vd-advantages.jpg`}
-            alt="Фрагмент системы преимуществ и подачи проекта VD"
-            className="block w-full"
+        <div className="vd-experience-grid">
+          <VdPhoto
+            src={`${base}/vd-portfolio-living.jpg`}
+            alt="Living interior — integrated custom furniture"
+            caption="Living"
+            insight="Integration · Light"
+            className="!mt-0"
+          />
+          <VdPhoto
+            src={`${base}/vd-portfolio-kitchen.jpg`}
+            alt="Kitchen interior — custom fabrication"
+            caption="Kitchen"
+            insight="Detail · Function"
+            className="!mt-0"
           />
         </div>
+
+        <VdPhoto
+          src={`${base}/vd-designers.jpg`}
+          alt="Designer partnership — professional workflow"
+          caption="Professional channel"
+          insight="Trust · Collaboration"
+        />
       </section>
 
-      <section className="case-section">
+      <section className="case-section vd-outcome">
         <div className="case-label">05</div>
-        <h2 className="case-section-title">Процесс</h2>
+        <h2 className="case-section-title">Outcome</h2>
 
-        <div className="max-w-3xl">
-          <p className="mb-8 text-xl leading-[1.6] text-white/72">Не дизайн ради дизайна.</p>
-
-          <div className="space-y-6">
-            {[
-              'Сначала логика.',
-              'Потом структура.',
-              'И только затем визуал.',
-            ].map((line, index) => (
-              <div key={line} className="grid grid-cols-[56px_1px_1fr] items-center gap-5">
-                <span className="text-[24px] font-medium leading-none text-[#ff7a4d]">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span className="h-8 w-px bg-white/18" />
-                <span className="text-[clamp(24px,2.2vw,30px)] font-medium leading-[1.45] text-white/88">
-                  {line}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="case-section">
-        <div className="case-label">06</div>
-        <h2 className="case-section-title">Визуал</h2>
-        <p className="visual-label">Новая система в действии</p>
-
-        <div className="case-image-grid">
-          <div className="case-image">
-            <img
-              src={`${import.meta.env.BASE_URL}cases/vd/vd-portfolio-living.jpg`}
-              alt="Фрагмент портфолио с жилыми интерьерами"
-              className="block w-full"
-            />
-          </div>
-
-          <div className="case-image">
-            <img
-              src={`${import.meta.env.BASE_URL}cases/vd/vd-portfolio-kitchen.jpg`}
-              alt="Фрагмент портфолио с кухонными проектами"
-              className="block w-full"
-            />
-          </div>
-        </div>
-
-        <div className="case-image">
-          <img
-            src={`${import.meta.env.BASE_URL}cases/vd/vd-designers.jpg`}
-            alt="Блок для дизайнеров и система партнерской подачи"
-            className="block w-full"
-          />
-        </div>
-      </section>
-
-      <section className="case-section">
-        <div className="case-label">07</div>
-        <h2 className="case-section-title">Результат</h2>
-
-        <div className="max-w-3xl space-y-8 text-[clamp(24px,2.2vw,30px)] leading-[1.55] text-white/82">
+        <div className="max-w-3xl space-y-6 text-[clamp(1.25rem,1.2vw+0.9rem,1.5rem)] leading-[1.58] text-[color:var(--vd-muted)]">
           <p>
-            Из «мастера» — в <span className="font-medium text-[#ff7a4d]">системный бренд</span> с характером.
+            Stronger market perception — from skilled workshop to{' '}
+            <span className="font-medium text-[color:var(--vd-bronze)]">premium identity</span>.
           </p>
-
-          <p>
-            Из сайта — в <span className="font-medium text-white">инструмент восприятия.</span>
-          </p>
-
-          <p className="text-white/65">Сайт перестал рассказывать.</p>
+          <p>Professional trust rebuilt through presence, not promises.</p>
+          <p>Elevated image aligned with the physical quality already in production.</p>
         </div>
 
-        <div className="result-box max-w-4xl text-[clamp(28px,2.8vw,40px)] font-semibold leading-[1.35] text-white">
-          Он начал продавать уровень.
-        </div>
+        <p className="vd-result">The work started selling at the level it was built.</p>
 
-        <div className="final-text max-w-3xl text-[clamp(22px,2vw,28px)]">
-          <p>Это не про сайт.</p>
-          <p>Это про то, как меняется восприятие,</p>
-          <p>когда у бренда появляется система.</p>
-        </div>
+        <p className="vd-finale">
+          Not a louder website. A heavier brand — one the market could finally read.
+        </p>
 
-        <div className="mt-12">
-          <p className="mb-6 text-[clamp(26px,2.4vw,34px)] leading-[1.45] text-white/88">
-            Собрать такой же уровень для вашего проекта
-          </p>
-
+        <div className="mt-12 flex flex-wrap gap-4">
+          <MetalButton to={homeSectionTo('projects')}>Back to cases</MetalButton>
           <MetalButton to={homeSectionTo('contacts')} variant="primary">
-            Обсудить проект
+            Connect
           </MetalButton>
         </div>
       </section>

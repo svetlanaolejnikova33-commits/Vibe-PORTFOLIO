@@ -1,63 +1,63 @@
 import { motion } from 'framer-motion'
 
+const channels = [
+  {
+    label: 'Telegram',
+    href: 'https://t.me/Svetlana_Oleynikova',
+    display: '@Svetlana_Oleynikova',
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/svetlana-oleynikova',
+    display: 'LinkedIn profile',
+  },
+  {
+    label: 'Email',
+    href: 'mailto:savannalip@mail.ru',
+    display: 'savannalip@mail.ru',
+  },
+] as const
+
 export function Contacts() {
   return (
     <section id="contacts" className="relative px-6 py-28 md:px-12 lg:px-16">
-      <div className="mx-auto max-w-2xl">
-        <motion.h2
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="ui-section-title"
-        >
-          <span className="ui-head-bright">Контакт</span>
-          <span className="ui-head-soft">ы</span>
-        </motion.h2>
+      <motion.div
+        className="mx-auto max-w-2xl"
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <p className="text-[0.625rem] font-medium uppercase tracking-[0.32em] text-metal-mid">Connect</p>
+        <h2 className="ui-section-title mt-4">
+          <span className="ui-head-bright">Selective</span>{' '}
+          <span className="ui-head-soft">collaboration</span>
+        </h2>
+        <p className="mt-5 max-w-md text-base font-normal leading-[1.7] text-fog">
+          Product architecture, AI workflow design, and interface strategy—for teams building what comes next.
+        </p>
 
-        <div className="mt-12 flex flex-col gap-10 md:gap-12">
-          <motion.a
-            href="https://t.me/Svetlana_Oleynikova"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.05 }}
-            className="link-undertext block w-full border-b border-white/[0.08] pb-10 transition-colors duration-500 hover:text-accent-hover"
-          >
-            <span className="mb-3 block text-sm uppercase tracking-[0.2em] text-metal-mid">Telegram</span>
-            <span className="block break-all font-sans text-xl leading-snug text-mist md:text-2xl">
-              @Svetlana_Oleynikova
-            </span>
-          </motion.a>
-
-          <motion.a
-            href="https://m.vk.com/mamaosa74"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="link-undertext block w-full border-b border-white/[0.08] pb-10 transition-colors duration-500 hover:text-accent-hover"
-          >
-            <span className="mb-3 block text-sm uppercase tracking-[0.2em] text-metal-mid">VK</span>
-            <span className="block break-all font-sans text-xl leading-snug text-mist md:text-2xl">
-              vk.com/mamaosa74
-            </span>
-          </motion.a>
-
-          <motion.a
-            href="mailto:savannalip@mail.ru"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-            className="link-undertext block w-full transition-colors duration-500 hover:text-accent-hover"
-          >
-            <span className="mb-3 block text-sm uppercase tracking-[0.2em] text-metal-mid">Email</span>
-            <span className="block break-all font-sans text-xl leading-snug text-mist md:text-2xl">
-              savannalip@mail.ru
-            </span>
-          </motion.a>
+        <div className="mt-14 flex flex-col gap-0">
+          {channels.map((ch, i) => (
+            <motion.a
+              key={ch.label}
+              href={ch.href}
+              target={ch.label === 'Email' ? undefined : '_blank'}
+              rel={ch.label === 'Email' ? undefined : 'noopener noreferrer'}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06, duration: 0.6 }}
+              className="ix-contact-row link-undertext group block border-t border-white/[0.08] py-8 text-mist/90 first:border-t-0 first:pt-0 hover:text-mist/95"
+            >
+              <span className="mb-2 block text-[0.625rem] font-medium uppercase tracking-[0.24em] text-metal-mid transition-colors group-hover:text-accent/70">
+                {ch.label}
+              </span>
+              <span className="block font-sans text-lg font-normal text-mist/92 md:text-xl">{ch.display}</span>
+            </motion.a>
+          ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

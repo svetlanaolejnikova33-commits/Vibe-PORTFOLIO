@@ -2,17 +2,42 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
+const INTERACTIVE_SELECTOR = [
+  'a',
+  'button',
+  '[role="button"]',
+  'input',
+  'textarea',
+  'select',
+  'summary',
+  'label',
+  '[data-cursor-hover]',
+  'nav a',
+  'nav button',
+  '.group',
+  'article',
+  '[class*="card"]',
+].join(', ')
+
+/** Calm, confident follow — not reactive */
+const CURSOR_SPRING = { damping: 52, stiffness: 98, mass: 0.62 } as const
+/** Tight atmospheric lag — stays close, never orbits the pointer */
+const TRAIL_SPRING = { damping: 56, stiffness: 88, mass: 0.58 } as const
+
+const HOVER_EASE = [0.22, 1, 0.36, 1] as const
+const HOVER_TRANSITION = { duration: 0.68, ease: HOVER_EASE }
+
 export function CustomCursor() {
   const liteViewport = usePreferLiteMotion()
   const [enabled, setEnabled] = useState(false)
+  const [hovering, setHovering] = useState(false)
+
   const x = useMotionValue(0)
   const y = useMotionValue(0)
-  const sx = useSpring(x, { damping: 28, stiffness: 420, mass: 0.32 })
-  const sy = useSpring(y, { damping: 28, stiffness: 420, mass: 0.32 })
-  const tx = useMotionValue(0)
-  const ty = useMotionValue(0)
-  const txSpring = useSpring(tx, { damping: 52, stiffness: 200, mass: 0.48 })
-  const tySpring = useSpring(ty, { damping: 52, stiffness: 200, mass: 0.48 })
+  const sx = useSpring(x, CURSOR_SPRING)
+  const sy = useSpring(y, CURSOR_SPRING)
+  const tx = useSpring(x, TRAIL_SPRING)
+  const ty = useSpring(y, TRAIL_SPRING)
 
   useEffect(() => {
     const mq = window.matchMedia('(pointer: fine)')
@@ -31,57 +56,73 @@ export function CustomCursor() {
 
   useEffect(() => {
     if (!enabled) return
+
     const onMove = (e: MouseEvent) => {
       x.set(e.clientX)
       y.set(e.clientY)
-      tx.set(e.clientX)
-      ty.set(e.clientY)
     }
+
+    const onOver = (e: MouseEvent) => {
+      const target = e.target
+      if (!(target instanceof Element)) {
+        setHovering(false)
+        return
+      }
+      if (target.closest('[data-cursor="default"]')) {
+        setHovering(false)
+        return
+      }
+      setHovering(!!target.closest(INTERACTIVE_SELECTOR))
+    }
+
     window.addEventListener('mousemove', onMove)
-    return () => window.removeEventListener('mousemove', onMove)
-  }, [enabled, x, y, tx, ty])
+    document.addEventListener('mouseover', onOver)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseover', onOver)
+    }
+  }, [enabled, x, y])
 
   if (!enabled) return null
 
   return (
     <>
-      {/* Широкое мягкое свечение — чуть заметнее */}
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[9998] mix-blend-screen"
-        style={{ x: txSpring, y: tySpring, translateX: '-50%', translateY: '-50%' }}
-      >
-        <div
-          className="h-[8.5rem] w-[8.5rem] rounded-full opacity-[0.22] blur-3xl"
-          style={{
-            background:
-              'radial-gradient(circle, rgba(232,103,65,0.65) 0%, rgba(232,103,65,0.2) 38%, rgba(232,103,65,0) 72%)',
-          }}
-        />
-      </motion.div>
-      {/* Внешнее кольцо — якорь внимания */}
+        className="custom-cursor__trail pointer-events-none fixed left-0 top-0 z-[9998]"
+        style={{ x: tx, y: ty, translateX: '-50%', translateY: '-50%' }}
+      />
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[9999] mix-blend-screen"
+        className="custom-cursor pointer-events-none fixed left-0 top-0 z-[9999]"
         style={{ x: sx, y: sy, translateX: '-50%', translateY: '-50%' }}
       >
-        <div
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.22]"
-          style={{
-            boxShadow:
-              '0 0 0 1px rgba(232,103,65,0.25), 0 0 28px rgba(232,103,65,0.35), 0 0 56px rgba(232,103,65,0.12), inset 0 0 20px rgba(232,103,65,0.08)',
+        <motion.div
+          className="custom-cursor__ring"
+          animate={{
+            scale: hovering ? 1.05 : 1,
+            opacity: hovering ? 0.54 : 0.5,
           }}
+          transition={HOVER_TRANSITION}
         >
-          <div
-            className="h-[5px] w-[5px] rounded-full border border-white/50"
-            style={{
-              background:
-                'radial-gradient(circle at 32% 32%, rgba(255,255,255,0.95), rgba(232,103,65,0.35) 45%, rgba(232,103,65,0.38) 70%)',
-              boxShadow:
-                '0 0 16px rgba(232,103,65,0.85), 0 0 32px rgba(232,103,65,0.45), inset 0 0 6px rgba(255,255,255,0.35)',
+          <motion.span
+            className="custom-cursor__core"
+            aria-hidden
+            animate={{
+              scale: hovering ? 1.03 : 1,
+              opacity: hovering ? 0.42 : 0.38,
             }}
+            transition={HOVER_TRANSITION}
           />
-        </div>
+          <motion.span
+            className="custom-cursor__dot"
+            animate={{
+              scale: hovering ? 1.07 : 1,
+              opacity: hovering ? 0.78 : 0.74,
+            }}
+            transition={{ ...HOVER_TRANSITION, duration: 0.64 }}
+          />
+        </motion.div>
       </motion.div>
     </>
   )

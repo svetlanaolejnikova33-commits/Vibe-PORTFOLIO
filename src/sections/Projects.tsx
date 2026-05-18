@@ -7,26 +7,37 @@ import {
   useTransform,
 } from 'framer-motion'
 import { Fragment, type PointerEvent, useRef } from 'react'
-import { Link, type To } from 'react-router-dom'
+import type { To } from 'react-router-dom'
 import { MetalButton } from '../components/MetalButton'
+import { OsaFlagshipCard, type OsaFlagshipData } from '../components/projects/OsaFlagshipCard'
+import { ProductFlowStrip } from '../components/ProductFlowStrip'
 import { SteelReflex } from '../components/SteelReflex'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
+
+type ProductLayers = {
+  label: string
+  whyToolsFail: string
+  systemLogic: string
+  aiLayer: string
+  workflow: string
+  scalability: string
+}
 
 type ProjectEntry =
   | {
       kind: 'case-study'
+      layers: ProductLayers
       title: string
       subtitle: string
       body: string
       solution: string[]
       outcome: string
-      /** Якорь или внешняя ссылка, если нет `caseTo` */
       caseHref?: string
-      /** Внутренний маршрут кейса (React Router) */
       caseTo?: To
     }
   | {
       kind: 'brief'
+      layers: ProductLayers
       title: string
       subtitle: string
       body: string
@@ -39,93 +50,148 @@ type ProjectEntry =
     }
   | {
       kind: 'linked'
+      layers: ProductLayers
       title: string
       body: string
       caseTo: To
     }
   | {
-      /** Слот под будущий кейс: без CTA, приглушённая подача */
+      kind: 'flagship'
+      id: string
+    } & OsaFlagshipData
+  | {
       kind: 'in-development'
       slotId: string
-      /** Текст под заголовком «Проект в разработке» */
       body: string
     }
 
 const projects: ProjectEntry[] = [
   {
+    kind: 'flagship',
+    id: 'osa',
+    title: 'OSA',
+    microLabels: ['B2B Infrastructure', 'AI+BIM Ecosystem', 'Live Registry System'],
+    headline: 'Interior intelligence infrastructure',
+    subheadline:
+      'Transforms visual concepts into procurement-ready scenarios — bound to real products, suppliers, BIM logic, and budget structures.',
+    body:
+      'An AI+BIM+Registry ecosystem for the interior industry. Designers, suppliers, specifications, and live SKU intelligence operate on one spatial network layer.',
+    insights: [
+      {
+        tag: 'System fracture',
+        text: 'Visualization and procurement exist in disconnected realities.',
+      },
+      {
+        tag: 'Delivery drift',
+        text: 'The built result drifts from the approved concept.',
+      },
+      {
+        tag: 'Registry gap',
+        text: 'Specifications lack live product intelligence until procurement pressure arrives.',
+      },
+      {
+        tag: 'Budget latency',
+        text: 'Financial scenarios form after design commitment — not during concept alignment.',
+      },
+    ],
+    capabilities: [
+      {
+        label: 'AI + BIM core',
+        text: 'Spatial inference from visuals into structured specification logic.',
+      },
+      {
+        label: 'Live registry',
+        text: 'SKU graphs, suppliers, and availability mapped to design decisions.',
+      },
+      {
+        label: 'Procurement logic',
+        text: 'Budget tiers and scenarios tied to real factories and materials.',
+      },
+      {
+        label: 'Network substrate',
+        text: 'One data layer for designers, architects, and supplier ecosystems.',
+      },
+    ],
+    resultLead: 'Visualization stops terminating at the render.',
+    resultAccent: 'It becomes infrastructure for how interiors are specified, priced, and produced.',
+    caseTo: '/case/osa',
+  },
+  {
     kind: 'case-study',
-    title: 'AI Landing VD',
+    layers: {
+      label: 'Brand · Premium Fabrication',
+      whyToolsFail: 'Template builders optimize layout, not perception shift or premium positioning logic.',
+      systemLogic: 'Material story → trust architecture → calm conversion path as one brand system.',
+      aiLayer: 'AI-assisted copy architecture, visual direction, and rapid iteration on positioning variants.',
+      workflow: 'Discovery → perception map → editorial landing → launch-ready presence.',
+      scalability: 'Modular brand blocks reusable across campaigns, catalogs, and future product lines.',
+    },
+    title: 'VD Furniture Workshop',
     subtitle:
-      'Лендинг, который переводит мебельное производство\nиз уровня «мастер» в восприятие **премиального продукта**',
+      'Repositioning custom furniture production\nfrom **local workshop** to **premium fabrication studio**',
     body:
-      'Частное производство корпусной мебели с опытом более 10 лет.\n\nЗадача — выйти на уровень клиентов высокого сегмента\nчерез изменение восприятия и визуальной подачи.',
+      'A 10+ year manufacturer needed high-segment clients—not more traffic.\n\nThe product challenge: change perception before changing the sales conversation.',
     solution: [
-      'Смысловая архитектура бренда',
-      'Позиционирование и уровень восприятия',
-      'Фирменный стиль и логотип',
-      'Лендинг как сценарий внимания',
+      'Brand meaning architecture',
+      'Perception-level positioning',
+      'Identity system + logo',
+      'Landing as an attention scenario',
     ],
-    outcome: 'Из «мастера» — в **системный бренд** с характером и весом на рынке.',
+    outcome: 'From local craftsman to a **systemic brand** with market weight.',
+    caseTo: '/case/vd',
   },
   {
     kind: 'brief',
-    title: 'A platform for completing interior projects',
-    subtitle:
-      'Пространство, где идея интерьера\nпревращается в **предварительную смету** ещё до проекта',
-    body:
-      'Платформа для дизайнеров, архитекторов и поставщиков.\n\nПозволяет формировать предварительные рабочие сметы\nпо изображению — с привязкой к реальным фабрикам и артикулам.',
-    problem: [
-      'концепция не доживает до реализации',
-      'клиент финансово выжат к этапу закупок',
-      'решения принимаются без понимания бюджета',
-      'итог отличается от визуализации',
-    ],
-    solution: [
-      'расчёт бюджета на раннем этапе',
-      'три ценовых сценария (low / mid / premium)',
-      'привязка к реальным артикулам',
-      'ускорение согласования проекта',
-    ],
-    resultLead: 'Концепция перестаёт быть визуализацией —',
-    resultAccent: 'и становится продуктом, **который меняет подход**.',
-    caseHref: '#projects-cases',
-  },
-  {
-    kind: 'brief',
+    layers: {
+      label: 'Consumer AI · Decision Product',
+      whyToolsFail: 'Aggregators compare prices; they don\'t reduce cognitive load to one trusted recommendation.',
+      systemLogic: 'Route watchlist → live board data → scoring → single recommended action.',
+      aiLayer: 'Monitoring agents, fare pattern detection, recommendation ranking.',
+      workflow: 'Set intent once → system watches → user receives one clear best option.',
+      scalability: 'Extensible to hotels, multi-city trips, and subscription travel intelligence.',
+    },
     title: 'Aeronis Flight',
     subtitle:
-      'Инструмент, который избавляет от бесконечного поиска билетов\nи показывает **лучший вариант**',
+      'Eliminates endless tab-hunting\nand surfaces **one best flight**',
     body:
-      'Сервис сам отслеживает маршруты и опирается на табло.\n\nНе про авиацию — про время, нервы и один понятный выбор.',
+      'The service tracks routes against live boards.\n\nNot about aviation—about time, nerves, and a single confident choice.',
     problem: [
-      'десятки вкладок и ручное сравнение цен',
-      'непонятно, что в итоге выгоднее',
-      'нет одного места с ясной рекомендацией',
+      'dozens of tabs, manual price comparison',
+      'unclear what is actually optimal',
+      'no single place for a trusted recommendation',
     ],
     solution: [
-      'сам следит за направлениями',
-      'рекомендации по данным табло',
-      'решение сводится к одному действию',
+      'autonomous route monitoring',
+      'board-data-driven recommendations',
+      'decision collapsed to one action',
     ],
-    resultLead: 'Пользователь получает',
-    resultAccent: '**готовый вариант перелёта** — без долгого поиска вручную.',
+    resultLead: 'The user gets a',
+    resultAccent: '**ready-to-book flight**—without manual search fatigue.',
     caseTo: '/case/aeronis',
   },
   {
     kind: 'linked',
+    layers: {
+      label: 'Mobile Product · Estimation',
+      whyToolsFail: 'Generic calculators ignore room logic, material tiers, and fast on-site decision flow.',
+      systemLogic: 'Room model → cost layers → instant estimate → shareable output.',
+      aiLayer: 'Smart defaults, material suggestions, scenario presets.',
+      workflow: 'Measure → configure → estimate → share with contractor or client.',
+      scalability: 'Regional pricing modules, B2B white-label, renovation marketplace hooks.',
+    },
     title: 'RoomCost',
-    body: 'Мобильное приложение для быстрого расчёта ремонта',
+    body: 'Mobile product for fast renovation estimation—built for clarity under time pressure.',
     caseTo: '/case/roomcost',
   },
   {
     kind: 'in-development',
     slotId: 'dev-slot-2',
-    body: 'Новый проект в процессе.\nОн скоро станет частью портфолио.',
+    body: 'Next AI-native product concept in build.\nEntering the portfolio soon.',
   },
   {
     kind: 'in-development',
     slotId: 'dev-slot-3',
-    body: 'Работа над проектом уже идёт.\nСовсем скоро он будет здесь.',
+    body: 'Workflow system in progress.\nFull case study coming.',
   },
 ]
 
@@ -169,6 +235,32 @@ function AccentMultiline({
   )
 }
 
+function ProductLayersBlock({ layers }: { layers: ProductLayers }) {
+  const rows: { key: string; label: string; value: string }[] = [
+    { key: 'gap', label: 'Why tools fail', value: layers.whyToolsFail },
+    { key: 'sys', label: 'System logic', value: layers.systemLogic },
+    { key: 'ai', label: 'AI layer', value: layers.aiLayer },
+    { key: 'flow', label: 'User workflow', value: layers.workflow },
+    { key: 'scale', label: 'Scalability', value: layers.scalability },
+  ]
+
+  return (
+    <div className="product-layers mt-6 border-t border-white/[0.08] pt-6">
+      <ProductFlowStrip className="mb-5" />
+      <dl className="space-y-3.5">
+        {rows.map((row) => (
+          <div key={row.key} className="product-layers__row grid gap-1 sm:grid-cols-[7.5rem_1fr] sm:gap-4">
+            <dt className="text-[0.625rem] font-medium uppercase tracking-[0.18em] text-metal-mid">
+              {row.label}
+            </dt>
+            <dd className="text-sm font-normal leading-[1.62] text-fog/88">{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  )
+}
+
 function BulletList({ items, dashClass }: { items: string[]; dashClass: string }) {
   return (
     <ul className="mt-3 space-y-2.5 pl-0">
@@ -193,6 +285,8 @@ function CaseCta({
   to?: To
   noHeavy: boolean
 }) {
+  if (!href && !to) return null
+
   return (
     <motion.div
       className="mt-8"
@@ -206,14 +300,16 @@ function CaseCta({
       }}
     >
       <MetalButton href={href} to={to} variant="ghost">
-        Смотреть кейс →
+        View case study →
       </MetalButton>
     </motion.div>
   )
 }
 
 function ProjectSlab({ project, index }: { project: ProjectEntry; index: number }) {
-  const title = project.kind === 'in-development' ? 'Проект в разработке' : project.title
+  const title = project.kind === 'in-development' ? 'Product in development' : project.title
+  const label =
+    project.kind !== 'in-development' && project.kind !== 'flagship' ? project.layers.label : null
   const isDevSlot = project.kind === 'in-development'
   const reduceMotion = useReducedMotion()
   const liteViewport = usePreferLiteMotion()
@@ -226,7 +322,7 @@ function ProjectSlab({ project, index }: { project: ProjectEntry; index: number 
   const sMy = useSpring(my, { stiffness: 280, damping: 28 })
   const glareX = useTransform(sMx, [-0.5, 0.5], [20, 80])
   const glareY = useTransform(sMy, [-0.5, 0.5], [20, 80])
-  const glare = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.14), transparent 55%)`
+  const glare = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.06), transparent 58%)`
 
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
     if (noHeavy) return
@@ -265,10 +361,8 @@ function ProjectSlab({ project, index }: { project: ProjectEntry; index: number 
     >
       <div
         className={[
-          'relative overflow-hidden rounded-none border p-8 shadow-depth-sm transition-[border-color,box-shadow] duration-500 ease-out md:p-10 md:shadow-depth-md',
-          isDevSlot
-            ? 'border-white/[0.065] hover:border-white/[0.1]'
-            : 'border-white/[0.1] hover:border-accent/35',
+          'ix-card relative overflow-hidden rounded-none border p-8 shadow-depth-sm md:p-10 md:shadow-depth-md',
+          isDevSlot ? 'ix-card--dev border-white/[0.065]' : 'border-white/[0.1]',
         ].join(' ')}
         style={{
           backgroundColor: isDevSlot ? 'rgba(255, 255, 255, 0.028)' : 'rgba(255, 255, 255, 0.045)',
@@ -298,7 +392,12 @@ function ProjectSlab({ project, index }: { project: ProjectEntry; index: number 
         />
         <div className="relative z-[3]">
           {!isDevSlot ? (
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-metal-mid">Проект</p>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-metal-mid">Product case</p>
+          ) : null}
+          {label ? (
+            <p className="mt-2 text-[0.625rem] font-medium uppercase tracking-[0.22em] text-accent/85">
+              {label}
+            </p>
           ) : null}
           <h3
             className={[
@@ -318,33 +417,18 @@ function ProjectSlab({ project, index }: { project: ProjectEntry; index: number 
                 text={project.body}
                 className="mt-4 font-normal leading-[1.7] text-fog md:leading-[1.72]"
               />
+              <ProductLayersBlock layers={project.layers} />
               <div className="mt-6">
                 <p className="text-sm font-normal leading-[1.65] text-fog/90">
-                  <span className="text-metal-light/80">Решение: </span>
+                  <span className="text-metal-light/80">Solution: </span>
                 </p>
                 <BulletList items={project.solution} dashClass="text-metal-mid/90" />
               </div>
               <p className="mt-6 border-t border-white/[0.08] pt-6 text-sm font-normal leading-[1.65] text-fog/90">
-                <span className="text-metal-light/80">Итог: </span>
+                <span className="text-metal-light/80">Outcome: </span>
                 <AccentInline text={project.outcome} />
               </p>
-              {project.title === 'AI Landing VD' ? (
-                <motion.div
-                  className="mt-8"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-5%' }}
-                  transition={{
-                    duration: noHeavy ? 0.4 : 0.55,
-                    delay: noHeavy ? 0.06 : 0.12,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  <Link to="/case/vd">Смотреть кейс →</Link>
-                </motion.div>
-              ) : (
-                <CaseCta href={project.caseHref} to={project.caseTo} noHeavy={noHeavy} />
-              )}
+              <CaseCta href={project.caseHref} to={project.caseTo} noHeavy={noHeavy} />
             </>
           ) : project.kind === 'brief' ? (
             <>
@@ -356,20 +440,21 @@ function ProjectSlab({ project, index }: { project: ProjectEntry; index: number 
                 text={project.body}
                 className="mt-4 font-normal leading-[1.7] text-fog md:leading-[1.72]"
               />
+              <ProductLayersBlock layers={project.layers} />
               <div className="mt-6">
                 <p className="text-sm font-normal leading-[1.65] text-fog/90">
-                  <span className="text-metal-light/80">Проблема: </span>
+                  <span className="text-metal-light/80">Problem: </span>
                 </p>
                 <BulletList items={project.problem} dashClass="text-metal-mid/90" />
               </div>
               <div className="mt-6">
                 <p className="text-sm font-normal leading-[1.65] text-fog/90">
-                  <span className="text-metal-light/80">Решение: </span>
+                  <span className="text-metal-light/80">Solution: </span>
                 </p>
                 <BulletList items={project.solution} dashClass="text-metal-mid/90" />
               </div>
               <div className="mt-6 border-t border-white/[0.08] pt-6 text-sm font-normal leading-[1.72] text-fog/90">
-                <p className="text-metal-light/80">Результат: </p>
+                <p className="text-metal-light/80">Outcome: </p>
                 <p className="mt-3">{project.resultLead}</p>
                 <p className="mt-2">
                   <AccentInline text={project.resultAccent} />
@@ -382,6 +467,7 @@ function ProjectSlab({ project, index }: { project: ProjectEntry; index: number 
               <p className="mt-5 max-w-md whitespace-pre-line font-normal leading-[1.75] text-fog/[0.88] md:leading-[1.78]">
                 {project.body}
               </p>
+              <ProductLayersBlock layers={project.layers} />
               <CaseCta to={project.caseTo} noHeavy={noHeavy} />
             </>
           ) : project.kind === 'in-development' ? (
@@ -397,27 +483,36 @@ function ProjectSlab({ project, index }: { project: ProjectEntry; index: number 
 
 export function Projects() {
   return (
-    <section id="projects" className="relative overflow-hidden px-6 py-24 md:px-12 lg:px-16">
+    <section id="projects" className="relative overflow-hidden px-6 py-28 md:px-12 md:py-36 lg:px-16">
       <SteelReflex variant="projectsAmbient" />
       <div className="relative z-[1] mx-auto max-w-6xl">
         <h2 className="ui-section-title">
-          <span className="ui-head-bright">Избранные</span>{' '}
-          <span className="ui-head-soft">проекты</span>
+          <span className="ui-head-bright">Product</span>{' '}
+          <span className="ui-head-soft">cases</span>
         </h2>
-        <p className="mt-5 max-w-lg font-normal leading-[1.7] text-fog">Каждая задача должна обрести узнаваемое лицо</p>
+        <p className="mt-5 max-w-lg font-normal leading-[1.7] text-fog">
+          Startup-grade concepts—problem, system logic, AI layer, workflow, and scale.
+        </p>
 
         <div className="mt-16 grid gap-8 lg:grid-cols-2">
-          {projects.map((p, i) => (
-            <ProjectSlab key={p.kind === 'in-development' ? p.slotId : p.title} project={p} index={i} />
-          ))}
+          {projects.map((p, i) =>
+            p.kind === 'flagship' ? (
+              <OsaFlagshipCard key={p.id} data={p} index={i} />
+            ) : (
+              <ProjectSlab
+                key={p.kind === 'in-development' ? p.slotId : p.title}
+                project={p}
+                index={i}
+              />
+            ),
+          )}
         </div>
 
         <p
           id="projects-cases"
           className="mt-14 scroll-mt-28 text-center text-xs font-normal text-fog/50 md:mt-16"
         >
-          Полный кейс AI Landing VD — на отдельной странице (кнопка «Смотреть кейс» на карточке). Остальные
-          развёрнутые материалы — в подготовке.
+          Full case studies on dedicated pages — including OSA flagship infrastructure preview.
         </p>
       </div>
     </section>

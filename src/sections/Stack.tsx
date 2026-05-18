@@ -4,9 +4,8 @@ import { useCallback, useMemo, useState } from 'react'
 type Tool = {
   id: string
   label: string
-  /** Смысловая подпись при наведении */
+  layer: string
   meaning: string
-  /** Связанные узлы в «системе» */
   related: string[]
 }
 
@@ -14,55 +13,64 @@ const TOOLS: Tool[] = [
   {
     id: 'chatgpt',
     label: 'ChatGPT',
-    meaning: 'логика и сценарии взаимодействия',
+    layer: 'Reasoning',
+    meaning: 'scenario logic and interaction modeling',
     related: ['cursor', 'telegram'],
   },
   {
     id: 'cursor',
     label: 'Cursor',
-    meaning: 'скорость и точность в реализации',
+    layer: 'Build',
+    meaning: 'rapid product iteration with architectural control',
     related: ['chatgpt', 'react'],
   },
   {
     id: 'html',
     label: 'HTML · CSS · JS',
-    meaning: 'фундамент, на котором держится интерфейс',
+    layer: 'Foundation',
+    meaning: 'behavioral primitives beneath every interface',
     related: ['react', 'tailwind'],
   },
   {
     id: 'react',
     label: 'React',
-    meaning: 'интерфейс, который реагирует',
+    layer: 'Interface',
+    meaning: 'state-driven experiences that respond to intent',
     related: ['framer', 'tailwind', 'html'],
   },
   {
     id: 'tailwind',
     label: 'Tailwind',
-    meaning: 'ритм сетки и типографики без лишнего шума',
+    layer: 'System',
+    meaning: 'spatial rhythm and typographic discipline',
     related: ['react', 'html', 'figma'],
   },
   {
     id: 'framer',
     label: 'Framer Motion',
-    meaning: 'движение, которое усиливает восприятие',
+    layer: 'Behavior',
+    meaning: 'motion as cognitive guidance—not decoration',
     related: ['react', 'tailwind'],
   },
   {
     id: 'figma',
     label: 'Figma',
-    meaning: 'форма и смысл до первой строки кода',
+    layer: 'Structure',
+    meaning: 'decision architecture before implementation',
     related: ['tailwind', 'tilda'],
   },
   {
     id: 'tilda',
-    label: 'Tilda · Webflow · custom',
-    meaning: 'быстрый старт или полный контроль — по задаче',
+    label: 'Prototyping',
+    layer: 'Velocity',
+    meaning: 'validated flows when speed serves the hypothesis',
     related: ['figma', 'html'],
   },
   {
     id: 'telegram',
-    label: 'Telegram · Bots · AI tools',
-    meaning: 'канал связи и автоматизация там, где нужно',
+    label: 'Automation',
+    layer: 'Workflow',
+    meaning: 'AI-assisted channels where products meet users',
     related: ['chatgpt', 'cursor'],
   },
 ]
@@ -71,11 +79,11 @@ const EASE = [0.22, 1, 0.36, 1] as const
 
 const INSIGHT_TEXT = {
   first: [
-    'В итоге это превращается в:',
-    'интерфейс, который удерживает внимание',
-    'и приводит к действию',
+    'The stack composes into:',
+    'interfaces that guide decisions',
+    'and compress uncertainty',
   ],
-  second: ['Разница — не в том, чтобы сделать.', 'А в том, чтобы собрать.'],
+  second: ['The output is not a screen.', 'It is a product system.'],
 } as const
 
 export function Stack() {
@@ -137,16 +145,18 @@ export function Stack() {
   )
 
   const activeMeaning = hoveredId ? byId.get(hoveredId)?.meaning ?? null : null
+  const activeLayer = hoveredId ? byId.get(hoveredId)?.layer ?? null : null
 
   return (
     <section id="stack" className="relative px-6 py-24 md:px-12 lg:px-16">
       <div className="mx-auto max-w-4xl">
-        <h2 className="ui-section-title max-w-3xl">
-          <span className="ui-head-bright">Инструменты не решают.</span>{' '}
-          <span className="ui-head-soft">Решает то, как они собраны.</span>
+        <p className="text-[0.625rem] font-medium uppercase tracking-[0.32em] text-metal-mid">Capability architecture</p>
+        <h2 className="ui-section-title mt-4 max-w-3xl">
+          <span className="ui-head-bright">Systems stack,</span>{' '}
+          <span className="ui-head-soft">not a tool list</span>
         </h2>
         <p className="mt-5 max-w-2xl font-normal leading-[1.7] text-fog">
-          Можно знать стек. А можно понимать, как он превращается в работающий продукт.
+          Each layer serves product logic—reasoning, structure, interface, behavior, workflow.
         </p>
 
         <motion.div
@@ -203,7 +213,7 @@ export function Stack() {
                     revealInsight()
                   }}
                   className={[
-                    'relative inline-flex max-w-full rounded-box border px-4 py-2.5 text-left font-sans text-sm text-mist shadow-depth-sm backdrop-blur-md',
+                    'relative inline-flex max-w-full flex-col gap-0.5 rounded-box border px-4 py-2.5 text-left font-sans shadow-depth-sm backdrop-blur-md',
                     'transition-[border-color,box-shadow,background-color] duration-300 ease-out',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/35',
                     isPrimary
@@ -221,51 +231,20 @@ export function Stack() {
                           : 'inset 0 1px 0 rgba(255,255,255,0.06), 0 6px 24px rgba(0,0,0,0.35)',
                   }}
                 >
-                  <span className="pointer-events-none relative z-[1]">{tool.label}</span>
-                  <motion.span
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 rounded-box opacity-0"
-                    initial={false}
-                    animate={{
-                      opacity: isPrimary ? 0.264 : isRelated ? 0.12 : 0,
-                    }}
-                    transition={{ duration: 0.35 }}
-                    style={{
-                      background: isPrimary
-                        ? 'radial-gradient(120% 180% at 50% 0%, rgba(232,103,65,0.42) 0%, transparent 62%)'
-                        : 'radial-gradient(120% 180% at 50% 0%, rgba(255,255,255,0.12) 0%, transparent 62%)',
-                    }}
-                  />
+                  <span className="text-[0.55rem] font-medium uppercase tracking-[0.2em] text-metal-mid">{tool.layer}</span>
+                  <span className="pointer-events-none relative z-[1] text-sm text-mist">{tool.label}</span>
                 </motion.button>
               )
             })}
           </motion.div>
 
           {insightRevealed && (
-            <div
-              className="mt-10 max-w-2xl md:mt-11"
-              aria-live="polite"
-            >
+            <div className="mt-10 max-w-2xl md:mt-11" aria-live="polite">
               <motion.p
                 className="font-sans text-[0.98rem] font-normal leading-[1.66] tracking-[0.012em] md:text-[1.0625rem] md:leading-[1.7]"
                 style={{ color: '#f2f2f2' }}
-                initial={{
-                  opacity: 0,
-                  y: reduceMotion ? 0 : 9,
-                  ...(reduceMotion
-                    ? {}
-                    : { textShadow: '0 0 0 rgba(255,255,255,0)' }),
-                }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  ...(reduceMotion
-                    ? {}
-                    : {
-                        textShadow:
-                          '0 0 40px rgba(255,255,255,0.04), 0 0 80px rgba(255,255,255,0.02)',
-                      }),
-                }}
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 9 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.68, ease: EASE }}
               >
                 {INSIGHT_TEXT.first.map((line, i) => (
@@ -276,25 +255,10 @@ export function Stack() {
                 ))}
               </motion.p>
               <motion.p
-                className="mt-5 font-sans text-[0.98rem] font-normal leading-[1.66] tracking-[0.01em] md:mt-6 md:text-[1.0625rem] md:leading-[1.7]"
+                className="mt-5 font-sans text-[0.98rem] font-normal leading-[1.66] md:mt-6 md:text-[1.0625rem] md:leading-[1.7]"
                 style={{ color: '#f2f2f2' }}
-                initial={{
-                  opacity: 0,
-                  y: reduceMotion ? 0 : 9,
-                  ...(reduceMotion
-                    ? {}
-                    : { textShadow: '0 0 0 rgba(255,255,255,0)' }),
-                }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  ...(reduceMotion
-                    ? {}
-                    : {
-                        textShadow:
-                          '0 0 36px rgba(255,255,255,0.035), 0 0 72px rgba(255,255,255,0.018)',
-                      }),
-                }}
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 9 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.68, ease: EASE, delay: 0.82 }}
               >
                 {INSIGHT_TEXT.second.map((line, i) => (
@@ -307,10 +271,7 @@ export function Stack() {
             </div>
           )}
 
-          <div
-            className="relative mt-8 min-h-[3.25rem] md:min-h-[3rem]"
-            aria-live="polite"
-          >
+          <div className="relative mt-8 min-h-[3.25rem] md:min-h-[3rem]" aria-live="polite">
             <AnimatePresence mode="wait">
               {activeMeaning ? (
                 <motion.p
@@ -322,9 +283,8 @@ export function Stack() {
                   transition={{ duration: 0.42, ease: EASE }}
                   className="max-w-2xl text-base font-normal leading-relaxed text-mist/95 md:text-[1.0625rem]"
                 >
-                  <span className="text-fog/90">«</span>
+                  <span className="text-fog/90">{activeLayer}: </span>
                   {activeMeaning}
-                  <span className="text-fog/90">»</span>
                 </motion.p>
               ) : (
                 <motion.p
@@ -335,17 +295,12 @@ export function Stack() {
                   transition={{ duration: 0.35 }}
                   className="text-sm font-normal leading-relaxed text-fog/55"
                 >
-                  Наведите на узел — увидите роль в общей системе.
+                  Hover a node to see its role in the product system.
                 </motion.p>
               )}
             </AnimatePresence>
           </div>
         </motion.div>
-
-        <p className="mt-14 max-w-2xl text-lg font-normal leading-[1.72] text-fog md:leading-[1.75]">
-          Но если честно — главный инструмент не стек, а вкус, насмотренность и умение собирать цельное
-          впечатление.
-        </p>
       </div>
     </section>
   )

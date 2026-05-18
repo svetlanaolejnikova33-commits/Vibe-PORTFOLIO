@@ -14,18 +14,18 @@ const EASE = [0.22, 1, 0.36, 1] as const
 const steps = [
   {
     n: '01',
-    title: 'Сначала вайб',
-    text: 'Я смотрю не только на задачу, но и на ощущение, которое должен передавать проект.',
+    title: 'Vision & product frame',
+    text: 'I define what the product must make people feel—and what decision it must enable.',
   },
   {
     n: '02',
-    title: 'Потом структура',
-    text: 'Красивый сайт без логики — это просто красивая обёртка. Поэтому я собираю смысл, сценарий и путь пользователя.',
+    title: 'System & workflow',
+    text: 'Logic, states, AI touchpoints, and user paths—before visual polish.',
   },
   {
     n: '03',
-    title: 'Затем реализация',
-    text: 'Когда есть стиль и логика, проект собирается быстрее, точнее и выглядит сильно.',
+    title: 'Interface & ship',
+    text: 'Cinematic UI, fast iteration, and a build that scales as a real product concept.',
   },
 ]
 
@@ -124,8 +124,8 @@ export function Approach() {
             transition={{ duration: dur, ease: EASE }}
             className="ui-section-title approach-process__title relative z-[1]"
           >
-            <span className="ui-head-soft">Как я </span>
-            <span className="ui-head-bright">работаю</span>
+            <span className="ui-head-soft">How I </span>
+            <span className="ui-head-bright">work</span>
           </motion.h2>
         </div>
 
