@@ -1,5 +1,7 @@
 import type { To } from 'react-router-dom'
 
+export { useBackToCases, PROJECTS_SECTION_ID, scheduleScrollToHomeSection } from './navigation/backToCases'
+
 /** Маршрут страницы кейса (HashRouter: в адресе будет `.../#/case/vd`) */
 export const CASE_VD_PATH = '/case/vd'
 export const CASE_ROOMCOST_PATH = '/case/roomcost'

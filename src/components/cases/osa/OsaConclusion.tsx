@@ -1,5 +1,7 @@
 ﻿import { MetalButton } from '../../MetalButton'
-import { homeSectionTo } from '../../../routes'
+import { releaseAppScrollLock } from '../../../navigation/appScrollLock'
+import { scheduleScrollToHomeSection } from '../../../navigation/backToCases'
+import { homeSectionTo, PROJECTS_SECTION_ID } from '../../../routes'
 import { OsaFinalePresence } from './OsaFinalePresence'
 import { OsaSection } from './OsaSection'
 
@@ -44,8 +46,20 @@ export function OsaConclusion() {
           </div>
 
           <div className="osa-finale__actions">
-            <MetalButton to={homeSectionTo('projects')}>Back to cases</MetalButton>
-            <MetalButton to={homeSectionTo('contacts')} variant="primary">
+            <MetalButton
+              to={homeSectionTo(PROJECTS_SECTION_ID)}
+              onClick={() => {
+                releaseAppScrollLock()
+                scheduleScrollToHomeSection(PROJECTS_SECTION_ID)
+              }}
+            >
+              Back to cases
+            </MetalButton>
+            <MetalButton
+              to={homeSectionTo('contacts')}
+              variant="primary"
+              onClick={() => releaseAppScrollLock()}
+            >
               Connect
             </MetalButton>
           </div>

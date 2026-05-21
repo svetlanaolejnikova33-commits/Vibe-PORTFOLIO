@@ -14,6 +14,8 @@ export default function App() {
       <ScrollProgress />
       <CustomCursor />
       <Nav />
+      {/* OSA hero activation — below header (z-100); must not cover global nav */}
+      <div id="osa-activation-mount" className="osa-activation-mount" aria-hidden />
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />

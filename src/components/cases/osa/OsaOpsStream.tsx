@@ -7,19 +7,28 @@ export type StreamEntry = {
 }
 
 type OsaOpsStreamProps = {
-  run: boolean
+  anim?: boolean
+  /** @deprecated use anim */
+  run?: boolean
+  show?: boolean
+  hold?: boolean
   entries: readonly StreamEntry[]
 }
 
-export function OsaOpsStream({ run, entries }: OsaOpsStreamProps) {
+export function OsaOpsStream({ anim, run, show, hold = false, entries }: OsaOpsStreamProps) {
+  const timelineRun = anim ?? run ?? false
+  const display = show ?? timelineRun
+
   const { isVisible } = useOsaTimeline(
-    run,
+    timelineRun,
     entries.map((e) => ({ id: e.id, delay: e.delay })),
+    undefined,
+    hold,
   )
 
   const visible = entries.filter((e) => isVisible(e.id))
 
-  if (visible.length === 0) return null
+  if (!display || visible.length === 0) return null
 
   return (
     <div className="osa-ops-stream" aria-live="polite">

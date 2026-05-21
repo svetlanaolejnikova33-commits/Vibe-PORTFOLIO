@@ -15,7 +15,6 @@ const links: [string, string][] = [
 export function Nav() {
   const liteViewport = usePreferLiteMotion()
   const { pathname, search } = useLocation()
-
   return (
     <motion.header
       initial={liteViewport ? { opacity: 0, y: -8 } : { opacity: 0, y: -12 }}

@@ -5,7 +5,7 @@ export function useOsaReducedMotion() {
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => setReduced(mq.matches)
+    const update = () => setReduced((prev) => (prev === mq.matches ? prev : mq.matches))
     update()
     mq.addEventListener('change', update)
     return () => mq.removeEventListener('change', update)

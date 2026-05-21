@@ -1,0 +1,423 @@
+/* OSA — cinematic hero activation (system wake sequence) */
+
+.osa-activation {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  background: #06080c;
+  overflow: hidden;
+}
+
+/* Mount: inert when empty; captures hits only while activation is portaled (below header z-100) */
+.osa-activation-mount {
+  position: fixed;
+  inset: 0;
+  /* Above in-case UI (z-index ≤4), below global header (z-100) */
+  z-index: 50;
+  pointer-events: none;
+}
+
+/* Live mount stays inert; only .osa-activation--overlay captures hits */
+.osa-activation-mount--live {
+  pointer-events: none;
+}
+
+/* Overlay root must capture pointer events so main/article below cannot steal clicks */
+.osa-activation--overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  min-height: 100svh;
+  pointer-events: auto;
+}
+
+.osa-activation--overlay * {
+  pointer-events: none;
+}
+
+.osa-activation__enter {
+  pointer-events: auto;
+}
+
+.osa-activation__viewport {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+/* —— Stage 1: dark signal —— */
+.osa-activation__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.osa-activation__grid {
+  position: absolute;
+  inset: -10%;
+  background-image:
+    linear-gradient(rgba(126, 200, 232, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(126, 200, 232, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.85) 18%,
+    rgba(0, 0, 0, 0.85) 82%,
+    transparent 100%
+  );
+  animation: osa-act-grid 28s linear infinite;
+}
+
+@keyframes osa-act-grid {
+  to {
+    background-position: 48px 48px;
+  }
+}
+
+.osa-activation__lines {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background: repeating-linear-gradient(
+    105deg,
+    transparent,
+    transparent 120px,
+    rgba(126, 200, 232, 0.02) 120px,
+    rgba(126, 200, 232, 0.02) 121px
+  );
+  animation: osa-act-lines 18s linear infinite;
+}
+
+@keyframes osa-act-lines {
+  from {
+    transform: translateX(-4%);
+  }
+  to {
+    transform: translateX(4%);
+  }
+}
+
+.osa-activation__particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(126, 200, 232, 0.55);
+  opacity: 0;
+  animation: osa-act-particle 6s ease-in-out infinite;
+  animation-delay: calc(var(--p-i, 0) * 0.55s);
+  top: calc(12% + (var(--p-i, 0) * 7.2%));
+  left: calc(8% + (var(--p-i, 0) * 8.5%));
+}
+
+@keyframes osa-act-particle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  35%,
+  65% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.85;
+    transform: translateY(-6px);
+  }
+}
+
+.osa-activation__signal {
+  position: relative;
+  z-index: 4;
+  text-align: center;
+  padding: 2rem;
+  min-height: 2.5rem;
+}
+
+.osa-activation__signal-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(90vw, 28rem);
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(126, 200, 232, 0.45);
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.osa-activation__signal-line--on {
+  opacity: 1;
+  color: rgba(168, 210, 232, 0.82);
+}
+
+.osa-activation--emerge .osa-activation__signal,
+.osa-activation--semantic .osa-activation__signal,
+.osa-activation--lock .osa-activation__signal {
+  opacity: 0;
+  transition: opacity 1.4s ease;
+  pointer-events: none;
+}
+
+/* —— Stage 2–3: scene vessel —— */
+.osa-activation__scene {
+  position: absolute;
+  inset: clamp(4rem, 10vh, 6rem) clamp(1rem, 4vw, 2.5rem) clamp(5rem, 14vh, 8rem);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.01s;
+  pointer-events: none;
+}
+
+.osa-activation--emerge .osa-activation__scene,
+.osa-activation--semantic .osa-activation__scene,
+.osa-activation--lock .osa-activation__scene {
+  opacity: 1;
+}
+
+.osa-activation__scene-depth {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 8, 12, 0.94) 0%,
+    rgba(6, 8, 12, 0.55) 38%,
+    rgba(6, 8, 12, 0.55) 62%,
+    rgba(6, 8, 12, 0.94) 100%
+  );
+  opacity: 1;
+  transition: opacity 2.8s ease;
+}
+
+.osa-activation--emerge .osa-activation__scene-depth {
+  animation: osa-act-depth 3.2s ease forwards;
+}
+
+@keyframes osa-act-depth {
+  to {
+    opacity: 0.22;
+  }
+}
+
+.osa-activation__scene-img {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  object-fit: cover;
+  object-position: center 42%;
+  opacity: 0;
+  filter: brightness(0.35) saturate(0.7);
+  border: 1px solid transparent;
+  transition:
+    border-color 1.2s ease,
+    filter 0.01s;
+}
+
+.osa-activation--emerge .osa-activation__scene-img {
+  animation: osa-act-structure 3.4s ease 1.8s forwards;
+}
+
+.osa-activation--semantic .osa-activation__scene-img,
+.osa-activation--lock .osa-activation__scene-img {
+  opacity: 1;
+  filter: brightness(0.92) saturate(0.95);
+  border-color: rgba(126, 200, 232, 0.18);
+}
+
+@keyframes osa-act-structure {
+  0% {
+    opacity: 0;
+    filter: brightness(0.35) saturate(0.7);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(0.88) saturate(0.92);
+  }
+}
+
+.osa-activation__scene .osa-spatial {
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 1s ease 0.2s;
+}
+
+.osa-activation--semantic .osa-activation__scene .osa-spatial,
+.osa-activation--lock .osa-activation__scene .osa-spatial {
+  opacity: 1;
+}
+
+.osa-activation__scene-scan {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(126, 200, 232, 0.06) 48%,
+    transparent 100%
+  );
+  transform: translateY(-100%);
+}
+
+.osa-activation--semantic .osa-activation__scene-scan {
+  opacity: 1;
+  animation: osa-act-scan 3.2s ease-in-out infinite;
+}
+
+@keyframes osa-act-scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* —— Stage 4: hero lock —— */
+.osa-activation__lock {
+  position: relative;
+  z-index: 6;
+  max-width: 40rem;
+  padding: 2rem clamp(1.25rem, 4vw, 2.5rem);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+.osa-activation--lock .osa-activation__scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  background:
+    linear-gradient(180deg, rgba(6, 8, 12, 0.42) 0%, transparent 28%),
+    linear-gradient(0deg, rgba(6, 8, 12, 0.38) 0%, transparent 24%);
+  pointer-events: none;
+}
+
+.osa-activation--lock .osa-activation__lock {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: none;
+  transition:
+    opacity 1.4s ease,
+    transform 1.4s ease;
+}
+
+.osa-activation__kicker {
+  margin: 0;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(126, 200, 232, 0.55);
+}
+
+.osa-activation__statement {
+  margin: 1rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.2vw + 0.5rem, 2.375rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: rgba(240, 246, 252, 0.98);
+}
+
+.osa-activation__sub {
+  margin: 1rem auto 0;
+  max-width: 32ch;
+  font-size: clamp(0.9375rem, 1vw + 0.75rem, 1.0625rem);
+  line-height: 1.6;
+  color: rgba(148, 162, 178, 0.85);
+}
+
+.osa-activation__enter {
+  margin-top: 1.75rem;
+  padding: 0.65rem 1.25rem;
+  font-family: inherit;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(10, 14, 20, 0.92);
+  background: var(--osa-cyan, #7ec8e8);
+  border: none;
+  border-radius: 1px;
+  cursor: pointer;
+  transition:
+    opacity 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.osa-activation__enter:hover {
+  box-shadow: 0 0 20px rgba(126, 200, 232, 0.35);
+}
+
+.osa-activation__enter:focus-visible {
+  outline: 2px solid var(--osa-cyan, #7ec8e8);
+  outline-offset: 3px;
+}
+
+/* Progress */
+.osa-activation__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(126, 200, 232, 0.08);
+  z-index: 8;
+}
+
+.osa-activation__progress-fill {
+  display: block;
+  height: 100%;
+  width: calc(var(--stage, 1) * 25%);
+  background: rgba(126, 200, 232, 0.45);
+  transition: width 1.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .osa-activation__grid,
+  .osa-activation__lines,
+  .osa-activation__particle,
+  .osa-activation__scene-scan,
+  .osa-activation--emerge .osa-activation__scene-depth,
+  .osa-activation--emerge .osa-activation__scene-img {
+    animation: none;
+  }
+
+  .osa-activation--emerge .osa-activation__scene-img,
+  .osa-activation--semantic .osa-activation__scene-img {
+    opacity: 1;
+    filter: none;
+  }
+}

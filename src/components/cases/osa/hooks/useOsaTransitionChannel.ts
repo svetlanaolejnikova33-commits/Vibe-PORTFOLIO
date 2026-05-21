@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useOsaReducedMotion } from './useOsaReducedMotion'
 
 export type TransitionStep = {
@@ -10,30 +10,36 @@ export type TransitionStep = {
 export function useOsaTransitionChannel(
   run: boolean,
   steps: readonly TransitionStep[],
+  hold = false,
 ) {
   const reduced = useOsaReducedMotion()
   const [index, setIndex] = useState(-1)
+  const stepsRef = useRef(steps)
+  stepsRef.current = steps
 
   useEffect(() => {
+    const currentSteps = stepsRef.current
+
     if (!run) {
-      setIndex(-1)
+      if (!hold) setIndex((prev) => (prev === -1 ? prev : -1))
       return
     }
 
     if (reduced) {
-      setIndex(steps.length - 1)
+      const last = currentSteps.length - 1
+      setIndex((prev) => (prev === last ? prev : last))
       return
     }
 
-    setIndex(-1)
-    const timers = steps.map((step, i) => window.setTimeout(() => setIndex(i), step.delay))
+    setIndex((prev) => (prev === -1 ? prev : -1))
+    const timers = currentSteps.map((step, i) => window.setTimeout(() => setIndex(i), step.delay))
 
     return () => timers.forEach(clearTimeout)
-  }, [run, reduced, steps])
+  }, [run, hold, reduced])
 
   const active = run && index >= 0
-  const current = active ? steps[index] : null
-  const settling = active && index >= 0 && index < steps.length - 1
+  const current = active ? stepsRef.current[index] : null
+  const settling = active && index >= 0 && index < stepsRef.current.length - 1
 
   return {
     active,

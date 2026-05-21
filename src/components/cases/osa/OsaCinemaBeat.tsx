@@ -2,6 +2,16 @@ import type { ReactNode } from 'react'
 import { OsaSection } from './OsaSection'
 import { useOsaInView } from './hooks/useOsaInView'
 
+export type OsaBeatCtx = {
+  /** Drives staged timelines while the beat is entering the viewport */
+  anim: boolean
+  /** Keeps resolved UI visible after the sequence completes */
+  show: boolean
+  /** Preserves final frame/metric state when animation ends */
+  hold: boolean
+  endSequence: () => void
+}
+
 type OsaCinemaBeatProps = {
   step: string
   chapter: string
@@ -9,12 +19,13 @@ type OsaCinemaBeatProps = {
   lead?: string
   caption: string
   className?: string
-  children: (ctx: { run: boolean; endSequence: () => void }) => ReactNode
+  children: (ctx: OsaBeatCtx) => ReactNode
 }
 
 export function OsaCinemaBeat({ step, chapter, title, lead, caption, className, children }: OsaCinemaBeatProps) {
   const { ref, inView, played, markPlayed } = useOsaInView()
-  const run = inView || played
+  const anim = inView && !played
+  const show = inView || played
 
   return (
     <OsaSection
@@ -26,11 +37,15 @@ export function OsaCinemaBeat({ step, chapter, title, lead, caption, className, 
     >
       <div
         ref={ref}
-        className={['osa-cinema-beat', run ? 'osa-cinema-beat--live' : '', played ? 'osa-cinema-beat--played' : '']
+        className={[
+          'osa-cinema-beat',
+          anim ? 'osa-cinema-beat--live' : '',
+          show ? 'osa-cinema-beat--show' : '',
+        ]
           .filter(Boolean)
           .join(' ')}
       >
-        {children({ run, endSequence: markPlayed })}
+        {children({ anim, show, hold: played, endSequence: markPlayed })}
       </div>
       <p className="osa-cinema-beat__caption">{caption}</p>
     </OsaSection>

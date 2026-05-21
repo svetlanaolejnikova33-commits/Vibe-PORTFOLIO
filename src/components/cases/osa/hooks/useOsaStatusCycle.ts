@@ -12,11 +12,13 @@ export function useOsaStatusCycle(
   run: boolean,
   steps: readonly StatusStep[],
   onComplete?: () => void,
+  hold = false,
 ) {
   const timeline = useOsaTimeline(
     run,
     steps.map((s) => ({ id: s.id, delay: s.delay })),
     onComplete,
+    hold,
   )
 
   const current = useMemo(() => {

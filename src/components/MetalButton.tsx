@@ -100,7 +100,7 @@ export function MetalButton({
 
   if (to) {
     return (
-      <Link to={to} className={cls}>
+      <Link to={to} className={cls} onClick={onClick}>
         {body}
       </Link>
     )

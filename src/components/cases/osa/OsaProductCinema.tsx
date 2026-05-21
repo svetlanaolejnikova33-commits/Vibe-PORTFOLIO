@@ -1,4 +1,4 @@
-import { OsaCinemaBeat } from './OsaCinemaBeat'
+import { OsaCinemaBeat, type OsaBeatCtx } from './OsaCinemaBeat'
 import { OsaOpsFrame } from './OsaOpsFrame'
 import { OsaOpsHandoffLive } from './OsaOpsHandoffLive'
 import { OsaOpsProcureLive } from './OsaOpsProcureLive'
@@ -176,21 +176,28 @@ const MUTATE_REACTIONS = [
   },
 ] as const
 
-type BeatCtx = { run: boolean; endSequence: () => void }
-
-function BeatInput({ run, endSequence }: BeatCtx) {
-  const status = useOsaStatusCycle(run, INPUT_STATUS, endSequence)
-  const ui = useOsaTimeline(run, [
-    { id: 'scan', delay: 0 },
-    { id: 'intent', delay: 1100 },
-    { id: 'cta', delay: 2000 },
-  ])
-  const objects = useOsaTransitionChannel(run, [
-    { delay: 400, value: '6 objects', tone: 'neutral' },
-    { delay: 900, value: 'tracking…', tone: 'working' },
-    { delay: 1400, value: '12 indexed', tone: 'ok' },
-  ])
-  const attention = useOsaTimeline(run, INPUT_ATTENTION)
+function BeatInput({ anim, show, hold, endSequence }: OsaBeatCtx) {
+  const status = useOsaStatusCycle(anim, INPUT_STATUS, endSequence, hold)
+  const ui = useOsaTimeline(
+    anim,
+    [
+      { id: 'scan', delay: 0 },
+      { id: 'intent', delay: 1100 },
+      { id: 'cta', delay: 2000 },
+    ],
+    undefined,
+    hold,
+  )
+  const objects = useOsaTransitionChannel(
+    anim,
+    [
+      { delay: 400, value: '6 objects', tone: 'neutral' },
+      { delay: 900, value: 'tracking…', tone: 'working' },
+      { delay: 1400, value: '12 indexed', tone: 'ok' },
+    ],
+    hold,
+  )
+  const attention = useOsaTimeline(anim, INPUT_ATTENTION, undefined, hold)
   const working = !status.isVisible('ready')
 
   return (
@@ -243,16 +250,16 @@ function BeatInput({ run, endSequence }: BeatCtx) {
             </p>
           ) : null}
         </div>
-        <OsaOpsStream run={run} entries={INPUT_STREAM} />
+        <OsaOpsStream anim={anim} show={show} hold={hold} entries={INPUT_STREAM} />
         </div>
       }
     />
   )
 }
 
-function BeatRead({ run, endSequence }: BeatCtx) {
-  const status = useOsaStatusCycle(run, READ_STATUS)
-  const attention = useOsaTimeline(run, READ_ATTENTION)
+function BeatRead({ anim, show, hold, endSequence }: OsaBeatCtx) {
+  const status = useOsaStatusCycle(anim, READ_STATUS, undefined, hold)
+  const attention = useOsaTimeline(anim, READ_ATTENTION, undefined, hold)
   const working = !status.isVisible('locked')
 
   return (
@@ -276,21 +283,23 @@ function BeatRead({ run, endSequence }: BeatCtx) {
           <OsaOpsReactionsLive
             title="Scene intelligence"
             compact
-            run={run}
+            anim={anim}
+            show={show}
+            hold={hold}
             reactions={READ_REACTIONS}
             onComplete={endSequence}
           />
-          <OsaOpsStream run={run} entries={READ_STREAM} />
+          <OsaOpsStream anim={anim} show={show} hold={hold} entries={READ_STREAM} />
         </div>
       }
     />
   )
 }
 
-function BeatMutate({ run, endSequence }: BeatCtx) {
-  const status = useOsaStatusCycle(run, MUTATE_STATUS)
-  const ui = useOsaTimeline(run, [{ id: 'highlight', delay: 400 }])
-  const attention = useOsaTimeline(run, MUTATE_ATTENTION)
+function BeatMutate({ anim, show, hold, endSequence }: OsaBeatCtx) {
+  const status = useOsaStatusCycle(anim, MUTATE_STATUS, undefined, hold)
+  const ui = useOsaTimeline(anim, [{ id: 'highlight', delay: 400 }], undefined, hold)
+  const attention = useOsaTimeline(anim, MUTATE_ATTENTION, undefined, hold)
   const propagate = status.isVisible('supplier') || status.isVisible('bim')
 
   return (
@@ -315,20 +324,22 @@ function BeatMutate({ run, endSequence }: BeatCtx) {
         <div className="osa-ops-rail-stack">
           <OsaOpsReactionsLive
             title="Mutation cascade"
-            run={run}
+            anim={anim}
+            show={show}
+            hold={hold}
             reactions={MUTATE_REACTIONS}
             onComplete={endSequence}
           />
-          <OsaOpsStream run={run} entries={MUTATE_STREAM} />
+          <OsaOpsStream anim={anim} show={show} hold={hold} entries={MUTATE_STREAM} />
         </div>
       }
     />
   )
 }
 
-function BeatProcure({ run, endSequence }: BeatCtx) {
-  const status = useOsaStatusCycle(run, PROCURE_STATUS)
-  const attention = useOsaTimeline(run, PROCURE_ATTENTION)
+function BeatProcure({ anim, hold, endSequence }: OsaBeatCtx) {
+  const status = useOsaStatusCycle(anim, PROCURE_STATUS, undefined, hold)
+  const attention = useOsaTimeline(anim, PROCURE_ATTENTION, undefined, hold)
 
   return (
     <OsaOpsFrame
@@ -346,14 +357,14 @@ function BeatProcure({ run, endSequence }: BeatCtx) {
           attentionLive={!status.isVisible('settled')}
         />
       }
-      rail={<OsaOpsProcureLive run={run} onComplete={endSequence} />}
+      rail={<OsaOpsProcureLive run={anim} onComplete={endSequence} />}
     />
   )
 }
 
-function BeatHandoff({ run, endSequence }: BeatCtx) {
-  const status = useOsaStatusCycle(run, HANDOFF_STATUS)
-  const attention = useOsaTimeline(run, HANDOFF_ATTENTION)
+function BeatHandoff({ anim, hold, endSequence }: OsaBeatCtx) {
+  const status = useOsaStatusCycle(anim, HANDOFF_STATUS, undefined, hold)
+  const attention = useOsaTimeline(anim, HANDOFF_ATTENTION, undefined, hold)
 
   return (
     <OsaOpsFrame
@@ -370,7 +381,7 @@ function BeatHandoff({ run, endSequence }: BeatCtx) {
           attentionVisible={attention.visible}
         />
       }
-      footer={<OsaOpsHandoffLive run={run} onComplete={endSequence} />}
+      footer={<OsaOpsHandoffLive run={anim} onComplete={endSequence} />}
     />
   )
 }
@@ -385,7 +396,7 @@ export function OsaProductCinema() {
         lead="One interior, one intent — intelligence arrives in beats, not walls of analysis."
         caption="The render is not the final output. It becomes the input layer."
       >
-        {({ run, endSequence }) => <BeatInput run={run} endSequence={endSequence} />}
+        {(ctx) => <BeatInput {...ctx} />}
       </OsaCinemaBeat>
 
       <OsaCinemaBeat
@@ -395,7 +406,7 @@ export function OsaProductCinema() {
         lead="Zones surface. Materials stay implied until a decision needs them."
         caption="OSA reads the image as structured project intelligence."
       >
-        {({ run, endSequence }) => <BeatRead run={run} endSequence={endSequence} />}
+        {(ctx) => <BeatRead {...ctx} />}
       </OsaCinemaBeat>
 
       <OsaCinemaBeat
@@ -405,7 +416,7 @@ export function OsaProductCinema() {
         lead="A chair material change ripples through supplier, budget, and BIM — with tension."
         caption="Operational reactions replace semantic paragraphs."
       >
-        {({ run, endSequence }) => <BeatMutate run={run} endSequence={endSequence} />}
+        {(ctx) => <BeatMutate {...ctx} />}
       </OsaCinemaBeat>
 
       <OsaCinemaBeat
@@ -415,7 +426,7 @@ export function OsaProductCinema() {
         lead="Paths compete, risks surface, alternates appear — the system is not always perfect."
         caption="Procurement becomes part of design, not a separate afterthought."
       >
-        {({ run, endSequence }) => <BeatProcure run={run} endSequence={endSequence} />}
+        {(ctx) => <BeatProcure {...ctx} />}
       </OsaCinemaBeat>
 
       <OsaCinemaBeat
@@ -425,7 +436,7 @@ export function OsaProductCinema() {
         lead="Specification, suppliers, and BIM resolve sequentially — then lock."
         caption="Design intelligence becomes executable industry data."
       >
-        {({ run, endSequence }) => <BeatHandoff run={run} endSequence={endSequence} />}
+        {(ctx) => <BeatHandoff {...ctx} />}
       </OsaCinemaBeat>
     </>
   )

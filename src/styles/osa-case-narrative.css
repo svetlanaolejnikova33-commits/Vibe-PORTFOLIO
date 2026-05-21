@@ -2,6 +2,32 @@
 
 .case-page--osa-narrative {
   --osa-narrative-gap: clamp(5.5rem, 12vw, 8.5rem);
+  position: relative;
+}
+
+/* Decorative layers — never intercept clicks */
+.case-page--osa-narrative::before,
+.case-page--osa-narrative::after,
+.case-page--osa-narrative .osa-finale-presence,
+.case-page--osa-narrative .osa-finale-presence *,
+.case-page--osa-narrative .osa-ops-scene,
+.case-page--osa-narrative .osa-ops-scene *,
+.case-page--osa-narrative .osa-spatial,
+.case-page--osa-narrative .osa-spatial *,
+.case-page--osa-narrative .osa-fx-grid,
+.case-page--osa-narrative .osa-fx-scan,
+.case-page--osa-narrative .osa-fx-connectors,
+.case-page--osa-narrative .osa-editorial-giant {
+  pointer-events: none;
+}
+
+/* Real controls — above ops/cinema within the case only (must stay below activation mount z-40) */
+.case-page--osa-narrative a,
+.case-page--osa-narrative button,
+.case-page--osa-narrative .ix-button {
+  position: relative;
+  z-index: 3;
+  pointer-events: auto;
 }
 
 .case-page--osa-narrative .osa-section {
@@ -41,6 +67,46 @@
 }
 
 /* Intro */
+.osa-intro {
+  position: relative;
+}
+
+.osa-intro--ready {
+  z-index: 10;
+}
+
+.osa-intro__actions,
+.osa-finale__actions {
+  position: relative;
+  z-index: 4;
+  pointer-events: auto;
+}
+
+.osa-narrative-anchor {
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  pointer-events: none;
+  scroll-margin-top: 6rem;
+}
+
+.osa-intro__body--waiting {
+  opacity: 0;
+  pointer-events: none;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.osa-intro__body--in {
+  position: relative;
+  z-index: 20;
+  opacity: 1;
+  pointer-events: auto;
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  transition: opacity 1s ease 0.15s;
+}
+
 .osa-intro__kicker {
   font-size: 0.625rem;
   font-weight: 600;
@@ -733,7 +799,7 @@
 
 .osa-finale__actions {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;

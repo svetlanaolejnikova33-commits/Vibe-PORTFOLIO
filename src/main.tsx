@@ -10,6 +10,7 @@ import './styles/osa-card.css'
 import './styles/osa-case.css'
 import './styles/osa-case-narrative.css'
 import './styles/osa-case-ops.css'
+import './styles/osa-hero-activation.css'
 import App from './App.tsx'
 import { ScrollToTop } from './components/ScrollToTop'
 

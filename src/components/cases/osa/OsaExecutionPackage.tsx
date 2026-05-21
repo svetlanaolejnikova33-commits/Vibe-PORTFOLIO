@@ -1,4 +1,5 @@
-import { OsaCinemaBeat } from './OsaCinemaBeat'
+import { useMemo } from 'react'
+import { OsaCinemaBeat, type OsaBeatCtx } from './OsaCinemaBeat'
 import { OsaOpsScene } from './OsaOpsScene'
 import { OsaOpsStream } from './OsaOpsStream'
 import { osaAssets } from './osaAssets'
@@ -88,25 +89,28 @@ const ATTENTION_STEPS = [
   { id: 'exec-lock', delay: 2000 },
 ] as const
 
-function ExecutionContent({ run, endSequence }: { run: boolean; endSequence: () => void }) {
+function ExecutionContent({ anim, show, hold, endSequence }: OsaBeatCtx) {
   const status = useOsaStatusCycle(
-    run,
+    anim,
     [
       { id: 'a', delay: 0, label: 'Building execution package', tone: 'working' },
       { id: 'b', delay: 1600, label: 'Linking supplier objects', tone: 'working' },
       { id: 'c', delay: 2400, label: 'Specification output ready', tone: 'ok' },
     ],
     endSequence,
+    hold,
   )
-  const attention = useOsaTimeline(run, ATTENTION_STEPS)
+  const attention = useOsaTimeline(anim, ATTENTION_STEPS, undefined, hold)
   const cards = useOsaTimeline(
-    run,
+    anim,
     PRODUCTS.map((p, i) => ({ id: p.id, delay: 600 + i * 450 })),
+    undefined,
+    hold,
   )
-  const panelLive = run && status.statusTone !== 'ok'
+  const panelLive = show && status.statusTone !== 'ok'
 
   return (
-    <div className={['osa-execution', run ? 'osa-execution--live' : ''].filter(Boolean).join(' ')}>
+    <div className={['osa-execution', anim ? 'osa-execution--live' : ''].filter(Boolean).join(' ')}>
       <div className="osa-execution__scene-col">
         <div className="osa-execution__scene-frame">
           <OsaOpsScene
@@ -115,10 +119,10 @@ function ExecutionContent({ run, endSequence }: { run: boolean; endSequence: () 
             scanning={panelLive}
             attentionMode="execution"
             attentionVisible={attention.visible}
-            attentionLive={run}
+            attentionLive={anim}
           />
         </div>
-        <OsaOpsStream run={run} entries={EXEC_STREAM} />
+        <OsaOpsStream anim={anim} show={show} hold={hold} entries={EXEC_STREAM} />
       </div>
 
       <aside
@@ -152,8 +156,8 @@ function ExecutionContent({ run, endSequence }: { run: boolean; endSequence: () 
         </header>
 
         <div className="osa-execution__spec">
-          {SPEC_ROWS.map((row) => (
-            <SpecRow key={row.id} run={run} label={row.label} steps={row.steps} />
+          {SPEC_ROWS.map((row, i) => (
+            <SpecRow key={row.id} anim={anim} hold={hold} rowIndex={i} label={row.label} steps={row.steps} />
           ))}
         </div>
 
@@ -204,15 +208,23 @@ function ExecutionContent({ run, endSequence }: { run: boolean; endSequence: () 
 }
 
 function SpecRow({
-  run,
+  anim,
+  hold,
+  rowIndex,
   label,
   steps,
 }: {
-  run: boolean
+  anim: boolean
+  hold: boolean
+  rowIndex: number
   label: string
   steps: readonly { delay: number; value: string; tone?: 'working' | 'ok' | 'neutral' }[]
 }) {
-  const channel = useOsaTransitionChannel(run, steps)
+  const shifted = useMemo(
+    () => steps.map((s) => ({ ...s, delay: s.delay + rowIndex * 200 })),
+    [steps, rowIndex],
+  )
+  const channel = useOsaTransitionChannel(anim, shifted, hold)
 
   return (
     <div
@@ -244,7 +256,7 @@ export function OsaExecutionPackage() {
       caption="This is not an interior image. This is operational design intelligence."
       className="osa-section--execution"
     >
-      {({ run, endSequence }) => <ExecutionContent run={run} endSequence={endSequence} />}
+      {(ctx) => <ExecutionContent {...ctx} />}
     </OsaCinemaBeat>
   )
 }

@@ -1,7 +1,7 @@
 import type { OsaReaction } from './OsaOpsReactions'
 import { useOsaTransitionChannel, type TransitionStep } from './hooks/useOsaTransitionChannel'
 import { useOsaReducedMotion } from './hooks/useOsaReducedMotion'
-import { useEffect } from 'react'
+import { useEffect, useMemo, useRef, type CSSProperties } from 'react'
 
 export type LiveReactionTransition = {
   id: string
@@ -12,24 +12,38 @@ export type LiveReactionTransition = {
 type OsaOpsReactionsLiveProps = {
   title?: string
   reactions: readonly LiveReactionTransition[]
-  run: boolean
+  anim: boolean
+  show: boolean
+  hold?: boolean
   compact?: boolean
   onComplete?: () => void
 }
 
+const ROW_STAGGER_MS = 180
+
 function OsaReactionRow({
-  run,
+  anim,
+  show,
+  hold,
   label,
   steps,
+  rowIndex,
 }: {
-  run: boolean
+  anim: boolean
+  show: boolean
+  hold: boolean
   label: string
   steps: readonly TransitionStep[]
+  rowIndex: number
 }) {
-  const { active, settling, tone, value } = useOsaTransitionChannel(run, steps)
+  const shifted = useMemo(
+    () => steps.map((s) => ({ ...s, delay: s.delay + rowIndex * ROW_STAGGER_MS })),
+    [steps, rowIndex],
+  )
+  const { active, settling, tone, value } = useOsaTransitionChannel(anim, shifted, hold)
   const displayTone = tone ?? (settling ? 'working' : active ? 'neutral' : undefined)
 
-  if (!run) return null
+  if (!show) return null
 
   return (
     <li
@@ -42,6 +56,7 @@ function OsaReactionRow({
       ]
         .filter(Boolean)
         .join(' ')}
+      style={{ '--reaction-i': rowIndex } as CSSProperties}
     >
       <span className="osa-ops-reactions__label">{label}</span>
       <span key={active ? value : 'pending'} className="osa-ops-reactions__value">
@@ -54,29 +69,46 @@ function OsaReactionRow({
 export function OsaOpsReactionsLive({
   title = 'System response',
   reactions,
-  run,
+  anim,
+  show,
+  hold = false,
   compact,
   onComplete,
 }: OsaOpsReactionsLiveProps) {
   const reduced = useOsaReducedMotion()
-  const maxDelay = Math.max(0, ...reactions.flatMap((r) => r.steps.map((s) => s.delay)))
+  const onCompleteRef = useRef(onComplete)
+  onCompleteRef.current = onComplete
+  const maxDelay = Math.max(
+    0,
+    ...reactions.flatMap((r, i) => r.steps.map((s) => s.delay + i * ROW_STAGGER_MS)),
+  )
 
   useEffect(() => {
-    if (!run || !onComplete) return
+    if (!anim || !onCompleteRef.current) return
     if (reduced) {
-      onComplete()
+      onCompleteRef.current()
       return
     }
-    const t = window.setTimeout(onComplete, maxDelay + 120)
+    const t = window.setTimeout(() => onCompleteRef.current?.(), maxDelay + 120)
     return () => clearTimeout(t)
-  }, [run, reduced, maxDelay, onComplete])
+  }, [anim, reduced, maxDelay])
+
+  if (!show) return null
 
   return (
     <div className={['osa-ops-reactions', compact ? 'osa-ops-reactions--compact' : ''].filter(Boolean).join(' ')}>
       <p className="osa-ops-reactions__title">{title}</p>
       <ul className="osa-ops-reactions__list osa-ops-reactions__list--active">
-        {reactions.map((item) => (
-          <OsaReactionRow key={item.id} run={run} label={item.label} steps={item.steps} />
+        {reactions.map((item, i) => (
+          <OsaReactionRow
+            key={item.id}
+            anim={anim}
+            show={show}
+            hold={hold}
+            rowIndex={i}
+            label={item.label}
+            steps={item.steps}
+          />
         ))}
       </ul>
     </div>
