@@ -65,7 +65,7 @@
 /* Editorial scale — present but subordinate to headlines */
 .case-page--osa-balanced .osa-editorial-giant {
   font-size: clamp(2rem, 6.5vw, 4.25rem);
-  color: rgba(126, 200, 232, 0.055);
+  color: rgba(126, 200, 232, 0.04);
 }
 
 .case-page--osa-balanced .osa-hero__giant {
@@ -88,7 +88,7 @@
 
 .case-page--osa-balanced .osa-theater__giant {
   margin-bottom: -1rem;
-  color: rgba(126, 200, 232, 0.05);
+  color: rgba(126, 200, 232, 0.04);
 }
 
 .case-page--osa-balanced .osa-core-giant {
@@ -102,7 +102,7 @@
 }
 
 .case-page--osa-balanced .osa-finale-giant {
-  color: rgba(126, 200, 232, 0.07);
+  color: rgba(126, 200, 232, 0.05);
   max-width: 14ch;
   margin-bottom: 1.5rem;
 }
@@ -136,7 +136,7 @@
 
 .osa-beat__ghost {
   text-align: center;
-  color: rgba(126, 200, 232, 0.06) !important;
+  color: rgba(126, 200, 232, 0.045) !important;
   font-size: clamp(2.5rem, 11vw, 6rem) !important;
 }
 

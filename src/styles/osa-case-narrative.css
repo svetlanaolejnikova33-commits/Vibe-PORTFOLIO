@@ -39,10 +39,10 @@
   display: flex;
   align-items: baseline;
   gap: 0.65rem;
-  margin: 0 0 1rem;
-  font-size: 0.625rem;
+  margin: 0 0 1.125rem;
+  font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--osa-dim);
 }
@@ -58,7 +58,7 @@
 .case-page--osa-narrative .osa-section__title {
   max-width: 22ch;
   font-size: clamp(1.75rem, 2.8vw + 0.5rem, 2.625rem);
-  margin-bottom: 1.125rem;
+  margin-bottom: 1.25rem;
 }
 
 .case-page--osa-narrative .osa-section__lead {
@@ -108,9 +108,9 @@
 }
 
 .osa-intro__kicker {
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--osa-cyan-dim);
 }
@@ -127,10 +127,10 @@
 }
 
 .osa-intro__lead {
-  margin-top: 1.25rem;
-  max-width: 36rem;
+  margin-top: 1.375rem;
+  max-width: 38rem;
   font-size: clamp(1.0625rem, 1vw + 0.85rem, 1.1875rem);
-  line-height: 1.65;
+  line-height: 1.68;
   color: var(--osa-muted);
 }
 
@@ -194,10 +194,10 @@
 }
 
 .osa-problem__list li {
-  padding-left: 1rem;
+  padding-left: 1.125rem;
   border-left: 1px solid var(--osa-line);
   font-size: 0.9375rem;
-  line-height: 1.6;
+  line-height: 1.55;
   color: var(--osa-muted);
 }
 
@@ -287,7 +287,7 @@
 
 .osa-pipeline__detail {
   font-size: 0.875rem;
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--osa-muted);
   max-width: 40rem;
 }
@@ -411,7 +411,7 @@
 .osa-pillars__text {
   margin: 0;
   font-size: 0.875rem;
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--osa-muted);
   max-width: 42rem;
 }
@@ -511,7 +511,7 @@
 .osa-layers__text {
   margin: 0;
   font-size: 0.8125rem;
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--osa-muted);
 }
 
@@ -575,7 +575,7 @@
 .osa-roadmap__text {
   margin: 0;
   font-size: 0.8125rem;
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--osa-muted);
   max-width: 36rem;
 }
@@ -640,7 +640,7 @@
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 0.85;
-  color: rgba(126, 200, 232, 0.028);
+  color: rgba(126, 200, 232, 0.035);
   white-space: nowrap;
   user-select: none;
 }
@@ -649,11 +649,11 @@
   position: absolute;
   inset: 5% -10% 0 15%;
   background-image:
-    linear-gradient(rgba(126, 200, 232, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(126, 200, 232, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(126, 200, 232, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(126, 200, 232, 0.03) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse 75% 70% at 70% 45%, black 15%, transparent 78%);
-  opacity: 0.55;
+  opacity: 0.42;
 }
 
 .osa-finale-presence__map {
@@ -725,8 +725,8 @@
   font-family: var(--font-display);
   font-size: clamp(1.875rem, 4.2vw, 3rem);
   font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.03em;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
   color: rgba(240, 246, 252, 0.98);
 }
 
@@ -748,9 +748,9 @@
 }
 
 .osa-finale__gap {
-  margin: 0 0 1rem;
+  margin: 0 0 1.125rem;
   font-size: clamp(1rem, 1.05vw + 0.85rem, 1.125rem);
-  line-height: 1.62;
+  line-height: 1.65;
   color: var(--osa-muted);
 }
 
@@ -909,7 +909,7 @@
 
 .osa-ecosystem-flow__card {
   flex: 1;
-  padding: 1.125rem 1rem;
+  padding: 1.25rem 1.125rem;
   border-right: 1px solid rgba(126, 200, 232, 0.08);
 }
 
@@ -974,10 +974,10 @@
 }
 
 .osa-finale__supports li {
-  padding-left: 1rem;
+  padding-left: 1.125rem;
   border-left: 1px solid var(--osa-line);
   font-size: clamp(0.9375rem, 1vw + 0.8rem, 1.0625rem);
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--osa-muted);
 }
 

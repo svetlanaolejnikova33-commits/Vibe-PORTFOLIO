@@ -18,7 +18,7 @@
   line-height: 0.95;
   letter-spacing: -0.04em;
   text-transform: uppercase;
-  color: rgba(126, 200, 232, 0.055);
+  color: rgba(126, 200, 232, 0.04);
   pointer-events: none;
   user-select: none;
 }
@@ -48,9 +48,9 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(126, 200, 232, 0.35), transparent);
-  animation: osa-scan-sweep 14s ease-in-out infinite;
-  opacity: 0.35;
+  background: linear-gradient(90deg, transparent, rgba(126, 200, 232, 0.28), transparent);
+  animation: osa-scan-sweep 16s ease-in-out infinite;
+  opacity: 0.3;
 }
 
 @keyframes osa-scan-sweep {
