@@ -1,21 +1,39 @@
-﻿export function AeronisHeroPanel() {
+﻿const AISHA_STATE = [
+  { label: 'Travel intent', value: 'Quiet September ocean trip' },
+  { label: 'Status', value: 'Intent understood' },
+  { label: 'Route confidence', value: 'High' },
+  {
+    label: 'Conditions',
+    value: ['Weather monitored', 'Prices monitored', 'Seasonality checked'],
+  },
+  { label: 'Trajectory', value: 'Portugal selected' },
+  { label: 'Next action', value: 'Best booking window opens in 11 days' },
+] as const
+
+const EVOLUTION = [
+  { phase: 'Today', label: 'AI Travel Companion' },
+  { phase: 'Next', label: 'Voice Companion' },
+  { phase: 'Later', label: 'Persistent Travel Memory' },
+  { phase: 'Vision', label: 'Personal Travel Operating System' },
+] as const
+
+export function AeronisHeroPanel() {
   return (
-    <div className="an-ui an-panel an-panel--hero an-panel--focus an-panel--decision">
-      <p className="an-kicker">Decision layer</p>
-      <h3 className="an-title">One recommended action</h3>
-      <p className="an-route">Moscow → Lisbon · 12 Mar · Direct</p>
-      <div className="an-divider" />
-      <div className="an-metric-row an-metric-row--primary">
-        <span className="an-price">€284</span>
-        <p className="an-confidence an-confidence--live">
-          Confidence
-          <strong>94%</strong>
-        </p>
+    <div className="an-ui an-panel an-panel--hero an-panel--companion">
+      <p className="an-kicker">AiSha · companion layer</p>
+      <p className="an-companion__presence">
+        <span className="an-companion__dot" aria-hidden />
+        I&apos;m here. I&apos;ll help with the route.
+      </p>
+      <div className="an-companion__input" role="presentation">
+        <span className="an-companion__placeholder">Where do you want to go?</span>
+        <span className="an-companion__send" aria-hidden>
+          →
+        </span>
       </div>
-      <span className="an-cta">Book this option</span>
       <p className="an-footnote an-footnote--live">
         <span className="an-footnote__pulse" aria-hidden />
-        14 routes watched · updated 2m ago
+        One trajectory — not another search session
       </p>
     </div>
   )
@@ -24,42 +42,26 @@
 export function AeronisSystemPanel() {
   return (
     <div className="an-ui an-grid an-grid--system">
-      <div className="an-panel an-panel--secondary an-list">
-        <p className="an-kicker px-[1.125rem] pt-4">Monitored routes</p>
-        <div className="an-list__item">
-          <span className="flex items-center gap-2">
-            <span className="an-list__dot" aria-hidden />
-            Berlin → Rome
-          </span>
-          <span>Watching</span>
-        </div>
-        <div className="an-list__item an-list__item--active">
-          <span className="flex items-center gap-2">
-            <span className="an-list__dot" aria-hidden />
-            Moscow → Lisbon
-          </span>
-          <span>Rank #1</span>
-        </div>
-        <div className="an-list__item">
-          <span className="flex items-center gap-2">
-            <span className="an-list__dot" aria-hidden />
-            Paris → Dubai
-          </span>
-          <span>Watching</span>
-        </div>
+      <div className="an-panel an-panel--secondary an-capability-list">
+        <p className="an-kicker px-[1.125rem] pt-4">Travel uncertainty</p>
+        <ul className="an-uncertainty-list">
+          <li>Where should I go?</li>
+          <li>When should I buy?</li>
+          <li>Is this the right option?</li>
+          <li>What changes during the trip?</li>
+          <li>What do I do next?</li>
+        </ul>
       </div>
       <div className="an-panel an-highlight an-highlight--emphasis">
-        <p className="an-highlight__label">System recommendation</p>
-        <p className="an-highlight__route">Moscow → Lisbon</p>
-        <p className="an-highlight__meta">Best fare on live board data · Direct · 6h 10m</p>
+        <p className="an-highlight__label">SOTA response</p>
+        <p className="an-highlight__route">One guided trajectory</p>
+        <p className="an-highlight__meta">
+          Intent understood · conditions monitored · decisions compressed
+        </p>
         <div className="an-divider" />
-        <div className="an-metric-row an-metric-row--primary">
-          <span className="an-price">€284</span>
-          <p className="an-confidence">
-            Rank score
-            <strong>9.4</strong>
-          </p>
-        </div>
+        <p className="an-trajectory-note">
+          Current tools return information. SOTA returns confidence.
+        </p>
       </div>
     </div>
   )
@@ -67,20 +69,30 @@ export function AeronisSystemPanel() {
 
 export function AeronisIntentPanel() {
   return (
-    <div className="an-ui an-panel an-intent an-panel--soft">
-      <p className="an-kicker">Intent capture</p>
-      <p className="an-title text-[1.125rem]">Set constraints once</p>
-      <div className="an-field">
-        <p className="an-field__label">Route</p>
-        <p className="an-field__value">Moscow → Lisbon</p>
+    <div className="an-ui an-panel an-conversation an-panel--soft">
+      <p className="an-kicker">Conversation · intent</p>
+      <div className="an-conversation__turn an-conversation__turn--user">
+        <p className="an-conversation__role">Traveler</p>
+        <p className="an-conversation__text">
+          I want a quiet September trip near the ocean.
+        </p>
       </div>
-      <div className="an-field">
-        <p className="an-field__label">Window</p>
-        <p className="an-field__value">8–14 March · Flexible ±1 day</p>
-      </div>
-      <div className="an-field">
-        <p className="an-field__label">Decision rule</p>
-        <p className="an-field__value">Direct only · Best value under €320</p>
+      <div className="an-conversation__turn an-conversation__turn--companion">
+        <p className="an-conversation__role">AiSha</p>
+        <p className="an-conversation__text">
+          Portugal fits best.
+          <br />
+          <br />
+          12 days.
+          <br />
+          Estimated budget €1,850.
+          <br />
+          <br />
+          The best booking window opens in 11 days.
+          <br />
+          <br />
+          Would you like me to monitor prices and weather changes?
+        </p>
       </div>
     </div>
   )
@@ -89,9 +101,56 @@ export function AeronisIntentPanel() {
 export function AeronisOutcomePanel() {
   return (
     <div className="an-ui an-panel an-outcome an-panel--focus an-outcome--resolved">
-      <p className="an-outcome__status">Decision ready</p>
-      <p className="an-outcome__line">One itinerary. No search session.</p>
-      <p className="an-outcome__sub">The system returns a single ready-to-book path—not a list to compare.</p>
+      <p className="an-outcome__status">Continuous assistance</p>
+      <p className="an-outcome__line">Before booking. During the journey. After arrival.</p>
+      <p className="an-outcome__sub">
+        Not a booking session — a trusted travel relationship that reduces uncertainty at
+        every step.
+      </p>
+    </div>
+  )
+}
+
+function AishaStateValue({ value }: { value: string | readonly string[] }) {
+  if (Array.isArray(value)) {
+    return (
+      <ul className="an-state__conditions">
+        {value.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    )
+  }
+
+  return <p className="an-state__value">{value}</p>
+}
+
+export function AeronisAiShaPanel() {
+  return (
+    <div className="an-ui an-aisha">
+      <div className="an-aisha__state an-panel an-panel--soft">
+        <p className="an-kicker">AiSha · intelligence layer</p>
+        <dl className="an-state">
+          {AISHA_STATE.map((row) => (
+            <div key={row.label} className="an-state__row">
+              <dt className="an-state__label">{row.label}</dt>
+              <dd>
+                <AishaStateValue value={row.value} />
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p className="an-aisha__caption">Intent in. Guided trajectory out.</p>
+      </div>
+
+      <ol className="an-evolution" aria-label="Product evolution">
+        {EVOLUTION.map((item) => (
+          <li key={item.phase} className="an-evolution__item">
+            <span className="an-evolution__phase">{item.phase}</span>
+            <span className="an-evolution__label">{item.label}</span>
+          </li>
+        ))}
+      </ol>
     </div>
   )
 }
