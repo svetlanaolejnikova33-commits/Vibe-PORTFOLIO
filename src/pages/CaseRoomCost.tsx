@@ -212,7 +212,7 @@ export default function CaseRoomCost() {
         </div>
       </section>
 
-      <section className="case-section">
+      <section className="case-section case-finale">
         <div className="case-label">06</div>
         <h2 className="case-section-title">Reduced renovation stress</h2>
 

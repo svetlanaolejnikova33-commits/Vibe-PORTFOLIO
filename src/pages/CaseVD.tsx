@@ -221,7 +221,7 @@ export default function CaseVD() {
         />
       </section>
 
-      <section className="case-section vd-outcome">
+      <section className="case-section vd-outcome case-finale">
         <div className="case-label">05</div>
         <h2 className="case-section-title">Outcome</h2>
 

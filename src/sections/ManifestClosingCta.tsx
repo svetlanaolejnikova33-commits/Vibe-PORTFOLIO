@@ -9,6 +9,7 @@ import {
 } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { useCallback, useEffect, useRef } from 'react'
+import { contactLinks } from '../config/contactLinks'
 import { MetalButton } from '../components/MetalButton'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 import { homeSectionTo } from '../routes'
@@ -265,7 +266,7 @@ export function ManifestClosingCta() {
           transition={{ duration: soft ? 0.45 : 0.85, delay: soft ? 0.06 : 0.14, ease: EASE }}
           className="mt-12 flex flex-wrap gap-3 md:mt-14 md:gap-4"
         >
-          <MetalButton href="https://t.me/Svetlana_Oleynikova" variant="primary">
+          <MetalButton href={contactLinks.telegram.href} variant="primary">
             Написать мне
           </MetalButton>
           <MetalButton to={homeSectionTo('projects')}>Посмотреть работы</MetalButton>

@@ -10,6 +10,7 @@ import { Fragment, type PointerEvent, useRef } from 'react'
 import type { To } from 'react-router-dom'
 import { MetalButton } from '../components/MetalButton'
 import { OsaFlagshipCard, type OsaFlagshipData } from '../components/projects/OsaFlagshipCard'
+import { urbixCopy } from '../components/urbix/urbixCopy'
 import { ProductFlowStrip } from '../components/ProductFlowStrip'
 import { SteelReflex } from '../components/SteelReflex'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
@@ -184,14 +185,28 @@ const projects: ProjectEntry[] = [
     caseTo: '/case/roomcost',
   },
   {
-    kind: 'in-development',
-    slotId: 'dev-slot-2',
-    body: 'Next AI-native product concept in build.\nEntering the portfolio soon.',
+    kind: 'brief',
+    layers: {
+      label: urbixCopy.portfolio.label,
+      whyToolsFail: urbixCopy.portfolio.whyToolsFail,
+      systemLogic: urbixCopy.portfolio.systemLogic,
+      aiLayer: urbixCopy.portfolio.aiLayer,
+      workflow: urbixCopy.portfolio.workflow,
+      scalability: urbixCopy.portfolio.scalability,
+    },
+    title: 'URBIX',
+    subtitle: urbixCopy.portfolio.subtitle,
+    body: urbixCopy.portfolio.body,
+    problem: [...urbixCopy.portfolio.problem],
+    solution: [...urbixCopy.portfolio.solution],
+    resultLead: urbixCopy.portfolio.resultLead,
+    resultAccent: urbixCopy.portfolio.resultAccent,
+    caseTo: '/case/urbix',
   },
   {
     kind: 'in-development',
-    slotId: 'dev-slot-3',
-    body: 'Workflow system in progress.\nFull case study coming.',
+    slotId: 'dev-slot-2',
+    body: 'Next AI-native product concept in build.\nEntering the portfolio soon.',
   },
 ]
 

@@ -60,8 +60,8 @@ export function MetalButton({
 
   const sizing =
     size === 'compact'
-      ? 'px-4 py-2 text-xs font-medium uppercase tracking-wider'
-      : 'px-7 py-3 text-sm font-medium tracking-wide'
+      ? 'min-h-[44px] px-4 py-2 text-xs font-medium uppercase tracking-wider'
+      : 'min-h-[44px] px-7 py-3 text-sm font-medium tracking-wide'
 
   const shell = [
     'ix-button group relative inline-flex items-center justify-center overflow-hidden rounded-box',
@@ -69,6 +69,8 @@ export function MetalButton({
     sizing,
     className,
   ].join(' ')
+
+  const isExternalHref = Boolean(href?.startsWith('http'))
 
   const ghost = [
     shell,
@@ -108,7 +110,13 @@ export function MetalButton({
 
   if (href) {
     return (
-      <a href={href} className={cls}>
+      <a
+        href={href}
+        className={cls}
+        {...(isExternalHref
+          ? { target: '_blank', rel: 'noopener noreferrer' }
+          : {})}
+      >
         {body}
       </a>
     )

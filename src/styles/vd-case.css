@@ -375,11 +375,9 @@
   color: var(--vd-warm);
 }
 
-/* Outcome */
+/* Outcome — finale rhythm from case-system.css (.case-section.vd-outcome) */
 .vd-outcome {
   position: relative;
-  padding-top: 1rem;
-  padding-bottom: 2rem;
 }
 
 .vd-outcome::before {

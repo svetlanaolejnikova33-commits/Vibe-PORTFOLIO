@@ -1,22 +1,5 @@
 import { motion } from 'framer-motion'
-
-const channels = [
-  {
-    label: 'Telegram',
-    href: 'https://t.me/Svetlana_Oleynikova',
-    display: '@Svetlana_Oleynikova',
-  },
-  {
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/svetlana-oleynikova',
-    display: 'LinkedIn profile',
-  },
-  {
-    label: 'Email',
-    href: 'mailto:savannalip@mail.ru',
-    display: 'savannalip@mail.ru',
-  },
-] as const
+import { contactChannels } from '../config/contactLinks'
 
 export function Contacts() {
   return (
@@ -38,12 +21,12 @@ export function Contacts() {
         </p>
 
         <div className="mt-14 flex flex-col gap-0">
-          {channels.map((ch, i) => (
+          {contactChannels.map((ch, i) => (
             <motion.a
               key={ch.label}
               href={ch.href}
-              target={ch.label === 'Email' ? undefined : '_blank'}
-              rel={ch.label === 'Email' ? undefined : 'noopener noreferrer'}
+              target={ch.external ? '_blank' : undefined}
+              rel={ch.external ? 'noopener noreferrer' : undefined}
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
