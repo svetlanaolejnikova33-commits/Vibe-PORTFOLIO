@@ -6,7 +6,7 @@ import { SteelReflex } from '../components/SteelReflex'
 import { homeSectionTo } from '../routes'
 import { usePreferLiteMotion } from '../hooks/usePreferLiteMotion'
 
-const HERO_PORTRAIT = new URL('../../Foto_hero.jpg', import.meta.url).href
+const HERO_PORTRAIT = `${import.meta.env.BASE_URL}Foto_hero.jpg`
 const EASE = [0.22, 1, 0.36, 1] as const
 
 export function Hero() {
