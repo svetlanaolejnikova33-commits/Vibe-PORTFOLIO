@@ -58,8 +58,8 @@ const READ_STATUS = [
 const MUTATE_STATUS = [
   { id: 'apply', delay: 0, label: 'Applying mutation', tone: 'working' as const },
   { id: 'material', delay: 600, label: 'Material comparison', tone: 'working' as const },
-  { id: 'supplier', delay: 1200, label: 'Supplier sync', tone: 'pending' as const },
-  { id: 'bim', delay: 1900, label: 'BIM compatibility validation', tone: 'working' as const },
+  { id: 'supplier', delay: 1200, label: 'Source impact model', tone: 'pending' as const },
+  { id: 'bim', delay: 1900, label: 'BIM structure check', tone: 'working' as const },
   { id: 'done', delay: 3200, label: 'Mutation resolved', tone: 'ok' as const },
 ]
 
@@ -71,10 +71,10 @@ const PROCURE_STATUS = [
 ]
 
 const HANDOFF_STATUS = [
-  { id: 'spec', delay: 0, label: 'Specification generation', tone: 'working' as const },
+  { id: 'spec', delay: 0, label: 'Specification assembly', tone: 'working' as const },
   { id: 'lock', delay: 900, label: 'Package locking', tone: 'working' as const },
-  { id: 'bim', delay: 1800, label: 'BIM compatibility validation', tone: 'working' as const },
-  { id: 'export', delay: 2700, label: 'Execution-ready export', tone: 'ok' as const },
+  { id: 'bim', delay: 1800, label: 'BIM structure check', tone: 'working' as const },
+  { id: 'export', delay: 2700, label: 'Handoff package ready', tone: 'ok' as const },
 ]
 
 const INPUT_STREAM = [
@@ -123,8 +123,8 @@ const READ_REACTIONS = [
 const MUTATE_STREAM = [
   { id: 'm1', delay: 0, text: 'Mutation applied · dining chair' },
   { id: 'm2', delay: 700, text: 'Material comparison running' },
-  { id: 'm3', delay: 1300, text: 'Syncing supplier data' },
-  { id: 'm4', delay: 2000, text: 'BIM compatibility validated' },
+  { id: 'm3', delay: 1300, text: 'Updating source impact model' },
+  { id: 'm4', delay: 2000, text: 'BIM structure check' },
   { id: 'm5', delay: 2800, text: 'Procurement risk updated' },
 ] as const
 
@@ -158,20 +158,20 @@ const MUTATE_REACTIONS = [
   },
   {
     id: 'supplier',
-    label: 'Supplier',
+    label: 'Source',
     steps: [
       { delay: 1000, value: 'Nordic Textiles', tone: 'neutral' as const },
-      { delay: 1900, value: 'syncing supplier data', tone: 'working' as const },
+      { delay: 1900, value: 'updating source path', tone: 'working' as const },
       { delay: 3300, value: 'Updated', tone: 'ok' as const },
     ],
   },
   {
     id: 'bim',
-    label: 'BIM',
+    label: 'BIM model',
     steps: [
-      { delay: 1400, value: 'checking export', tone: 'working' as const },
+      { delay: 1400, value: 'structure check', tone: 'working' as const },
       { delay: 2200, value: 'partial conflict', tone: 'warn' as const },
-      { delay: 3700, value: 'Compatible', tone: 'ok' as const },
+      { delay: 3700, value: 'Aligned', tone: 'ok' as const },
     ],
   },
 ] as const
@@ -349,7 +349,7 @@ function BeatProcure({ anim, hold, endSequence }: OsaBeatCtx) {
       statusTone={status.statusTone}
       scene={
         <OsaOpsScene
-          alt="Interior with SKU-linked regions and supplier dependencies"
+          alt="Interior with source-linked regions and procurement dependencies"
           muted
           linkPulse={status.isVisible('compare')}
           attentionMode="procure"
@@ -375,7 +375,7 @@ function BeatHandoff({ anim, hold, endSequence }: OsaBeatCtx) {
       statusTone={status.statusTone}
       scene={
         <OsaOpsScene
-          alt="Specification-ready scene with execution lock"
+          alt="Specification-oriented scene with handoff lock"
           scanning={status.isVisible('spec') && !status.isVisible('lock')}
           attentionMode="handoff"
           attentionVisible={attention.visible}
@@ -404,7 +404,7 @@ export function OsaProductCinema() {
         chapter="Beat · Read"
         title="Structure appears — not explained"
         lead="Zones surface. Materials stay implied until a decision needs them."
-        caption="OSA reads the image as structured project intelligence."
+        caption="The image is read as structured project intelligence."
       >
         {(ctx) => <BeatRead {...ctx} />}
       </OsaCinemaBeat>
@@ -413,7 +413,7 @@ export function OsaProductCinema() {
         step="05"
         chapter="Beat · Mutate"
         title="One edit. System consequences."
-        lead="A chair material change ripples through supplier, budget, and BIM — with tension."
+        lead="A chair material change ripples through source path, budget, and BIM structure — with tension."
         caption="Operational reactions replace semantic paragraphs."
       >
         {(ctx) => <BeatMutate {...ctx} />}
@@ -422,9 +422,9 @@ export function OsaProductCinema() {
       <OsaCinemaBeat
         step="06"
         chapter="Beat · Procure"
-        title="Procurement as live state"
+        title="Procurement in the decision loop"
         lead="Paths compete, risks surface, alternates appear — the system is not always perfect."
-        caption="Procurement becomes part of design, not a separate afterthought."
+        caption="Procurement consequence enters during design, not after."
       >
         {(ctx) => <BeatProcure {...ctx} />}
       </OsaCinemaBeat>
@@ -432,9 +432,9 @@ export function OsaProductCinema() {
       <OsaCinemaBeat
         step="07"
         chapter="Beat · Handoff"
-        title="Execution-ready output"
-        lead="Specification, suppliers, and BIM resolve sequentially — then lock."
-        caption="Design intelligence becomes executable industry data."
+        title="Handoff as a product state"
+        lead="Specification, sources, and BIM-oriented structure resolve sequentially — then lock."
+        caption="Handoff is a product state to resolve — not a detached file export."
       >
         {(ctx) => <BeatHandoff {...ctx} />}
       </OsaCinemaBeat>

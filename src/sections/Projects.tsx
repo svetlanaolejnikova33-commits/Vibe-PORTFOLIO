@@ -71,12 +71,12 @@ const projects: ProjectEntry[] = [
     kind: 'flagship',
     id: 'osa',
     title: 'OSA',
-    microLabels: ['B2B Infrastructure', 'AI+BIM Ecosystem', 'Live Registry System'],
-    headline: 'Interior intelligence infrastructure',
+    microLabels: ['AI-Native Product', 'Interaction Architecture', 'Registry Architecture'],
+    headline: 'Interior operational intelligence',
     subheadline:
-      'Transforms visual concepts into procurement-ready scenarios — bound to real products, suppliers, BIM logic, and budget structures.',
+      'An evolving AI-native platform that turns visual concepts into structured, procurement-aware design workflows — with a path toward suppliers, specification, and BIM-oriented handoff.',
     body:
-      'An AI+BIM+Registry ecosystem for the interior industry. Designers, suppliers, specifications, and live SKU intelligence operate on one spatial network layer.',
+      'OSA connects AI interior generation, visual analysis, and material workflow to a manufacturer/source registry architecture — so design decisions can carry operational consequence earlier.',
     insights: [
       {
         tag: 'System fracture',
@@ -88,7 +88,7 @@ const projects: ProjectEntry[] = [
       },
       {
         tag: 'Registry gap',
-        text: 'Specifications lack live product intelligence until procurement pressure arrives.',
+        text: 'Source and product intelligence arrive too late — after design commitment hardens.',
       },
       {
         tag: 'Budget latency',
@@ -97,24 +97,24 @@ const projects: ProjectEntry[] = [
     ],
     capabilities: [
       {
-        label: 'AI + BIM core',
-        text: 'Spatial inference from visuals into structured specification logic.',
+        label: 'AI visual core',
+        text: 'Interior generation, image analysis, and structured scene intelligence from visuals.',
       },
       {
-        label: 'Live registry',
-        text: 'SKU graphs, suppliers, and availability mapped to design decisions.',
+        label: 'Registry architecture',
+        text: 'Manufacturer/source model that attaches sources to design decisions — architecture, not a catalog store.',
       },
       {
-        label: 'Procurement logic',
-        text: 'Budget tiers and scenarios tied to real factories and materials.',
+        label: 'Procurement-aware UX',
+        text: 'Budget and lead-time consequence modeled during design.',
       },
       {
-        label: 'Network substrate',
-        text: 'One data layer for designers, architects, and supplier ecosystems.',
+        label: 'Handoff model',
+        text: 'Specification-oriented output as a product state — toward BIM-capable industrial handoff.',
       },
     ],
     resultLead: 'Visualization stops terminating at the render.',
-    resultAccent: 'It becomes infrastructure for how interiors are specified, priced, and produced.',
+    resultAccent: 'It becomes a working product surface for how interiors are decided, specified, and prepared for execution.',
     caseTo: '/case/osa',
   },
   {
@@ -527,7 +527,7 @@ export function Projects() {
           id="projects-cases"
           className="mt-14 scroll-mt-28 text-center text-xs font-normal text-fog/50 md:mt-16"
         >
-          Full case studies on dedicated pages — including OSA flagship infrastructure preview.
+          Full case studies on dedicated pages — including the OSA AI-native product case.
         </p>
       </div>
     </section>

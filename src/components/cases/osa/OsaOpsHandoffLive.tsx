@@ -4,11 +4,11 @@ import { useOsaReducedMotion } from './hooks/useOsaReducedMotion'
 import { OsaOpsStream } from './OsaOpsStream'
 
 const HANDOFF_LOG = [
-  { id: 'h1', delay: 0, text: 'Specification generation started' },
-  { id: 'h2', delay: 700, text: 'Syncing supplier data' },
-  { id: 'h3', delay: 1400, text: 'BIM compatibility validated' },
+  { id: 'h1', delay: 0, text: 'Specification assembly started' },
+  { id: 'h2', delay: 700, text: 'Resolving source references' },
+  { id: 'h3', delay: 1400, text: 'BIM structure check' },
   { id: 'h4', delay: 2100, text: 'Package locking' },
-  { id: 'h5', delay: 2800, text: 'Execution-ready export' },
+  { id: 'h5', delay: 2800, text: 'Handoff package ready' },
 ] as const
 
 const ITEMS = [
@@ -17,38 +17,38 @@ const ITEMS = [
     label: 'Specification',
     steps: [
       { delay: 0, value: 'Draft', tone: 'neutral' as const },
-      { delay: 600, value: 'generating table', tone: 'working' as const },
+      { delay: 600, value: 'assembling table', tone: 'working' as const },
       { delay: 1200, value: 'Ready', tone: 'ok' as const },
     ],
     ok: true,
   },
   {
     id: 'suppliers',
-    label: 'Suppliers',
+    label: 'Sources',
     steps: [
       { delay: 200, value: '2 matched', tone: 'neutral' as const },
-      { delay: 800, value: 'syncing supplier data', tone: 'working' as const },
-      { delay: 1500, value: '4 locked', tone: 'ok' as const },
+      { delay: 800, value: 'resolving sources', tone: 'working' as const },
+      { delay: 1500, value: '4 linked', tone: 'ok' as const },
     ],
     ok: false,
   },
   {
     id: 'sku',
-    label: 'SKU list',
+    label: 'Product refs',
     steps: [
       { delay: 400, value: '24 items', tone: 'neutral' as const },
       { delay: 1000, value: 'resolving alternates', tone: 'working' as const },
-      { delay: 1700, value: '38 items', tone: 'ok' as const },
+      { delay: 1700, value: '38 demo refs', tone: 'ok' as const },
     ],
     ok: false,
   },
   {
     id: 'bim',
-    label: 'BIM export',
+    label: 'BIM handoff model',
     steps: [
-      { delay: 500, value: 'checking model', tone: 'working' as const },
+      { delay: 500, value: 'structure check', tone: 'working' as const },
       { delay: 1100, value: 'partial mesh conflict', tone: 'warn' as const },
-      { delay: 1900, value: 'Compatible', tone: 'ok' as const },
+      { delay: 1900, value: 'Aligned', tone: 'ok' as const },
     ],
     ok: true,
   },

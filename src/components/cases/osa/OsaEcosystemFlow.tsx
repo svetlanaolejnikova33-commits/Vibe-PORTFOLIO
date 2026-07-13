@@ -3,10 +3,10 @@ import { OsaSection } from './OsaSection'
 const FLOW = [
   { role: 'Designer', detail: 'creates concept' },
   { role: 'OSA Core', detail: 'structures intelligence' },
-  { role: 'Supplier', detail: 'receives project-relevant demand' },
-  { role: 'Manufacturer', detail: 'enters specification path' },
-  { role: 'Client', detail: 'sees budget clarity' },
-  { role: 'BIM', detail: 'receives structured output' },
+  { role: 'Supplier', detail: 'enters as project-relevant source' },
+  { role: 'Manufacturer', detail: 'maps into specification path' },
+  { role: 'Client', detail: 'sees budget clarity earlier' },
+  { role: 'BIM', detail: 'receives structured handoff model' },
 ] as const
 
 export function OsaEcosystemFlow() {
@@ -15,7 +15,7 @@ export function OsaEcosystemFlow() {
       step="08"
       chapter="Ecosystem"
       title="One workflow across design, supply, and execution"
-      lead="Designer → OSA Core → Suppliers → Manufacturers → Client → BIM / Specification."
+      lead="Designer → OSA Core → Sources → Manufacturers → Client → BIM / Specification."
       className="osa-section--ecosystem"
     >
       <ol className="osa-ecosystem-flow">

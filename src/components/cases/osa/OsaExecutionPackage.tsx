@@ -15,7 +15,7 @@ const PRODUCTS = [
     sku: 'DC-8841',
     supplier: 'NordicForm',
     lead: '17d',
-    availability: 'In stock',
+    availability: 'Demo · available',
     thumb: osaAssets.generatedInterior,
   },
   {
@@ -25,7 +25,7 @@ const PRODUCTS = [
     sku: 'TB-1202',
     supplier: 'Atelier Wood',
     lead: '14d',
-    availability: 'Made to order',
+    availability: 'Demo · made to order',
     thumb: osaAssets.generatedVariant,
   },
   {
@@ -35,7 +35,7 @@ const PRODUCTS = [
     sku: 'FL-2201',
     supplier: 'StoneLine',
     lead: '14d',
-    availability: 'Available',
+    availability: 'Demo · available',
     thumb: osaAssets.analysisResult,
   },
 ] as const
@@ -43,31 +43,31 @@ const PRODUCTS = [
 const SPEC_ROWS = [
   {
     id: 'package',
-    label: 'Execution package',
+    label: 'Handoff package',
     steps: [
       { delay: 0, value: 'Assembling', tone: 'working' as const },
-      { delay: 800, value: 'Locked', tone: 'ok' as const },
+      { delay: 800, value: 'Ready', tone: 'ok' as const },
     ],
   },
   {
     id: 'skus',
-    label: 'SKU references',
+    label: 'Product references',
     steps: [
       { delay: 400, value: '24 lines', tone: 'neutral' as const },
-      { delay: 1200, value: '38 locked', tone: 'ok' as const },
+      { delay: 1200, value: '38 demo refs', tone: 'ok' as const },
     ],
   },
   {
     id: 'bim',
-    label: 'BIM compatibility',
+    label: 'BIM handoff model',
     steps: [
-      { delay: 600, value: 'Validating', tone: 'working' as const },
-      { delay: 1400, value: 'Compatible', tone: 'ok' as const },
+      { delay: 600, value: 'Checking', tone: 'working' as const },
+      { delay: 1400, value: 'Aligned', tone: 'ok' as const },
     ],
   },
   {
     id: 'procure',
-    label: 'Procurement state',
+    label: 'Procurement model',
     steps: [
       { delay: 900, value: 'Selected path', tone: 'neutral' as const },
       { delay: 1800, value: '€14.1k · 17d', tone: 'ok' as const },
@@ -77,9 +77,9 @@ const SPEC_ROWS = [
 
 const EXEC_STREAM = [
   { id: 'e1', delay: 0, text: 'Specification package assembled' },
-  { id: 'e2', delay: 700, text: 'Supplier-linked objects verified' },
-  { id: 'e3', delay: 1400, text: 'BIM compatibility validated' },
-  { id: 'e4', delay: 2100, text: 'Execution package locked' },
+  { id: 'e2', delay: 700, text: 'Source-linked objects verified' },
+  { id: 'e3', delay: 1400, text: 'BIM structure check' },
+  { id: 'e4', delay: 2100, text: 'Handoff package ready' },
 ] as const
 
 const ATTENTION_STEPS = [
@@ -93,8 +93,8 @@ function ExecutionContent({ anim, show, hold, endSequence }: OsaBeatCtx) {
   const status = useOsaStatusCycle(
     anim,
     [
-      { id: 'a', delay: 0, label: 'Building execution package', tone: 'working' },
-      { id: 'b', delay: 1600, label: 'Linking supplier objects', tone: 'working' },
+      { id: 'a', delay: 0, label: 'Building handoff package', tone: 'working' },
+      { id: 'b', delay: 1600, label: 'Linking source objects', tone: 'working' },
       { id: 'c', delay: 2400, label: 'Specification output ready', tone: 'ok' },
     ],
     endSequence,
@@ -115,7 +115,7 @@ function ExecutionContent({ anim, show, hold, endSequence }: OsaBeatCtx) {
         <div className="osa-execution__scene-frame">
           <OsaOpsScene
             src={osaAssets.generatedInterior}
-            alt="Final interior with supplier-linked product markers"
+            alt="Final interior with source-linked product markers"
             scanning={panelLive}
             attentionMode="execution"
             attentionVisible={attention.visible}
@@ -139,7 +139,7 @@ function ExecutionContent({ anim, show, hold, endSequence }: OsaBeatCtx) {
             <p className="osa-execution__panel-kicker">Specification output</p>
             {status.statusTone === 'ok' ? (
               <span className="osa-execution__panel-lock" aria-hidden>
-                Locked
+                Ready
               </span>
             ) : null}
           </div>
@@ -190,7 +190,7 @@ function ExecutionContent({ anim, show, hold, endSequence }: OsaBeatCtx) {
                   <p className="osa-execution__card-name">{product.name}</p>
                   <p className="osa-execution__card-material">{product.material}</p>
                   <p className="osa-execution__card-meta">
-                    <span className="osa-execution__card-sku">SKU {product.sku}</span>
+                    <span className="osa-execution__card-sku">Ref {product.sku}</span>
                     <span className="osa-execution__card-supplier">{product.supplier}</span>
                   </p>
                   <p className="osa-execution__card-foot">
@@ -251,8 +251,8 @@ export function OsaExecutionPackage() {
     <OsaCinemaBeat
       step="09"
       chapter="Execution package"
-      title="Operational design intelligence — ready for industry"
-      lead="Not a render. A specification-ready execution package with linked suppliers, SKUs, and BIM state."
+      title="Operational design intelligence — handoff package"
+      lead="Not a render. A specification-oriented handoff with linked sources and BIM-oriented structure."
       caption="This is not an interior image. This is operational design intelligence."
       className="osa-section--execution"
     >

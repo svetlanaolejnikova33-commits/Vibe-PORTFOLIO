@@ -7,9 +7,9 @@ import { OsaSection } from './OsaSection'
 
 const SUPPORT = [
   'Visual decisions become structured.',
-  'Suppliers enter before procurement pressure.',
+  'Sources enter before procurement pressure.',
   'Specifications stop being detached files.',
-  'BIM receives connected project intelligence.',
+  'BIM is designed to receive connected project intelligence.',
 ]
 
 export function OsaConclusion() {

@@ -6,8 +6,8 @@ import { OsaOpsStream } from './OsaOpsStream'
 const PROCURE_LOG = [
   { id: 'l1', delay: 0, text: 'Loading specification paths' },
   { id: 'l2', delay: 900, text: 'Material comparison active' },
-  { id: 'l3', delay: 1800, text: 'Supplier delay detected on selected path' },
-  { id: 'l4', delay: 2600, text: 'Alternate SKU match found' },
+  { id: 'l3', delay: 1800, text: 'Source delay modeled on selected path' },
+  { id: 'l4', delay: 2600, text: 'Alternate product path found' },
   { id: 'l5', delay: 3200, text: 'Procurement risk updated' },
 ] as const
 
@@ -100,11 +100,13 @@ export function OsaOpsProcureLive({ run, onComplete }: OsaOpsProcureLiveProps) {
       </ul>
       {selected.index >= 2 ? (
         <p className="osa-ops-procure__warn osa-ops-procure__warn--in">
-          Procurement risk · lead time +3d on bouclé SKU
+          Procurement risk · lead time +3d on bouclé path
         </p>
       ) : null}
       {selected.index >= 3 ? (
-        <p className="osa-ops-procure__alt osa-ops-procure__alt--in">Alternate SKU routed · same supplier graph</p>
+        <p className="osa-ops-procure__alt osa-ops-procure__alt--in">
+          Alternate product path · same source graph
+        </p>
       ) : null}
       <OsaOpsStream run={run} entries={PROCURE_LOG} />
     </div>

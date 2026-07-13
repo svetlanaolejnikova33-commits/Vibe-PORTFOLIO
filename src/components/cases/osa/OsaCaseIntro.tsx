@@ -67,12 +67,37 @@ export function OsaCaseIntro() {
           </MetalButton>
         </div>
 
-        <p className="osa-intro__kicker">CASE · OPERATIONAL PRODUCT</p>
+        <p className="osa-intro__kicker">CASE · AI-NATIVE PRODUCT</p>
         <h2 className="osa-intro__title">OSA — Object Space Architecture</h2>
         <p className="osa-intro__lead">
-          A new operating layer where interior concepts become executable: visual workflow,
-          semantic analysis, live registry, procurement logic, and BIM-ready output.
+          An evolving AI-native platform for interior designers — connecting visual workflow,
+          scene analysis, material decisions, and manufacturer/source registry architecture into
+          one operational product surface.
         </p>
+
+        <ul className="osa-capability-frame" aria-label="OSA capability status">
+          <li className="osa-capability-frame__item">
+            <span className="osa-capability-frame__label">Implemented / Prototyped</span>
+            <span className="osa-capability-frame__text">
+              AI interior generation · image/interior analysis · visual workflow · material
+              selection · interactive product interface · manufacturer/source registry architecture
+            </span>
+          </li>
+          <li className="osa-capability-frame__item">
+            <span className="osa-capability-frame__label">Interaction Prototype</span>
+            <span className="osa-capability-frame__text">
+              Beat cinema: Input → Read → Mutate → Procure → Handoff — designed and tested
+              interaction logic for operational design intelligence
+            </span>
+          </li>
+          <li className="osa-capability-frame__item">
+            <span className="osa-capability-frame__label">Product Vision</span>
+            <span className="osa-capability-frame__text">
+              Live supplier syncing · production procurement orchestration · BIM export · fully
+              automated execution-ready industrial output
+            </span>
+          </li>
+        </ul>
       </div>
     </header>
   )

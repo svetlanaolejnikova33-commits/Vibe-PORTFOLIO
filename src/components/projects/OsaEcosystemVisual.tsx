@@ -2,9 +2,9 @@ import { motion, useReducedMotion } from 'framer-motion'
 
 const STACK_LAYERS = [
   'AI Layer',
-  'Registry Layer',
-  'Supplier Graph',
-  'BIM Layer',
+  'Registry Architecture',
+  'Source Graph',
+  'BIM Handoff Model',
   'Budget Logic',
   'Specification Output',
 ] as const

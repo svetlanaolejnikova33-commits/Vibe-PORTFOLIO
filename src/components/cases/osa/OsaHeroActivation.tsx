@@ -130,7 +130,7 @@ export function OsaHeroActivation({ onComplete }: OsaHeroActivationProps) {
               .filter(Boolean)
               .join(' ')}
           >
-            Spatial intelligence online
+            Spatial intelligence active
           </p>
         </div>
 
